@@ -13,7 +13,7 @@
       "@fortawesome/free-solid-svg-icons": "^5.15.4",
       "@fortawesome/react-fontawesome": "^0.1.15",
       "@zeit/next-sass": "^1.0.1",
-      "next": "^9.3.2",
+      "next": "^9.5.5",
       "node-sass": "^4.13.1",
       "react": "16.13.1",
       "react-countup": "^4.3.3",
@@ -21,7 +21,8 @@
       "react-id-swiper": "^3.0.0",
       "react-modal-video": "1.2.6",
       "react-visibility-sensor": "^5.1.1",
-      "swiper": "^5.3.6"
+      "swiper": "^5.3.6",
+      "tar": "^6.1.11"
    },
    "devDependencies": {
       "url-loader": "^4.0.0"
