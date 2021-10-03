@@ -14,7 +14,7 @@
       "@fortawesome/react-fontawesome": "^0.1.15",
       "@zeit/next-sass": "^1.0.1",
       "next": "^9.5.5",
-      "node-sass": "^4.13.1",
+      "node-sass": "6.0.1",
       "react": "16.13.1",
       "react-countup": "^4.3.3",
       "react-dom": "16.13.1",
