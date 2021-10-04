@@ -49,9 +49,7 @@ export default function MakeDeal({ mt }) {
                      <div className='service-one__inner'>
                         <i className='service-one__icon dimon-icon-presentation'></i>
                         <h3>
-                           <a href='#'>
-                              Marketing <br /> Analysis
-                           </a>
+                           <a href='#'>Facebook</a>
                         </h3>
                         <p>
                            Lorem ipsum is are <br /> many variations of <br />{' '}
