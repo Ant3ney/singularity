@@ -65,15 +65,17 @@ export default class NavOne extends Component {
                      </button>
                   </div>
                   <div className='main-navigation'>
-                     <ul className=' one-page-scroll-menu navigation-box'>
+                     <ul className='one-page-scroll-menu navigation-box'>
                         <li className='current scrollToLink'>
                            <a href='/'>Home</a>
                         </li>
                         <li className='scrollToLink'>
-                           <a href='#news'>Contact Us</a>
+                           <a href='/contactus'>Contact Us</a>
                         </li>
                         <li className='scrollToLink'>
-                           <a href='#news'>Blogs</a>
+                           <a href='https://blog.singularityplanet.com/'>
+                              Blogs
+                           </a>
                         </li>
                      </ul>
                   </div>

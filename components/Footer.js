@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default class Blog extends Component {
    constructor() {
@@ -79,12 +77,7 @@ export default class Blog extends Component {
                                  <a
                                     href='https://www.linkedin.com/groups/14010152/'
                                     className='fab fa-linkedin-in'
-                                 >
-                                    <FontAwesomeIcon
-                                       className='local-icon'
-                                       icon={faLinkedinIn}
-                                    />
-                                 </a>
+                                 ></a>
                               </div>
                            </div>
                         </div>
