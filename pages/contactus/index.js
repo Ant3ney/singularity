@@ -6,7 +6,7 @@ import ContactUsComponent from '../../components/ContactUs';
 
 const ContactUs = () => (
    <Layout pageTitle='Contact Us'>
-      <NavOne />
+      <NavOne current='contactus' />
       <ContactUsComponent mt={true} />
       <SocialContacts />
       <Footer />

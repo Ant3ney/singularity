@@ -66,13 +66,27 @@ export default class NavOne extends Component {
                   </div>
                   <div className='main-navigation'>
                      <ul className='one-page-scroll-menu navigation-box'>
-                        <li className='current scrollToLink'>
+                        <li
+                           className={`${
+                              this.props.current === 'home' ? 'current' : ''
+                           } scrollToLink`}
+                        >
                            <a href='/'>Home</a>
                         </li>
-                        <li className='scrollToLink'>
+                        <li
+                           className={`${
+                              this.props.current === 'contactus'
+                                 ? 'current'
+                                 : ''
+                           } scrollToLink`}
+                        >
                            <a href='/contactus'>Contact Us</a>
                         </li>
-                        <li className='scrollToLink'>
+                        <li
+                           className={`${
+                              this.props.current === 'blogs' ? 'current' : ''
+                           } scrollToLink`}
+                        >
                            <a href='https://blog.singularityplanet.com/'>
                               Blogs
                            </a>

@@ -1,7 +1,9 @@
 let landingPageData = [
    {
       name: 'NavOne',
-      props: {},
+      props: {
+         current: 'home',
+      },
    },
    {
       name: 'Banner',
