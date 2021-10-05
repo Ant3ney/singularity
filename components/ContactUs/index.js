@@ -58,7 +58,7 @@ export default function ContactUs({ mt }) {
                         }}
                      ></textarea>
                      <button className='reply-form__btn thm-btn' type='submit'>
-                        <span>Submit Comment</span>
+                        <span>Send Email</span>
                      </button>
                   </div>
                </div>

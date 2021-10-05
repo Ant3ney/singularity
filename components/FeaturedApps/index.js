@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import Link from 'next/link';
+import './featured-apps.scss';
 
 const FeaturedApps = ({ featureds, title }) => {
    return (
-      <section className='blog-one'>
+      <section className='featured-apps-container blog-one'>
          <div className='container'>
             <div className='block-title text-center'>
                <h2 className='block-title__title'>

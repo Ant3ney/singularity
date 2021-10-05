@@ -27,7 +27,7 @@ const Banner = () => {
                         <br /> Are there specific requirements you need in your
                         site?
                      </p>
-                     <a href='#' className='banner-one__btn thm-btn '>
+                     <a href='/contactus' className='banner-one__btn thm-btn '>
                         <span>Lets Talk</span>
                      </a>
                   </div>

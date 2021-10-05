@@ -208,9 +208,9 @@ a:visited {
    );
    background-image: linear-gradient(
       to right,
-      #ff4eb5 0%,
-      #ffa065 51%,
-      #ff4eb5 100%
+      #f4c95d 0%,
+      #ff5714 51%,
+      #f4c95d 100%
    );
    background-size: 200% auto;
    position: fixed;

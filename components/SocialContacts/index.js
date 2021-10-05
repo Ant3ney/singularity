@@ -1,5 +1,9 @@
 import './style.scss';
-import { faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
+import {
+   faLinkedinIn,
+   faFacebookF,
+   faInstagram,
+} from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function MakeDeal({ mt }) {
@@ -20,22 +24,26 @@ export default function MakeDeal({ mt }) {
                   className='col-lg-3 col-md-6 col-sm-12 wow fadeInUp'
                   data-wow-duration='1500ms'
                >
-                  <div className='service-one__single text-center'>
+                  <div className='service-one__single text-center linkedin'>
                      <div className='service-one__inner'>
-                        <i className='service-one__icon'>
-                           <FontAwesomeIcon
-                              className='local-icon'
-                              icon={faLinkedinIn}
-                           />
-                        </i>
+                        <a href='https://www.linkedin.com/groups/14010152/'>
+                           <i className='service-one__icon'>
+                              <FontAwesomeIcon
+                                 className='local-icon'
+                                 icon={faLinkedinIn}
+                              />
+                           </i>
+                        </a>
                         <h3>
-                           <a href='#'>Linkedin</a>
+                           <a href='https://www.linkedin.com/groups/14010152/'>
+                              Linkedin
+                           </a>
                         </h3>
-                        <p>
-                           Lorem ipsum is are <br /> many variations of <br />{' '}
-                           pass of majority.
-                        </p>
-                        <a href='#' className='service-one__link'>
+                        <a
+                           href='https://www.linkedin.com/groups/14010152/'
+                           className='service-one__link'
+                           target='_blank'
+                        >
                            <i className='dimon-icon-right-arrow'></i>
                         </a>
                      </div>
@@ -45,17 +53,25 @@ export default function MakeDeal({ mt }) {
                   className='col-lg-3 col-md-6 col-sm-12 wow fadeInDown'
                   data-wow-duration='1500ms'
                >
-                  <div className='service-one__single text-center'>
+                  <div className='service-one__single text-center upwork'>
                      <div className='service-one__inner'>
-                        <i className='service-one__icon dimon-icon-presentation'></i>
+                        <a href='https://www.upwork.com/freelancers/~01f89baf7c07759e9d'>
+                           <i className='service-one__icon'>
+                              <img
+                                 className='local-icon'
+                                 src='/assets/icons/upwork-icon.svg'
+                              />
+                           </i>
+                        </a>
                         <h3>
-                           <a href='#'>Facebook</a>
+                           <a href='https://www.upwork.com/freelancers/~01f89baf7c07759e9d'>
+                              Upwork
+                           </a>
                         </h3>
-                        <p>
-                           Lorem ipsum is are <br /> many variations of <br />{' '}
-                           pass of majority.
-                        </p>
-                        <a href='#' className='service-one__link'>
+                        <a
+                           href='https://www.upwork.com/freelancers/~01f89baf7c07759e9d'
+                           className='service-one__link'
+                        >
                            <i className='dimon-icon-right-arrow'></i>
                         </a>
                      </div>
@@ -65,41 +81,55 @@ export default function MakeDeal({ mt }) {
                   className='col-lg-3 col-md-6 col-sm-12 wow fadeInUp'
                   data-wow-duration='1500ms'
                >
-                  <div className='service-one__single text-center'>
+                  <div className='service-one__single text-center facebook'>
                      <div className='service-one__inner'>
-                        <i className='service-one__icon dimon-icon-target'></i>
+                        <a href='https://www.facebook.com/singularitydevelopment'>
+                           <i className='service-one__icon'>
+                              <FontAwesomeIcon
+                                 className='local-icon'
+                                 icon={faFacebookF}
+                              />
+                           </i>
+                        </a>
                         <h3>
-                           <a href='#'>
-                              SEO and <br /> Backlinks
+                           <a href='https://www.facebook.com/singularitydevelopment'>
+                              Facebook
                            </a>
                         </h3>
-                        <p>
-                           Lorem ipsum is are <br /> many variations of <br />{' '}
-                           pass of majority.
-                        </p>
-                        <a href='#' className='service-one__link'>
+                        <a
+                           href='https://www.facebook.com/singularitydevelopment'
+                           className='service-one__link'
+                           target='_blank'
+                        >
                            <i className='dimon-icon-right-arrow'></i>
                         </a>
                      </div>
                   </div>
                </div>
                <div
-                  className='col-lg-3 col-md-6 col-sm-12 wow fadeInDown'
+                  className='col-lg-3 col-md-6 col-sm-12 wow fadeInUp'
                   data-wow-duration='1500ms'
                >
-                  <div className='service-one__single text-center'>
+                  <div className='service-one__single text-center instagram'>
                      <div className='service-one__inner'>
-                        <i className='service-one__icon dimon-icon-visualization'></i>
+                        <a href='https://www.instagram.com/singularity_development/'>
+                           <i className='service-one__icon'>
+                              <FontAwesomeIcon
+                                 className='local-icon'
+                                 icon={faInstagram}
+                              />
+                           </i>
+                        </a>
                         <h3>
-                           <a href='#'>
-                              Content <br /> Marketing
+                           <a href='https://www.instagram.com/singularity_development/'>
+                              Instagram
                            </a>
                         </h3>
-                        <p>
-                           Lorem ipsum is are <br /> many variations of <br />{' '}
-                           pass of majority.
-                        </p>
-                        <a href='#' className='service-one__link'>
+                        <a
+                           href='https://www.instagram.com/singularity_development/'
+                           className='service-one__link'
+                           target='_blank'
+                        >
                            <i className='dimon-icon-right-arrow'></i>
                         </a>
                      </div>

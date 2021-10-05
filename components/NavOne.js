@@ -79,7 +79,9 @@ export default class NavOne extends Component {
                         </li>
                      </ul>
                   </div>
-                  <div className='right-side-box'>
+                  <div className='right-side-box d-none'>
+                     {' '}
+                     {/* for now this will be hidden */}
                      <a className='thm-btn header__cta-btn' href='#'>
                         <span>Login</span>
                      </a>

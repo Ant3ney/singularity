@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './footer.scss';
 
 export default class Blog extends Component {
    constructor() {
@@ -36,7 +37,7 @@ export default class Blog extends Component {
 
    render() {
       return (
-         <div>
+         <div className='footer-container'>
             <footer className='site-footer'>
                <div className='site-footer__upper'>
                   <div className='container'>
