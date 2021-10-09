@@ -10,9 +10,9 @@
    .medium-text {
    }
 
-   @media screen and (max-width: 480px) {
-      .testimonial-text {
-         font-size: 1rem;
+   @media screen and (max-width: 767px) {
+      .shrink-text-on-small {
+         font-size: 1rem !important;
       }
    }
 

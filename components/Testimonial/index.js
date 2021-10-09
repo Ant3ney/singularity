@@ -52,7 +52,9 @@ const Testimonial = () => {
                      <div className='item'>
                         <div className={`testimonials-one__single`}>
                            <div className='testimonials-one__inner'>
-                              <p className={`testimonial-text`}>
+                              <p
+                                 className={`testimonial-text shrink-text-on-small`}
+                              >
                                  Anthony is an absolute prodigy to work with. He
                                  pulled off very difficult tasks and did so with
                                  tremendous ease. I was constantly amazed by
