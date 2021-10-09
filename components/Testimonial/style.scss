@@ -17,8 +17,10 @@
    }
 
    @media screen and (min-width: 975px) {
-      padding-left: 71px;
-      padding-right: 71px;
+      .testimonials-one__single {
+         padding-left: 71px;
+         padding-right: 71px;
+      }
    }
 
    .testimonials-one__single {
