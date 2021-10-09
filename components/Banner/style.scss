@@ -1,0 +1,11 @@
+.banner-one-container {
+   .title {
+      z-index: 6;
+      position: relative;
+   }
+   @media screen and (max-width: 480px) {
+      .container {
+         padding-top: 140px;
+      }
+   }
+}

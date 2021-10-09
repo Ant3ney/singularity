@@ -137,9 +137,10 @@
    0% {
       transform: translateY(0px) translateX(0) rotate(0);
    }
-
-   30% {
-      transform: translateY(30px) translateX(50px) rotate(15deg);
+   20% {
+      -webkit-transform: translateY(800px) translateX(21) rotate(0);
+      transform: translateY(800px) translateX(21) rotate(0);
+      -webkit-transform-origin: center center;
       transform-origin: center center;
    }
 
@@ -154,7 +155,7 @@
    }
 
    100% {
-      transform: translateY(0px) translateX(0) rotate(0);
+      transform: translateY(0px) translateX(0px) rotate(0);
       transform-origin: center center;
    }
 }
