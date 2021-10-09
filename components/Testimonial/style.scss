@@ -12,6 +12,23 @@
       padding-right: 71px;
       height: 100%;
    }
+   @media only screen and (max-width: 1200px) {
+      .testimonials-one__nav-right {
+         left: calc(100% + 10px);
+      }
+      .testimonials-one__nav-left {
+         right: calc(100% + 10px);
+      }
+   }
+
+   @media only screen and (max-width: 1050px) {
+      .testimonials-one__nav-right {
+         display: none;
+      }
+      .testimonials-one__nav-left {
+         display: none;
+      }
+   }
 
    .medium-text {
       font-size: 1.4rem;
