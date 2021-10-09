@@ -4,13 +4,13 @@ import Banner from '../components/Banner';
 import Footer from '../components/Footer';
 import FeaturedApps from '../components/FeaturedApps';
 import landingPageData from '../tempData/landingPage';
+import Testimonial from '../components/Testimonial';
 
 /* import Features from '../components/Features';
 import Video from '../components/Video';
 import CallToAction from '../components/CallToAction';
 import CallToActionTwo from '../components/CallToActionTwo';
 import Pricing from '../components/Pricing';
-import Testimonial from '../components/Testimonial';
 import Brands from '../components/Brands';
 import Counter from '../components/Counter';
 import Screenshots from '../components/Screenshots';
@@ -56,6 +56,10 @@ function buildPage(rawData) {
             break;
          case 'FeaturedApps':
             components.push(<FeaturedApps key={i} {...current.props} />);
+            break;
+         case 'Testimonial':
+            components.push(<Testimonial key={i} {...current.props} />);
+            break;
          default:
             break;
       }

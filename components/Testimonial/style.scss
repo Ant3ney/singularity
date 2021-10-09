@@ -1,0 +1,41 @@
+.testimonials-container {
+   img {
+      max-width: 8rem;
+   }
+
+   .smaller-text {
+      font-size: 1rem;
+   }
+
+   .testimonials-one__single {
+      padding-left: 71px;
+      padding-right: 71px;
+      height: 100%;
+   }
+
+   .medium-text {
+      font-size: 1.4rem;
+   }
+
+   .placholder-profile-container {
+      display: flex;
+      margin-top: 30px;
+   }
+   .placholder-profile-ball {
+      width: 8rem;
+      height: 8rem;
+      border-radius: 50%;
+      background-color: #22b4f8;
+      margin: auto;
+
+      display: flex;
+   }
+   .letter-container {
+      display: flex;
+      width: min-content;
+      height: min-content;
+      color: white;
+      font-size: 5rem;
+      margin: auto;
+   }
+}

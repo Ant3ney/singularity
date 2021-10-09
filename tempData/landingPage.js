@@ -35,6 +35,7 @@ let landingPageData = [
          ],
       },
    },
+   { name: 'Testimonial' },
 ];
 
 export default landingPageData;
