@@ -39,7 +39,7 @@ const Testimonial = () => {
                                  Great work! Happy with the final product.{' '}
                                  <br />
                                  Anthony Cavuoti was always available when I
-                                 needed them. <br />
+                                 needed him. <br />
                                  Can't get any better than this.
                               </p>
                               <h3>Joseph Ingles</h3>
