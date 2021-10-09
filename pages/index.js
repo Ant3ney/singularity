@@ -1,5 +1,5 @@
 import Layout from '../components/Layout';
-import NavOne from '../components/NavOne';
+import Nav from '../components/Nav';
 import Banner from '../components/Banner';
 import Footer from '../components/Footer';
 import FeaturedApps from '../components/FeaturedApps';
@@ -48,8 +48,8 @@ function buildPage(rawData) {
       let current = formatedData[i];
 
       switch (current.name) {
-         case 'NavOne':
-            components.push(<NavOne key={i} {...current.props} />);
+         case 'Nav':
+            components.push(<Nav key={i} {...current.props} />);
             break;
          case 'Banner':
             components.push(<Banner key={i} {...current.props} />);

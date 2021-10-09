@@ -1,5 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
+import warningErrorFilter from '../config/warningErrorFilter';
 
 const Layout = props => {
    return (
@@ -42,12 +43,6 @@ const Layout = props => {
             />
             <link rel='stylesheet' href='/assets/css/style.css' />
             <link rel='stylesheet' href='/assets/css/responsive.css' />
-
-            {/* Font awsome */}
-            <script
-               src='https://kit.fontawesome.com/0d4692f1c3.js'
-               crossorigin='anonymous'
-            ></script>
          </Head>
 
          <div className='page-wrapper'>{props.children}</div>

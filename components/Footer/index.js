@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './footer.scss';
 
 export default class Blog extends Component {
@@ -75,10 +77,17 @@ export default class Blog extends Component {
                                     href='https://www.instagram.com/singularity_development/'
                                     className='fa fa-instagram'
                                  ></a>
-                                 <a
-                                    href='https://www.linkedin.com/groups/14010152/'
-                                    className='fab fa-linkedin-in'
-                                 ></a>
+                                 {
+                                    <a
+                                       href='https://www.linkedin.com/groups/14010152/'
+                                       className='linkedin'
+                                    >
+                                       <FontAwesomeIcon
+                                          className='local-icon'
+                                          icon={faLinkedinIn}
+                                       />
+                                    </a>
+                                 }
                               </div>
                            </div>
                         </div>

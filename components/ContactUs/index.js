@@ -32,7 +32,7 @@ export default function ContactUs({ mt }) {
                   <div className='col-lg-6'>
                      <input
                         type='text'
-                        placeholder='Your name'
+                        placeholder='Name'
                         className='reply-form__field'
                         onChange={e => {
                            setName(e.target.value);
@@ -42,7 +42,7 @@ export default function ContactUs({ mt }) {
                   <div className='col-lg-6'>
                      <input
                         type='text'
-                        placeholder='Enter email'
+                        placeholder='Email'
                         className='reply-form__field'
                         onChange={e => {
                            setEmail(e.target.value);
@@ -51,7 +51,7 @@ export default function ContactUs({ mt }) {
                   </div>
                   <div className='col-lg-12'>
                      <textarea
-                        placeholder='Write message'
+                        placeholder='Message'
                         className='reply-form__field'
                         onChange={e => {
                            setMessage(e.target.value);

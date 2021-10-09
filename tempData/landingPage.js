@@ -1,6 +1,6 @@
 let landingPageData = [
    {
-      name: 'NavOne',
+      name: 'Nav',
       props: {
          current: 'home',
       },

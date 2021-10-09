@@ -24,7 +24,9 @@ const Banner = () => {
                   <div className='banner-one__content'>
                      {!isMobile ? <Title /> : <></>}
                      <p className='banner-one__text'>
-                        Do you need a website with guaranteed great quality?{' '}
+                        <span>
+                           Do you need a website with guaranteed great quality?{' '}
+                        </span>
                         <br /> Are there specific requirements you need in your
                         site?
                      </p>
@@ -42,9 +44,9 @@ const Banner = () => {
 function Title() {
    return (
       <h3 className='title banner-one__title'>
-         We Make Building your
-         <span> Website </span>
-         Fun and Easy
+         <span>We Make Building your</span>
+         <strong> Website </strong>
+         <span>Fun and Easy</span>
       </h3>
    );
 }

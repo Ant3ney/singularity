@@ -19,7 +19,10 @@ const FeaturedApps = ({ featureds, title }) => {
                {featureds ? (
                   featureds.map((featured, i) => {
                      return (
-                        <div className='col-lg-4 col-md-6 col-sm-12 wow fadeInUp'>
+                        <div
+                           key={i}
+                           className='col-lg-4 col-md-6 col-sm-12 wow fadeInUp'
+                        >
                            <div className='blog-one__single'>
                               <div className='blog-one__image'>
                                  <img

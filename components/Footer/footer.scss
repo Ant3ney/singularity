@@ -10,4 +10,13 @@
    .site-footer__copy a:hover {
       color: #22b4f8 !important;
    }
+
+   .linkedin {
+      background-image: linear-gradient(
+         40deg,
+         #396e70 0%,
+         #22e3f8 51%,
+         #396e70 100%
+      );
+   }
 }

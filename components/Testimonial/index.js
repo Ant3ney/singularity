@@ -3,11 +3,9 @@ import Swiper from 'react-id-swiper';
 import 'swiper/css/swiper.css';
 import './style.scss';
 import PlaceHolderProfile from './PlaceholderProfile';
-import { useMediaQuery } from 'react-responsive';
 
 const Testimonial = () => {
    const [swiper, setSwiper] = useState(null);
-   let isSmallScreen = useMediaQuery({ query: '(max-width: 480px)' });
 
    const goNext = () => {
       if (swiper !== null) {
@@ -52,13 +50,9 @@ const Testimonial = () => {
                         </div>
                      </div>
                      <div className='item'>
-                        <div className='testimonials-one__single'>
+                        <div className={`testimonials-one__single`}>
                            <div className='testimonials-one__inner'>
-                              <p
-                                 className={`testimonial-text ${
-                                    isSmallScreen ? '' : '' /* smaller-text */
-                                 }`}
-                              >
+                              <p className={`testimonial-text`}>
                                  Anthony is an absolute prodigy to work with. He
                                  pulled off very difficult tasks and did so with
                                  tremendous ease. I was constantly amazed by
