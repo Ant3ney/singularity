@@ -2,6 +2,10 @@ export default function warningErrorFilter() {
    const backup = console.warn;
 
    console.warn = function filterWarnings(msg) {
+      if (typeof msg.includes !== 'function') {
+         return;
+      }
+
       console.log(msg);
       const supressedWarnings = ['componentWillReceiveProps has been renamed'];
 
@@ -16,6 +20,10 @@ export default function warningErrorFilter() {
       const supressedErrors = [
          'Warning: Expected server HTML to contain a matching',
       ];
+
+      if (typeof msg.includes !== 'function') {
+         return;
+      }
 
       if (!supressedErrors.some(entry => msg.includes(entry))) {
          errorBackup.apply(console, arguments);

@@ -12,8 +12,6 @@ let emailAPI = {
          subject: subject,
          message: formatedMessage,
       });
-      console.log(`Sending below to ${emailServerAdress}`);
-      console.log(body);
 
       return new Promise((resolve, reject) => {
          fetch(`${emailServerAdress}/sendMail`, {

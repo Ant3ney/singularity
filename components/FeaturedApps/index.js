@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Link from 'next/link';
+import BoldsBreaksAndSpans from 'components/BoldsBreaksAndSpans';
 import './featured-apps.scss';
 
 const FeaturedApps = ({ featureds, title }) => {
@@ -8,11 +9,7 @@ const FeaturedApps = ({ featureds, title }) => {
          <div className='container'>
             <div className='block-title text-center'>
                <h2 className='block-title__title'>
-                  <div
-                     dangerouslySetInnerHTML={{
-                        __html: title,
-                     }}
-                  ></div>
+                  <BoldsBreaksAndSpans BBS={title} />
                </h2>
             </div>
             <div className='row'>
@@ -41,12 +38,11 @@ const FeaturedApps = ({ featureds, title }) => {
                               <div className='blog-one__content'>
                                  <h3 className='blog-one__title'>
                                     <Link href={featured.link}>
-                                       <a
-                                          dangerouslySetInnerHTML={{
-                                             __html: featured.title,
-                                          }}
-                                          target='_blank'
-                                       ></a>
+                                       <a target='_blank'>
+                                          <BoldsBreaksAndSpans
+                                             BBS={featured.title}
+                                          />
+                                       </a>
                                     </Link>
                                  </h3>
                                  <p>{featured.description}</p>
