@@ -5,6 +5,7 @@ import Layout from '../components/Layout';
 import getBodyData from '../API/getBodyData';
 import formatBodyData from './body/formatData';
 import BuildComponents from './body/buildComponents';
+import { getAllPageIds } from 'lib/page';
 
 export default function Dynamic(props) {
    let { body } = props;
@@ -31,10 +32,13 @@ export default function Dynamic(props) {
 }
 
 export async function getStaticPaths(props) {
-   return { paths: ['/[id]'], fallback: true };
+   const paths = getAllPageIds();
+   console.log(paths);
+   return { paths, fallback: true };
 }
 
 export async function getStaticProps({ params }) {
+   console.log('Made it here');
    /* Be warned. This function is prone to some nasty bugs! */
    let routeName = params && params.id ? params.id : '/';
    if (routeName !== '/') {
