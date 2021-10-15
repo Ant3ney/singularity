@@ -12,7 +12,7 @@ export default function formatData(rawBodyData) {
          newSection = null;
          let rawS = rawB.sections[i];
          newSection = formatSection(rawS);
-         if (newSection) formatedBody.push(newSection);
+         if (newSection && !newSection.hasFailed) formatedBody.push(newSection);
       }
 
       resolve({
@@ -25,7 +25,9 @@ export default function formatData(rawBodyData) {
 }
 
 function formatSection(rawS) {
-   let section = sectionSwitch(rawS._type, switchMeta)(rawS);
+   let formatSectionFunction = sectionSwitch(rawS._type, switchMeta);
+   if (formatSectionFunction.hasFailed) return formatSectionFunction;
+   let section = formatSectionFunction(rawS);
    return section;
 }
 
@@ -72,6 +74,16 @@ let switchMeta /* This object must follow a strict structure */ = {
          props: {
             title: formatedTitle,
             featureds: featureds,
+         },
+      };
+   },
+   formatSocialContacts: rawS => {
+      let formatedTitle = formatBoldsBreaksAndSpans(rawS.title);
+      return {
+         type: rawS._type,
+         props: {
+            title: formatedTitle,
+            mt: true,
          },
       };
    },

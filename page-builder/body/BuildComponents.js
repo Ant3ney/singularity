@@ -3,6 +3,7 @@ import Testimonial from 'components/Testimonial';
 import sectionSwitch from './sectionSwitch';
 import FeaturedApps from 'components/FeaturedApps';
 import ContactUs from 'components/ContactUs';
+import SocialContacts from 'components/SocialContacts';
 
 export default function BuildComponents({ formatedBody, ...rest }) {
    let components = [];
@@ -11,12 +12,13 @@ export default function BuildComponents({ formatedBody, ...rest }) {
       newComponent = null;
       let formatedSection = formatedBody[i];
 
-      newComponent = sectionSwitch(formatedSection.type, switchMeta)(
-         formatedSection,
-         i
-      );
+      let BuildComponent = sectionSwitch(formatedSection.type, switchMeta);
+
+      if (!BuildComponent.hasFailed)
+         newComponent = BuildComponent(formatedSection, i);
 
       if (newComponent) components.push(newComponent);
+      else console.error('failed build switch');
    }
 
    return components;
@@ -35,5 +37,8 @@ let switchMeta /* This object must follow a strict structure */ = {
    },
    buildContactUs: (formatedSection, i) => {
       return <ContactUs key={i} {...formatedSection.props} />;
+   },
+   buildSocialContacts: (formatedSection, i) => {
+      return <SocialContacts key={i} {...formatedSection.props} />;
    },
 };
