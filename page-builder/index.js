@@ -4,7 +4,7 @@ import Nav from 'components/Nav';
 import Layout from '../components/Layout';
 import getBodyData from '../API/getBodyData';
 import formatBodyData from './body/formatData';
-import BuildComponents from './body/buildComponents';
+import BuildComponents from './body/BuildComponents';
 import { getAllPageIds } from 'lib/page';
 
 export default function Dynamic(props) {
