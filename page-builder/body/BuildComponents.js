@@ -27,7 +27,7 @@ export default function BuildComponents({ formatedBody, ...rest }) {
 let switchMeta /* This object must follow a strict structure */ = {
    for: 'build',
    buildLandingScreen: (fromatedSection, i) => {
-      return <Banner key={i} />;
+      return <Banner key={i} {...fromatedSection.props} />;
    },
    buildTestimonials: (formatedSection, i) => {
       return <Testimonial key={i} />;

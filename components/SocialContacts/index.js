@@ -5,8 +5,9 @@ import {
    faInstagram,
 } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import BoldsBreaksAndSpans from 'components/BoldsBreaksAndSpans';
 
-export default function MakeDeal({ mt }) {
+export default function MakeDeal({ mt, title }) {
    return (
       <section
          className={`social-contacts service-one ${mt ? 'mt-20' : ''}`}
@@ -15,8 +16,7 @@ export default function MakeDeal({ mt }) {
          <div className='container'>
             <div className='block-title text-center'>
                <h2 className='block-title__title'>
-                  Other Supported Ways <br />
-                  You May <span>Contact</span> Us
+                  {title ? <BoldsBreaksAndSpans BBS={title} /> : <></>}
                </h2>
             </div>
             <div className='row'>

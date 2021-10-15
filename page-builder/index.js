@@ -38,7 +38,6 @@ export async function getStaticPaths(props) {
 }
 
 export async function getStaticProps({ params }) {
-   console.log('Made it here');
    /* Be warned. This function is prone to some nasty bugs! */
    let routeName = params && params.id ? params.id : '/';
    if (routeName !== '/') {

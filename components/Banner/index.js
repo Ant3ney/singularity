@@ -1,8 +1,9 @@
 import React from 'react';
 import { useMediaQuery } from 'react-responsive';
 import './style.scss';
+import BoldsBreaksAndSpans from 'components/BoldsBreaksAndSpans';
 
-const Banner = () => {
+const Banner = ({ title }) => {
    let isMobile = useMediaQuery({ query: '(max-width: 480px)' });
 
    return (
@@ -39,15 +40,16 @@ const Banner = () => {
          </div>
       </section>
    );
+
+   function Title() {
+      return title ? (
+         <h3 className='title banner-one__title'>
+            <BoldsBreaksAndSpans BBS={title} />
+         </h3>
+      ) : (
+         <></>
+      );
+   }
 };
 
-function Title() {
-   return (
-      <h3 className='title banner-one__title'>
-         <span>We Make Building your</span>
-         <strong> Website </strong>
-         <span>Fun and Easy</span>
-      </h3>
-   );
-}
 export default Banner;
