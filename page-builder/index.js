@@ -39,10 +39,7 @@ export async function getStaticPaths(props) {
 
 export async function getStaticProps({ params }) {
    /* Be warned. This function is prone to some nasty bugs! */
-   let routeName = params && params.id ? params.id : '/';
-   if (routeName !== '/') {
-      routeName = `/${routeName}`;
-   }
+   let routeName = formatRoutName(params);
 
    let body = await getBodyData(routeName)
       .then(formatBodyData)
@@ -60,4 +57,17 @@ function handleRejections(results) {
    return new Promise(resolve => {
       resolve(results);
    });
+}
+
+function formatRoutName(params) {
+   let routeName = params && params.id ? params.id : '/';
+
+   if (routeName !== '/') {
+      routeName = `/${routeName}`;
+   }
+   if (routeName.indexOf(',') >= 0) {
+      routeName = routeName.replace(',', '/');
+   }
+
+   return routeName;
 }
