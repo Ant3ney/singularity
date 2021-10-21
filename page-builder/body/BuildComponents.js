@@ -4,6 +4,9 @@ import sectionSwitch from './sectionSwitch';
 import FeaturedApps from 'components/FeaturedApps';
 import ContactUs from 'components/ContactUs';
 import SocialContacts from 'components/SocialContacts';
+import ProductsBanner from 'components/ProductsBanner';
+import ProductsDisplay from 'components/ProductsDisplay';
+import Footer from 'components/Footer';
 
 export default function BuildComponents({ formatedBody, ...rest }) {
    let components = [];
@@ -20,6 +23,10 @@ export default function BuildComponents({ formatedBody, ...rest }) {
       if (newComponent) components.push(newComponent);
       else console.error('failed build switch');
    }
+
+   components.push(<ProductsBanner key={223} />);
+   components.push(<ProductsDisplay key={526} />);
+   components.push(<Footer key={632} />);
 
    return components;
 }

@@ -94,7 +94,6 @@ function formatFeaturedApp(rawF) {
    let imageFileName = rawF.image.asset._ref;
    let title = formatBoldsBreaksAndSpans(rawF.title);
    let imageSrc = getImgUrlFromFileName(imageFileName);
-   console.log(imageSrc);
 
    return {
       title: title,

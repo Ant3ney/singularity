@@ -1,11 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './contact-us.scss';
 import emailAPI from '../../API/email';
 
 export default function ContactUs({ mt }) {
    let [name, setName] = useState(null);
    let [email, setEmail] = useState(null);
-   let [message, setMessage] = useState(null);
+   let [initalMessage, setInitalMessage] = useState(null);
+
+   useEffect(() => {
+      if (initalMessage) return;
+      const params = new URLSearchParams(window.location.search);
+      let defaultMessage = params.get('pluginmessage');
+      if (defaultMessage) {
+         setInitalMessage(defaultMessage);
+      }
+   }, [initalMessage]);
+
    return (
       <section
          className={`contact-us-container service-one ${mt ? 'mt-20' : ''}`}
@@ -53,9 +63,8 @@ export default function ContactUs({ mt }) {
                      <textarea
                         placeholder='Message'
                         className='reply-form__field'
-                        onChange={e => {
-                           setMessage(e.target.value);
-                        }}
+                        id='message-form-textarea'
+                        defaultValue={initalMessage}
                      ></textarea>
                      <button className='reply-form__btn thm-btn' type='submit'>
                         <span>Send Email</span>
@@ -68,6 +77,8 @@ export default function ContactUs({ mt }) {
    );
 
    function submitedForm(e) {
+      let messageTextarea = document.querySelector('#message-form-textarea');
+      let message = messageTextarea.value;
       e.preventDefault();
       emailAPI
          .send({ name: name, email: email, message: message })

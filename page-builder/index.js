@@ -11,9 +11,7 @@ export default function Dynamic(props) {
    let { body } = props;
    let JSX;
    if (body && !body.hasFailed) {
-      console.log(body.rawBodyData);
       JSX = BuildComponents(body);
-      console.log(JSX);
    }
 
    if (!body || body.hasFailed) {
@@ -33,7 +31,6 @@ export default function Dynamic(props) {
 
 export async function getStaticPaths(props) {
    const paths = getAllPageIds();
-   console.log(paths);
    return { paths, fallback: true };
 }
 

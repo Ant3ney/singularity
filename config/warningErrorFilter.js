@@ -6,7 +6,6 @@ export default function warningErrorFilter() {
          return;
       }
 
-      console.log(msg);
       const supressedWarnings = ['componentWillReceiveProps has been renamed'];
 
       if (!supressedWarnings.some(entry => msg.includes(entry))) {
