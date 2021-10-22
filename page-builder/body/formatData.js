@@ -128,6 +128,7 @@ let switchMeta /* This object must follow a strict structure */ = {
          type: rawS._type,
          props: {
             title: formatedTitle,
+            pt: rawS.pt,
             products: formatedProducts,
          },
       };

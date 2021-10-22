@@ -3,9 +3,9 @@ import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import BoldsBreaksAndSpans from 'components/BoldsBreaksAndSpans';
 
-export default function ProductsDisplay({ products, title }) {
+export default function ProductsDisplay({ products, title, pt }) {
    return (
-      <section className='products-display-container'>
+      <section className={`products-display-container ${pt ? 'pt' : ''}`}>
          <div className='container'>
             <h3 className='title block-title__title section-title'>
                <BoldsBreaksAndSpans BBS={title} />
