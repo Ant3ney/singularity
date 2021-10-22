@@ -24,8 +24,6 @@ export default function BuildComponents({ formatedBody, ...rest }) {
       else console.error('failed build switch');
    }
 
-   components.push(<ProductsBanner key={223} />);
-   components.push(<ProductsDisplay key={526} />);
    components.push(<Footer key={632} />);
 
    return components;
@@ -47,5 +45,11 @@ let switchMeta /* This object must follow a strict structure */ = {
    },
    buildSocialContacts: (formatedSection, i) => {
       return <SocialContacts key={i} {...formatedSection.props} />;
+   },
+   buildProductsBanner: (formatedSection, i) => {
+      return <ProductsBanner key={i} {...formatedSection.props} />;
+   },
+   buildProductsDisplay: (formatedSection, i) => {
+      return <ProductsDisplay key={i} {...formatedSection.props} />;
    },
 };

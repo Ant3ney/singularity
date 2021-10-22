@@ -311,8 +311,17 @@ a:visited {
 .header-navigation ul.navigation-box > li + li {
    margin-left: 70px;
 }
+
+@media (max-width: 1199px) {
+   .header-navigation ul.navigation-box > li:first-child {
+      padding-left: 0;
+      margin-left: 0px !important;
+   }
+}
+
 .header-navigation ul.navigation-box > li:first-child {
    padding-left: 0;
+   margin-left: 74px;
 }
 .header-navigation ul.navigation-box > li:last-child {
    padding-right: 0;

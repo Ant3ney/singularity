@@ -1,8 +1,11 @@
 import sectionSwitch from './sectionSwitch';
-export default function formatData(rawBodyData) {
-   return new Promise((resolve, reject) => {
+import getProductsData from 'API/getProductsData';
+
+export default async function formatData(rawBodyData) {
+   return new Promise(async (resolve, reject) => {
       if (rawBodyData.hasFailed) {
          resolve({ hasFailed: true });
+         return;
       }
       let rawB = rawBodyData[0];
       let formatedBody = [];
@@ -11,7 +14,7 @@ export default function formatData(rawBodyData) {
       for (let i = 0; i < rawB.sections.length; i++) {
          newSection = null;
          let rawS = rawB.sections[i];
-         newSection = formatSection(rawS);
+         newSection = await formatSection(rawS);
          if (newSection && !newSection.hasFailed) formatedBody.push(newSection);
       }
 
@@ -24,10 +27,10 @@ export default function formatData(rawBodyData) {
    });
 }
 
-function formatSection(rawS) {
+async function formatSection(rawS) {
    let formatSectionFunction = sectionSwitch(rawS._type, switchMeta);
    if (formatSectionFunction.hasFailed) return formatSectionFunction;
-   let section = formatSectionFunction(rawS);
+   let section = await formatSectionFunction(rawS);
    return section;
 }
 
@@ -87,7 +90,84 @@ let switchMeta /* This object must follow a strict structure */ = {
          },
       };
    },
+   formatProductsBanner: rawS => {
+      let formatedTitle = formatBoldsBreaksAndSpans(rawS.title);
+      let displayImage = getImgUrlFromFileName(rawS.displayImage.asset._ref);
+
+      return {
+         type: rawS._type,
+         props: {
+            title: formatedTitle,
+            description: rawS.description,
+            displayImage: displayImage,
+         },
+      };
+   },
+   formatProductsDisplay: async rawS => {
+      let formatedTitle = formatBoldsBreaksAndSpans(rawS.title);
+      let formatedProducts = [];
+      let rawProducts = await getProductsData();
+      if (rawProducts.hasFailed) {
+         return rawProducts;
+      }
+      let newProduct;
+
+      if (rawProducts) {
+         for (let i = 0; i < rawProducts.length; i++) {
+            newProduct = null;
+
+            newProduct = formatRawProductDisplay(rawProducts[i]);
+
+            if (newProduct) formatedProducts.push(newProduct);
+         }
+
+         formatedProducts = sortArray(formatedProducts);
+      }
+
+      return {
+         type: rawS._type,
+         props: {
+            title: formatedTitle,
+            products: formatedProducts,
+         },
+      };
+   },
 };
+
+function sortArray(a) {
+   let N = a.length;
+
+   var i = 0,
+      j = 0,
+      v = 0;
+
+   for (i = 1; i < N; i++) {
+      v = a[i].priority;
+      j = i;
+      while (j > 0 && a[j - 1].priority < v) {
+         let buffer = a[j];
+         a[j] = a[j - 1];
+         a[j - 1] = buffer;
+         j--;
+      }
+      a[j].priority = v;
+   }
+   return a;
+}
+
+function formatRawProductDisplay(rawP) {
+   if (!rawP) return null;
+   let thumbnail = getImgUrlFromFileName(rawP.thumbnail.asset._ref);
+
+   return {
+      title: rawP.title,
+      thumbnail: thumbnail,
+      priority: rawP.priority,
+      description: rawP.shortDescription,
+      price: rawP.price,
+      pluginMessage: rawP.pluginMessage,
+   };
+}
 
 function formatFeaturedApp(rawF) {
    /* Singular */
@@ -105,6 +185,8 @@ function formatFeaturedApp(rawF) {
 
 function formatBoldsBreaksAndSpans(rawA) /* raw array */ {
    let formatedBBS /* formated bolds breaks spans */ = [];
+   let displayImage = getImgUrlFromFileName;
+
    rawA.forEach((field, i) => {
       formatedBBS.push({
          type: field._type,

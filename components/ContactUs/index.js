@@ -80,6 +80,18 @@ export default function ContactUs({ mt }) {
       let messageTextarea = document.querySelector('#message-form-textarea');
       let message = messageTextarea.value;
       e.preventDefault();
+
+      if (!message || !email) {
+         alert(
+            'Both the message and email input must be compleated inorder to send message'
+         );
+         return;
+      }
+      if (!isEmailValid(email)) {
+         alert('The email you enterd is invalid');
+         return;
+      }
+
       emailAPI
          .send({ name: name, email: email, message: message })
          .then(() => {
@@ -89,4 +101,18 @@ export default function ContactUs({ mt }) {
             alert('Email failed to send');
          });
    }
+}
+
+function isEmailValid(email) {
+   if (email.indexOf('@') < 0) return false;
+   let emailSideNames = email.split('@');
+   if (!emailSideNames) return false;
+   for (let i = 0; i < emailSideNames.length; i++) {
+      let currentEmailSide = emailSideNames[i];
+      if (currentEmailSide === '') {
+         return false;
+      }
+   }
+
+   return true;
 }

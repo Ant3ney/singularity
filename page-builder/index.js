@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import Link from 'next/link';
+import React from 'react';
 import Nav from 'components/Nav';
 import Layout from '../components/Layout';
 import getBodyData from '../API/getBodyData';
@@ -14,7 +13,13 @@ export default function Dynamic(props) {
       JSX = BuildComponents(body);
    }
 
-   if (!body || body.hasFailed) {
+   if (!body) {
+      return (
+         <Layout>
+            <div>Loading page...</div>
+         </Layout>
+      );
+   } else if (body.hasFailed) {
       return (
          <Layout>
             <div>Failed to load body</div>

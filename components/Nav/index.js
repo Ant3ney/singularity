@@ -84,6 +84,13 @@ export default class NavOne extends Component {
                         </li>
                         <li
                            className={`${
+                              this.props.current === 'products' ? 'current' : ''
+                           } scrollToLink`}
+                        >
+                           <a href='/products'>Products</a>
+                        </li>
+                        <li
+                           className={`${
                               this.props.current === 'blogs' ? 'current' : ''
                            } scrollToLink`}
                         >
@@ -94,7 +101,6 @@ export default class NavOne extends Component {
                      </ul>
                   </div>
                   <div className='right-side-box d-none'>
-                     {' '}
                      {/* for now this will be hidden */}
                      <a className='thm-btn header__cta-btn' href='#'>
                         <span>Login</span>

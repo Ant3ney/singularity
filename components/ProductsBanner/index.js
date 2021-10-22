@@ -1,7 +1,8 @@
 import './style.scss';
 import { useMediaQuery } from 'react-responsive';
+import BoldsBreaksAndSpans from 'components/BoldsBreaksAndSpans';
 
-export default function ProductsBanner() {
+export default function ProductsBanner({ title, description }) {
    let isMobile = useMediaQuery({ query: '(max-width: 707px)' });
 
    return (
@@ -29,19 +30,12 @@ export default function ProductsBanner() {
    function Title() {
       return (
          <h3 className='title block-title__title text'>
-            <span>Prepared Plans to suite your unique needs at the</span>{' '}
-            <strong>best price</strong>
+            <BoldsBreaksAndSpans BBS={title} />
          </h3>
       );
    }
 
    function Subtitle() {
-      return (
-         <p className='text'>
-            We had lost something when we buy online. Singularity aims to bring
-            that back through selling products online as if you where visiting a
-            brick and morter shop
-         </p>
-      );
+      return description ? <p className='text'>{description}</p> : <></>;
    }
 }
