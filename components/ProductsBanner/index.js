@@ -1,7 +1,7 @@
 import './style.scss';
 import { useMediaQuery } from 'react-responsive';
 import BoldsBreaksAndSpans from 'components/BoldsBreaksAndSpans';
-import Slide from './slide';
+import Slide from './Slide';
 
 export default function ProductsBanner({ title, description, slides }) {
    let isMobile = useMediaQuery({ query: '(max-width: 707px)' });
