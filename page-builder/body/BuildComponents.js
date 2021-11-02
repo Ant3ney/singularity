@@ -7,6 +7,8 @@ import SocialContacts from 'components/SocialContacts';
 import ProductsBanner from 'components/ProductsBanner';
 import ProductsDisplay from 'components/ProductsDisplay';
 import Footer from 'components/Footer';
+import ComponentList from 'components/ComponentList';
+import PricingTable from 'components/PricingTable';
 
 export default function BuildComponents({ formatedBody, ...rest }) {
    let components = [];
@@ -24,6 +26,8 @@ export default function BuildComponents({ formatedBody, ...rest }) {
       else console.error('failed build switch');
    }
 
+   /* components.push(<PricingTable key={591} />);
+   components.push(<ComponentList key={662} />); */
    components.push(<Footer key={632} />);
 
    return components;

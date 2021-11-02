@@ -91,15 +91,21 @@ let switchMeta /* This object must follow a strict structure */ = {
       };
    },
    formatProductsBanner: rawS => {
-      let formatedTitle = formatBoldsBreaksAndSpans(rawS.title);
-      let displayImage = getImgUrlFromFileName(rawS.displayImage.asset._ref);
+      let slides = [];
+      let newSlide;
+
+      for (let i = 0; i < rawS.slides.length; i++) {
+         newSlide = null;
+
+         newSlide = formatProductsBannerSlide(rawS.slides[i]);
+
+         if (newSlide) slides.push(newSlide);
+      }
 
       return {
          type: rawS._type,
          props: {
-            title: formatedTitle,
-            description: rawS.description,
-            displayImage: displayImage,
+            slides: slides,
          },
       };
    },
@@ -134,6 +140,18 @@ let switchMeta /* This object must follow a strict structure */ = {
       };
    },
 };
+
+function formatProductsBannerSlide(rawS) {
+   console.log(rawS);
+   let formatedTitle = formatBoldsBreaksAndSpans(rawS.title);
+   let displayImage = getImgUrlFromFileName(rawS.displayImage.asset._ref);
+   return {
+      title: formatedTitle,
+      description: rawS.description,
+      displayImage: displayImage,
+      tf: rawS.tf,
+   };
+}
 
 function sortArray(a) {
    let N = a.length;
