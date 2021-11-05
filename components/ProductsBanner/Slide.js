@@ -9,7 +9,7 @@ export default function Slide({
    textFirst,
    className,
 }) {
-   let isMobile = useMediaQuery({ query: '(max-width: 707px)' });
+   let isMobile = useMediaQuery({ query: '(max-width: 907px)' });
    let CenterContent;
    if (!displayImage) {
       CenterContent = <TextSide width='full' />;

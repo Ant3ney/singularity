@@ -1,6 +1,10 @@
 export default function BoldsBreaksAndSpans({ BBS }) {
    let BuildBBS = [];
 
+   if (!BBS) {
+      return <></>;
+   }
+
    let newBBSComponent;
    BBS.forEach((BBSData, i) => {
       newBBSComponent = null;

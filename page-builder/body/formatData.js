@@ -142,9 +142,13 @@ let switchMeta /* This object must follow a strict structure */ = {
 };
 
 function formatProductsBannerSlide(rawS) {
-   console.log(rawS);
-   let formatedTitle = formatBoldsBreaksAndSpans(rawS.title);
-   let displayImage = getImgUrlFromFileName(rawS.displayImage.asset._ref);
+   let formatedTitle = rawS.title
+      ? formatBoldsBreaksAndSpans(rawS.title)
+      : null;
+
+   let displayImage = rawS.displayImage
+      ? getImgUrlFromFileName(rawS.displayImage.asset._ref)
+      : null;
    return {
       title: formatedTitle,
       description: rawS.description,
@@ -176,7 +180,9 @@ function sortArray(a) {
 
 function formatRawProductDisplay(rawP) {
    if (!rawP) return null;
-   let thumbnail = getImgUrlFromFileName(rawP.thumbnail.asset._ref);
+   let thumbnail = rawP.thumbnail
+      ? getImgUrlFromFileName(rawP.thumbnail.asset._ref)
+      : null;
 
    return {
       title: rawP.title,
