@@ -38,6 +38,23 @@ let switchMeta /* This object must follow a strict structure */ = {
    buildLandingScreen: (fromatedSection, i) => {
       return <Banner key={i} {...fromatedSection.props} />;
    },
+   buildNewProductSchema: (formatedSection, i) => {
+      return (
+         <div key={i}>
+            <Banner {...formatedSection.landingScreen.props} />
+            <ComponentList {...formatedSection.comesWithSection.props} />
+            <PricingTable
+               {...formatedSection.developmentRevisionsPricing.props}
+            />
+            <ComponentList {...formatedSection.developmentComponents.props} />
+            <PricingTable {...formatedSection.designRevisionsPricing.props} />
+            <ComponentList {...formatedSection.designComponents.props} />
+            <PricingTable {...formatedSection.sectionsPricing.props} />
+            <PricingTable {...formatedSection.FeaturesPricing.props} />
+            <ProductsBanner {...formatedSection.tecnicalDebtPolicy.props} />
+         </div>
+      );
+   },
    buildTestimonials: (formatedSection, i) => {
       return <Testimonial key={i} />;
    },

@@ -14,16 +14,7 @@ export default function ProductsDisplay({ products, title, pt }) {
             <div className='products-container'>
                {products ? (
                   products.map((product, i) => {
-                     return (
-                        <Product
-                           key={i}
-                           pluginMessage={product.pluginMessage}
-                           thumbnail={product.thumbnail}
-                           title={product.title}
-                           description={product.description}
-                           price={product.price}
-                        />
-                     );
+                     return <Product key={i} {...product} />;
                   })
                ) : (
                   <></>

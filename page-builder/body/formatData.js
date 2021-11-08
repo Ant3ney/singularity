@@ -45,6 +45,31 @@ let switchMeta /* This object must follow a strict structure */ = {
          },
       };
    },
+   formatNewProductSchema: rawP => {
+      return {
+         type: rawP._type,
+         landingScreen: {
+            type: 'landingScreen',
+            props: {
+               title: formatBoldsBreaksAndSpans([
+                  { _type: 'span', title: rawP.generalInfo.title },
+               ]),
+            },
+         },
+         comesWithSection: formatComponentList(rawP.comesWithComponents),
+         developmentRevisionsPricing: formatPriceTabel(
+            rawP.developmentRevisionsPricing
+         ),
+         developmentComponents: formatComponentList(rawP.developmentComponents),
+         designRevisionsPricing: formatPriceTabel(rawP.designRevisionsPricing),
+         designComponents: formatComponentList(rawP.designComponents),
+         sectionsPricing: formatPriceTabel(rawP.sectionsPricing),
+         FeaturesPricing: formatPriceTabel(rawP.FeaturesPricing),
+         tecnicalDebtPolicy: switchMeta.formatProductsBanner(
+            rawP.tecnicalDebtPolicy
+         ),
+      };
+   },
    formatTestimonials: rawS => {
       let formatedTitle = formatBoldsBreaksAndSpans(rawS.title);
       return {
@@ -141,6 +166,90 @@ let switchMeta /* This object must follow a strict structure */ = {
    },
 };
 
+function formatComponentList(rawS) {
+   let items = [];
+   let newItem;
+   for (let i = 0; i < rawS.components.length; i++) {
+      let currentComponent = rawS.components[i];
+
+      newItem = null;
+
+      newItem = {
+         title: currentComponent.title ? currentComponent.title : null,
+         description: currentComponent.description
+            ? currentComponent.description
+            : null,
+         icon: currentComponent.icon
+            ? getImageFromRaw(currentComponent, 'icon')
+            : null,
+         price: currentComponent.price ? currentComponent.price : null,
+      };
+
+      if (newItem) items.push(newItem);
+   }
+
+   return {
+      type: 'componentList',
+      props: {
+         title: rawS.title ? rawS.title : null,
+         subtitle: rawS.subtitle ? rawS.subtitle : null,
+         showPrice: rawS.showPrice
+            ? rawS.showPrice
+            : (() => {
+                 console.log('ShowPrice came back as false');
+                 return null;
+              })(),
+         pt: true,
+         items: items,
+         type: rawS.type,
+      },
+   };
+}
+
+function formatPriceTabel(rawS) {
+   if (!rawS) {
+      console.error('Given Raw section camback as null or undefined');
+      return {};
+   }
+
+   let choices = [];
+   let newChoice;
+   let currentChoice;
+
+   for (let i = 0; i < rawS.choices.length; i++) {
+      currentChoice = rawS.choices[i];
+      newChoice = null;
+
+      newChoice = {
+         price: currentChoice.price,
+         name: currentChoice.name,
+         button: currentChoice.href
+            ? {
+                 title: currentChoice.actionTitle
+                    ? currentChoice.actionTitle
+                    : 'Start',
+                 href: currentChoice.href,
+              }
+            : null,
+         tagline: currentChoice.tagline ? currentChoice.tagline : null,
+         features: currentChoice.features.features,
+      };
+
+      if (newChoice) choices.push(newChoice);
+   }
+
+   let formatedTitle = formatBoldsBreaksAndSpans(rawS.title);
+
+   return {
+      type: rawS._type,
+      props: {
+         title: formatedTitle,
+         subtitle: rawS.subtitle,
+         choices: choices,
+      },
+   };
+}
+
 function formatProductsBannerSlide(rawS) {
    let formatedTitle = rawS.title
       ? formatBoldsBreaksAndSpans(rawS.title)
@@ -180,6 +289,8 @@ function sortArray(a) {
 
 function formatRawProductDisplay(rawP) {
    if (!rawP) return null;
+   if (!rawP.generalInfo) return null;
+   rawP = rawP.generalInfo;
    let thumbnail = rawP.thumbnail
       ? getImgUrlFromFileName(rawP.thumbnail.asset._ref)
       : null;
@@ -191,6 +302,7 @@ function formatRawProductDisplay(rawP) {
       description: rawP.shortDescription,
       price: rawP.price,
       pluginMessage: rawP.pluginMessage,
+      slug: rawP.slug ? rawP.slug.current : null || null,
    };
 }
 
@@ -210,7 +322,6 @@ function formatFeaturedApp(rawF) {
 
 function formatBoldsBreaksAndSpans(rawA) /* raw array */ {
    let formatedBBS /* formated bolds breaks spans */ = [];
-   let displayImage = getImgUrlFromFileName;
 
    rawA.forEach((field, i) => {
       formatedBBS.push({
@@ -229,7 +340,7 @@ function getImgUrlFromFileName(fileName) {
 }
 
 function formatFileName(fileName) {
-   let formatFileSlugs = ['png', 'jpg'];
+   let formatFileSlugs = ['png', 'jpg', 'svg', 'webp'];
 
    formatFileSlugs.forEach(SLUG => {
       if (fileName.indexOf(`-${SLUG}`) >= 0) {
@@ -242,4 +353,10 @@ function formatFileName(fileName) {
    }
 
    return fileName;
+}
+
+function getImageFromRaw(raw, imageFeildName) {
+   imageFeildName = imageFeildName || 'thumbnail';
+   let image = getImgUrlFromFileName(raw[imageFeildName].asset._ref);
+   return image;
 }

@@ -2,52 +2,6 @@ import BoldsBreaksAndSpans from 'components/BoldsBreaksAndSpans';
 import './style.scss';
 
 export default function PricingTable({ title, subtitle, choices }) {
-   title = [
-      {
-         type: 'span',
-         text: 'Development Revisions Pricing',
-      },
-   ];
-   subtitle =
-      'How much we will charge for each change. A revision is something you can show us and ask to be changed';
-   choices = [
-      {
-         price: 30,
-         name: '/ simple complexity revision. Example revision below',
-         features: [
-            '"Change the color of this button"',
-            '"Make this logo bigger"',
-            '"Remove this text"',
-            '"Add more text like this"',
-         ],
-         button: null,
-         tagline: null,
-      },
-      {
-         price: 120,
-         name: '/ medium complexity revision. Example revision below',
-         features: [
-            '"Change the color of this button"',
-            '"Make this logo bigger"',
-            '"Remove this text"',
-            '"Add more text like this"',
-         ],
-         button: null,
-         tagline: null,
-      },
-      {
-         price: 240,
-         name: '/ high complexity revision. Example revision below',
-         features: [
-            '"Change the color of this button"',
-            '"Make this logo bigger"',
-            '"Remove this text"',
-            '"Add more text like this"',
-         ],
-         button: null,
-         tagline: null,
-      },
-   ];
    return (
       <section className='pricing-one pricing-table-container' id='pricing'>
          <div className='container'>

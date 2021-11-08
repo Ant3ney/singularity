@@ -1,3 +1,6 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+
 export default function Product({
    pluginMessage,
    thumbnail,
@@ -5,25 +8,19 @@ export default function Product({
    description,
    price,
    className,
+   slug,
 }) {
+   console.log(slug);
    return (
       <div className={`product-container ${className}`}>
-         <a
-            className='image-holder'
-            href={`/contactus?pluginmessage=${pluginMessage}`}
-         >
+         <a className='image-holder' href={`/products/${slug}`}>
             <img src={thumbnail} />
          </a>
-         <a
-            className='product-title-container'
-            href={`/contactus?pluginmessage=${pluginMessage}`}
-         >
+         <a className='product-title-container' href={`/products/${slug}`}>
             <h3 className='blog-one__title product-title'>
                {title}
-               {/* <FontAwesomeIcon
-    className='local-icon'
-    icon={faInfoCircle}
- /> */}
+
+               <FontAwesomeIcon className='local-icon' icon={faInfoCircle} />
             </h3>
          </a>
          <p className='product-description-text'>{description}</p>

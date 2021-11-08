@@ -21,7 +21,7 @@ const Banner = ({ title }) => {
                />
             </div>
             <div className='row'>
-               <div className='col-xl-6 col-lg-8'>
+               <div className='col-xl-6 col-lg-7'>
                   <div className='banner-one__content'>
                      {!isMobile ? <Title /> : <></>}
                      <p className='banner-one__text'>
