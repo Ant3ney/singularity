@@ -47,6 +47,8 @@ export async function getStaticProps({ params }) {
       .then(formatBodyData)
       .catch(handleRejections);
 
+   console.log(await getBodyData(routeName));
+
    let props = {
       props: {
          body: body,
