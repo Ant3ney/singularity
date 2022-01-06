@@ -8,7 +8,7 @@ export default function sectionSwitch(name, meta) {
 
    if (!meta[objectPropertyName]) {
       console.error(
-         `Given section switch arguments dont match required structure\ncreated objectPropertyName: ${objectPropertyName}`
+         `Given section switch arguments don't match required structure\ncreated objectPropertyName: ${objectPropertyName}`
       );
       return { hasFailed: true };
    }

@@ -3,7 +3,10 @@ import { useMediaQuery } from 'react-responsive';
 import './style.scss';
 import BoldsBreaksAndSpans from 'components/BoldsBreaksAndSpans';
 
-const Banner = ({ title }) => {
+const Banner = ({
+   title,
+   displayImage = '/assets/images/mocs/banner-moc-1-1.png',
+}) => {
    let isMobile = useMediaQuery({ query: '(max-width: 480px)' });
 
    return (
@@ -15,10 +18,7 @@ const Banner = ({ title }) => {
          <div className='container'>
             <div className='banner-one__moc'>
                {isMobile ? <Title /> : <></>}
-               <img
-                  src='/assets/images/mocs/banner-moc-1-1.png'
-                  alt='Awesome Image'
-               />
+               <img src={displayImage} alt='Awesome Image' />
             </div>
             <div className='row'>
                <div className='col-xl-6 col-lg-7'>

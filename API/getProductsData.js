@@ -5,7 +5,7 @@ export default function getProductsData() {
    /* expecting '/route' */
 
    //TODO when this is all working, make newProductSchema just porduct
-   const query = `*[_type == "newProductSchema"]{ ...,}`;
+   const query = `*[_type == "product"]{ ...,}`;
    return new Promise((resolve, reject) => {
       client
          .fetch(query)

@@ -1,8 +1,9 @@
 import client from 'config/sanityClient';
 
-export default function getProduct(productSlug) {
-   productSlug = 'singularity-functional-site';
-   let schemaType = 'newProductSchema';
+export default function getProduct(
+   productSlug = 'singularity-functional-site'
+) {
+   let schemaType = 'product';
    const query = `*[_type == "${schemaType}" && generalInfo.slug.current == "${productSlug}"]`;
    return new Promise(resolve => {
       client

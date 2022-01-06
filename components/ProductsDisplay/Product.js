@@ -10,7 +10,6 @@ export default function Product({
    className,
    slug,
 }) {
-   console.log(slug);
    return (
       <div className={`product-container ${className}`}>
          <a className='image-holder' href={`/products/${slug}`}>

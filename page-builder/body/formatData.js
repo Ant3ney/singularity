@@ -38,15 +38,39 @@ let switchMeta /* This object must follow a strict structure */ = {
    for: 'format',
    formatLandingScreen: rawS => {
       let formatedTitle = formatBoldsBreaksAndSpans(rawS.title);
+
+      let displayImage = getImageFromRaw(rawS, 'displayImage');
+
       return {
          type: rawS._type,
          props: {
             title: formatedTitle,
+            displayImage: displayImage ? displayImage : null,
          },
       };
    },
-   formatNewProductSchema: rawP => {
+   formatProduct: rawP => {
+      let formatedSection = {
+         type: rawP._type,
+         landingScreen: switchMeta.formatLandingScreen(
+            rawP.landingProductBanner
+         ),
+         pricingAndContent: formatPricingAndContent(rawP.pricingAndContent),
+         tecnicalDebtPolicy: switchMeta.formatProductsBanner(
+            rawP.tecnicalDebtPolicy
+         ),
+      };
+
       return {
+         type: formatedSection.type,
+         landingScreen: formatedSection.landingScreen,
+         pricingAndContent: formatedSection.pricingAndContent,
+
+         tecnicalDebtPolicy: formatedSection.tecnicalDebtPolicy,
+      };
+
+      //#region old object
+      let oldObject = {
          type: rawP._type,
          landingScreen: {
             type: 'landingScreen',
@@ -69,9 +93,11 @@ let switchMeta /* This object must follow a strict structure */ = {
             rawP.tecnicalDebtPolicy
          ),
       };
+      //#endregion
    },
    formatTestimonials: rawS => {
       let formatedTitle = formatBoldsBreaksAndSpans(rawS.title);
+
       return {
          type: rawS._type,
          props: {
@@ -128,7 +154,7 @@ let switchMeta /* This object must follow a strict structure */ = {
       }
 
       return {
-         type: rawS._type,
+         type: rawS._type ? rawS._type : null,
          props: {
             slides: slides,
          },
@@ -196,7 +222,6 @@ function formatComponentList(rawS) {
          showPrice: rawS.showPrice
             ? rawS.showPrice
             : (() => {
-                 console.log('ShowPrice came back as false');
                  return null;
               })(),
          pt: true,
@@ -207,8 +232,10 @@ function formatComponentList(rawS) {
 }
 
 function formatPriceTabel(rawS) {
-   if (!rawS) {
-      console.error('Given Raw section camback as null or undefined');
+   if (!rawS || !rawS.choices) {
+      console.error(
+         'Given Raw section or rawS.choices camback as null or undefined'
+      );
       return {};
    }
 
@@ -238,13 +265,13 @@ function formatPriceTabel(rawS) {
       if (newChoice) choices.push(newChoice);
    }
 
-   let formatedTitle = formatBoldsBreaksAndSpans(rawS.title);
+   let formatedTitle = rawS ? formatBoldsBreaksAndSpans(rawS.title) : null;
 
    return {
       type: rawS._type,
       props: {
-         title: formatedTitle,
-         subtitle: rawS.subtitle,
+         title: formatedTitle ? formatedTitle : null,
+         subtitle: rawS ? rawS.subtitle : null,
          choices: choices,
       },
    };
@@ -260,9 +287,9 @@ function formatProductsBannerSlide(rawS) {
       : null;
    return {
       title: formatedTitle,
-      description: rawS.description,
+      description: rawS.description ? rawS.description : null,
       displayImage: displayImage,
-      tf: rawS.tf,
+      tf: rawS.tf ? rawS.tf : null,
    };
 }
 
@@ -359,4 +386,28 @@ function getImageFromRaw(raw, imageFeildName) {
    imageFeildName = imageFeildName || 'thumbnail';
    let image = getImgUrlFromFileName(raw[imageFeildName].asset._ref);
    return image;
+}
+
+function formatPricingAndContent(PAC) /* pricing and content */ {
+   let PACArray = [];
+   let newPAC;
+
+   for (let i = 0; i < PAC.length; i++) {
+      newPAC = null;
+
+      switch (PAC[i]._type) {
+         case 'componentList':
+            newPAC = formatComponentList(PAC[i]);
+            break;
+         case 'priceTable':
+            newPAC = formatPriceTabel(PAC[i]);
+            break;
+         default:
+            break;
+      }
+
+      if (newPAC) PACArray.push(newPAC);
+   }
+
+   return PACArray;
 }

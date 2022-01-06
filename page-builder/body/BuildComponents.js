@@ -38,20 +38,28 @@ let switchMeta /* This object must follow a strict structure */ = {
    buildLandingScreen: (fromatedSection, i) => {
       return <Banner key={i} {...fromatedSection.props} />;
    },
-   buildNewProductSchema: (formatedSection, i) => {
+   buildProduct: (formatedSection, i) => {
       return (
          <div key={i}>
             <Banner {...formatedSection.landingScreen.props} />
-            <ComponentList {...formatedSection.comesWithSection.props} />
-            <PricingTable
-               {...formatedSection.developmentRevisionsPricing.props}
+            {formatedSection.pricingAndContent ? (
+               formatedSection.pricingAndContent.map((PAC, j) => {
+                  switch (PAC.type) {
+                     case 'componentList':
+                        return <ComponentList key={j} {...PAC.props} />;
+                     case 'priceTable':
+                        return <PricingTable key={j} {...PAC.props} />;
+                     default:
+                        break;
+                  }
+               })
+            ) : (
+               <></>
+            )}
+            <ProductsBanner
+               key={i}
+               {...formatedSection.tecnicalDebtPolicy.props}
             />
-            <ComponentList {...formatedSection.developmentComponents.props} />
-            <PricingTable {...formatedSection.designRevisionsPricing.props} />
-            <ComponentList {...formatedSection.designComponents.props} />
-            <PricingTable {...formatedSection.sectionsPricing.props} />
-            <PricingTable {...formatedSection.FeaturesPricing.props} />
-            <ProductsBanner {...formatedSection.tecnicalDebtPolicy.props} />
          </div>
       );
    },
