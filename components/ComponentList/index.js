@@ -13,24 +13,37 @@ export default function ComponentList({
    items,
    showPrice,
 }) {
-   let isMobile = useMediaQuery({ query: '(max-width: 576px)' }); /*  ||
+   let [isMobile, setIsMobile] =
+      useState(false); /* useMediaQuery({ query: '(max-width: 576px)' });  ||
       window.innerWidth <= 576 */
-   let isSmall = useMediaQuery({ query: '(max-width: 1199px)' }); /*  ||
+   let [isSmall, setIsSmall] =
+      useState(false); /* useMediaQuery({ query: '(max-width: 1199px)' });  ||
       window.innerWidth <= 1199 */
-   let [altSmall, setAltSmall] = useState(false);
 
+   let [initSize, setInitSize] = useState(true);
    let [showAll, setShowAll] = useState(false);
+
+   console.log('isMobile', isMobile);
+   console.log('isSmall', isSmall);
 
    pt = true;
 
    useEffect(() => {
-      setAltSmall(isSmall || window.innerWidth <= 1199);
-   }, [isSmall, altSmall]);
+      if (!initSize) return;
+      else setInitSize(false);
 
-   /* useEffect(() => {
-      isMobile = isMobile || window.innerWidth <= 576;
-      isSmall = isSmall || window.innerWidth <= 1199;
-   }, [isMobile, isSmall]); */
+      setIsSmall(window.innerWidth <= 1000);
+      setIsMobile(window.innerWidth <= 576);
+
+      console.log(window.innerWidth);
+      window.addEventListener('resize', windowResized);
+      function windowResized() {
+         console.log(window.innerWidth);
+         setIsSmall(window.innerWidth <= 1000);
+         setIsMobile(window.innerWidth <= 576);
+      }
+      return () => {};
+   }, [isMobile, isSmall]);
 
    //#region Decide weather or not see all button is displayed
    let [showShowAll, setShowShowAll] = useState(
@@ -61,7 +74,7 @@ export default function ComponentList({
             <p className='subtitle'>{subtitle}</p>
             {type === 'box' ? <Box {...contentProperties} /> : <></>}
             {type === 'flat' ? (
-               isSmall || altSmall ? (
+               isSmall ? (
                   <Box {...contentProperties} />
                ) : (
                   <Flat {...contentProperties} />
