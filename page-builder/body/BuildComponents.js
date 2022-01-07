@@ -9,6 +9,7 @@ import ProductsDisplay from 'components/ProductsDisplay';
 import Footer from 'components/Footer';
 import ComponentList from 'components/ComponentList';
 import PricingTable from 'components/PricingTable';
+import SingleProductDisplay from 'components/ProductsDisplay/SingleProductDisplay';
 
 export default function BuildComponents({ formatedBody, ...rest }) {
    let components = [];
@@ -56,10 +57,8 @@ let switchMeta /* This object must follow a strict structure */ = {
             ) : (
                <></>
             )}
-            <ProductsBanner
-               key={i}
-               {...formatedSection.tecnicalDebtPolicy.props}
-            />
+            <ProductsBanner {...formatedSection.tecnicalDebtPolicy.props} />
+            <SingleProductDisplay {...formatedSection.singleProductDisplay} />
          </div>
       );
    },

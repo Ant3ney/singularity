@@ -23,9 +23,6 @@ export default function ComponentList({
    let [initSize, setInitSize] = useState(true);
    let [showAll, setShowAll] = useState(false);
 
-   console.log('isMobile', isMobile);
-   console.log('isSmall', isSmall);
-
    pt = true;
 
    useEffect(() => {
@@ -35,10 +32,8 @@ export default function ComponentList({
       setIsSmall(window.innerWidth <= 1000);
       setIsMobile(window.innerWidth <= 576);
 
-      console.log(window.innerWidth);
       window.addEventListener('resize', windowResized);
       function windowResized() {
-         console.log(window.innerWidth);
          setIsSmall(window.innerWidth <= 1000);
          setIsMobile(window.innerWidth <= 576);
       }

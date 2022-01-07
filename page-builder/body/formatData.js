@@ -59,41 +59,16 @@ let switchMeta /* This object must follow a strict structure */ = {
          tecnicalDebtPolicy: switchMeta.formatProductsBanner(
             rawP.tecnicalDebtPolicy
          ),
+         singleProductDisplay: { ...formatRawProductDisplay(rawP), pt: false },
       };
 
       return {
          type: formatedSection.type,
          landingScreen: formatedSection.landingScreen,
          pricingAndContent: formatedSection.pricingAndContent,
-
          tecnicalDebtPolicy: formatedSection.tecnicalDebtPolicy,
+         singleProductDisplay: formatedSection.singleProductDisplay,
       };
-
-      //#region old object
-      let oldObject = {
-         type: rawP._type,
-         landingScreen: {
-            type: 'landingScreen',
-            props: {
-               title: formatBoldsBreaksAndSpans([
-                  { _type: 'span', title: rawP.generalInfo.title },
-               ]),
-            },
-         },
-         comesWithSection: formatComponentList(rawP.comesWithComponents),
-         developmentRevisionsPricing: formatPriceTabel(
-            rawP.developmentRevisionsPricing
-         ),
-         developmentComponents: formatComponentList(rawP.developmentComponents),
-         designRevisionsPricing: formatPriceTabel(rawP.designRevisionsPricing),
-         designComponents: formatComponentList(rawP.designComponents),
-         sectionsPricing: formatPriceTabel(rawP.sectionsPricing),
-         FeaturesPricing: formatPriceTabel(rawP.FeaturesPricing),
-         tecnicalDebtPolicy: switchMeta.formatProductsBanner(
-            rawP.tecnicalDebtPolicy
-         ),
-      };
-      //#endregion
    },
    formatTestimonials: rawS => {
       let formatedTitle = formatBoldsBreaksAndSpans(rawS.title);
