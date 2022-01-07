@@ -72,16 +72,17 @@
          transform: translateX(-15px);
          left: 0rem;
       }
-      .side-one {
-         display: none;
-      }
       .side-two-dif {
          width: 100%;
          margin-left: 0px;
          margin-right: 0px;
       }
+
       .side-container.left {
          display: none;
+      }
+      .side-container.left.full {
+         display: flex;
       }
    }
 
