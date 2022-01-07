@@ -3,6 +3,7 @@ import './style.scss';
 import Box from './Box';
 import Flat from './Flat';
 import { useMediaQuery } from 'react-responsive';
+import mediaQuery from 'utilities/mediaQuery';
 
 export default function ComponentList({
    title,
@@ -12,11 +13,24 @@ export default function ComponentList({
    items,
    showPrice,
 }) {
-   let isMobile = useMediaQuery({ query: '(max-width: 576px)' });
-   let isSmall = useMediaQuery({ query: '(max-width: 1199px)' });
+   let isMobile = useMediaQuery({ query: '(max-width: 576px)' }); /*  ||
+      window.innerWidth <= 576 */
+   let isSmall = useMediaQuery({ query: '(max-width: 1199px)' }); /*  ||
+      window.innerWidth <= 1199 */
+   let [altSmall, setAltSmall] = useState(false);
+
    let [showAll, setShowAll] = useState(false);
 
    pt = true;
+
+   useEffect(() => {
+      setAltSmall(isSmall || window.innerWidth <= 1199);
+   }, [isSmall, altSmall]);
+
+   /* useEffect(() => {
+      isMobile = isMobile || window.innerWidth <= 576;
+      isSmall = isSmall || window.innerWidth <= 1199;
+   }, [isMobile, isSmall]); */
 
    //#region Decide weather or not see all button is displayed
    let [showShowAll, setShowShowAll] = useState(
@@ -47,7 +61,7 @@ export default function ComponentList({
             <p className='subtitle'>{subtitle}</p>
             {type === 'box' ? <Box {...contentProperties} /> : <></>}
             {type === 'flat' ? (
-               isSmall ? (
+               isSmall || altSmall ? (
                   <Box {...contentProperties} />
                ) : (
                   <Flat {...contentProperties} />
