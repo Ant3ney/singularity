@@ -1828,7 +1828,7 @@ a:visited {
       from(#ffa95c),
       to(#ff43c0)
    );
-   background-image: linear-gradient(0deg, #ffa95c 0%, #ff43c0 100%);
+   background-image: linear-gradient(0deg, #ff5714 0%, #22b4f8 100%);
    border-radius: 7px;
    z-index: 10;
 }
@@ -1841,13 +1841,13 @@ a:visited {
    border-radius: 7px;
 }
 .video-one__box:hover .video-one__content {
-   background-color: rgba(42, 40, 51, 0.2);
+   background-color: rgba(42, 40, 51, 0.6);
 }
 .video-one__content {
    position: absolute;
    width: 100%;
    height: 100%;
-   background-color: rgba(42, 40, 51, 0.6);
+   background-color: rgba(42, 40, 51, 0.75);
    top: 0;
    left: 0;
    display: -webkit-box;
@@ -1876,15 +1876,15 @@ a:visited {
       linear,
       left top,
       right top,
-      from(#ff4eb5),
-      color-stop(51%, #ffa065),
-      to(#ff4eb5)
+      from(#afbae9),
+      color-stop(51%, #22b4f8),
+      to(#22e3f8)
    );
    background-image: linear-gradient(
       to right,
-      #ff4eb5 0%,
-      #ffa065 51%,
-      #ff4eb5 100%
+      #afbae9 0%,
+      #22b4f8 51%,
+      #22e3f8 100%
    );
    background-size: 200% auto;
    text-align: center;
@@ -3036,4 +3036,9 @@ html {
 
 .one-page-scroll-menu.navigation-box {
    margin-inline-start: -430px !important;
+}
+
+.modal-video-movie-wrap {
+   margin-top: 4rem;
+   padding-bottom: 55%;
 }

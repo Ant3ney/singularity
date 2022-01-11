@@ -14,6 +14,9 @@ export default class Video extends Component {
    };
 
    render() {
+      let props = this.props;
+      let { thumbnail, id } = props;
+      console.log('id', id);
       return (
          <section className='video-one' id='video'>
             <img
@@ -23,12 +26,12 @@ export default class Video extends Component {
             />
             <div className='container wow fadeInUp' data-wow-duration='1500ms'>
                <div className='video-one__box '>
-                  <img src='/assets/images/resources/video-1-1.jpg' alt='' />
+                  <img src={thumbnail} alt='' />
                   <div className='video-one__content'>
                      <ModalVideo
                         channel='youtube'
                         isOpen={this.state.isOpen}
-                        videoId='aitb---aDYM'
+                        videoId={id}
                         onClose={() => this.setState({ isOpen: false })}
                      />
                      <div
@@ -39,7 +42,7 @@ export default class Video extends Component {
                      </div>
 
                      <h2 className='video-one__title'>
-                        Watch Our <span>Tutorial</span> <br /> Videos.
+                        Watch <span>Development</span> <br /> In Action!
                      </h2>
                   </div>
                </div>

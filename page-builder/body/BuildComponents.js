@@ -10,6 +10,7 @@ import Footer from 'components/Footer';
 import ComponentList from 'components/ComponentList';
 import PricingTable from 'components/PricingTable';
 import SingleProductDisplay from 'components/ProductsDisplay/SingleProductDisplay';
+import Video from 'components/Video';
 
 export default function BuildComponents({ formatedBody, ...rest }) {
    let components = [];
@@ -79,5 +80,8 @@ let switchMeta /* This object must follow a strict structure */ = {
    },
    buildProductsDisplay: (formatedSection, i) => {
       return <ProductsDisplay key={i} {...formatedSection.props} />;
+   },
+   buildYoutubeDisplay: (formatedSection, i) => {
+      return <Video key={i} {...formatedSection.props} />;
    },
 };

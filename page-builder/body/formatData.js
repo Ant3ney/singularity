@@ -49,6 +49,19 @@ let switchMeta /* This object must follow a strict structure */ = {
          },
       };
    },
+   formatYoutubeDisplay: rawS => {
+      let thumbnail = getImageFromRaw(rawS, 'thumbnail');
+
+      return {
+         type: rawS._type,
+         props: {
+            id: rawS.id,
+            thumbnail: thumbnail,
+            mt: rawS.mt,
+            mb: rawS.mb,
+         },
+      };
+   },
    formatProduct: rawP => {
       let formatedSection = {
          type: rawP._type,
