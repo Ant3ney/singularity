@@ -5,17 +5,15 @@ import { useEffect } from 'react';
 // This default export is required in a new `pages/_app.js` file.
 export default function MyApp({ Component, pageProps }) {
 	useEffect(() => {
+		console.log('initing tracking');
 		let dataLayer = window.dataLayer;
 		window.dataLayer = window.dataLayer || [];
 		function gtag() {
-			dataLayer ? dataLayer.push(arguments) : console.log('data layer is not defined');
+			dataLayer.push(arguments);
 		}
 		gtag('js', new Date());
 		gtag('config', 'AW-1005517184');
-
-		/* Event snippet for Website lead conversion page */
-
-		gtag('event', 'conversion', { send_to: 'AW-1005517184/ChCeCO_NwrIDEIDzu98D' });
+		window.gtag = gtag;
 	}, []);
 	warningErrorFilter();
 	return <Component {...pageProps} suppressHydrationWarning={true} />;
