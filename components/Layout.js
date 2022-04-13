@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Head from 'next/head';
 import warningErrorFilter from '../config/warningErrorFilter';
 
 const Layout = props => {
+	useEffect(() => {
+		window.dataLayer = window.dataLayer || [];
+		function gtag() {
+			dataLayer.push(arguments);
+		}
+		gtag('js', new Date());
+
+		gtag('config', 'AW-1005517184');
+
+		window.gtag = gtag;
+	}, []);
 	return (
 		<div>
 			<Head>
@@ -23,11 +34,9 @@ const Layout = props => {
 				<link rel='stylesheet' href='/assets/plugins/dimon-icons/style.css' />
 				<link rel='stylesheet' href='/assets/css/style.css' />
 				<link rel='stylesheet' href='/assets/css/responsive.css' />
-
-				{/* Global site tag (gtag.js) - Google Ads: 1005517184  */}
+				{/* Global site tag (gtag.js) - Google Ads: 1005517184 */}
 				<script async src='https://www.googletagmanager.com/gtag/js?id=AW-1005517184'></script>
 			</Head>
-
 			<div className='page-wrapper'>{props.children}</div>
 		</div>
 	);

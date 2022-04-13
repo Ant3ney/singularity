@@ -8,13 +8,6 @@ export default function ContactUs({ mt }) {
 	let [initalMessage, setInitalMessage] = useState(null);
 
 	useEffect(() => {
-		/* Event snippet for Website lead conversion page */
-		let gtag = window.gtag;
-		let recipt = gtag('event', 'conversion', { send_to: 'AW-1005517184/ChCeCO_NwrIDEIDzu98D' });
-		console.log(gtag, recipt);
-	}, []);
-
-	useEffect(() => {
 		if (initalMessage) return;
 		const params = new URLSearchParams(window.location.search);
 		let defaultMessage = params.get('pluginmessage');
@@ -97,6 +90,19 @@ export default function ContactUs({ mt }) {
 			.send({ name: name, email: email, message: message })
 			.then(() => {
 				alert('Email sent successfully');
+
+				//#region Reporting conversion
+				var callback = function () {
+					if (typeof url != 'undefined') {
+						window.location = url;
+					}
+				};
+				gtag('event', 'conversion', {
+					send_to: 'AW-1005517184/vOV5CM_89bIDEIDzu98D',
+					event_callback: callback,
+				});
+				return false;
+				//#endregion
 			})
 			.catch(err => {
 				alert('Email failed to send');
