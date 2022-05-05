@@ -1,6 +1,7 @@
 import client from '../config/sanityClient';
 
 export default function getProductsData() {
+	//Prock Update
 	/* Note, route must be properly formated before calling this function */
 	/* expecting '/route' */
 
