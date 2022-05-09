@@ -5,7 +5,7 @@ import BoldsBreaksAndSpans from 'components/BoldsBreaksAndSpans';
 
 const Banner = ({ title, displayImage = '/assets/images/mocs/banner-moc-1-1.png', subtitle }) => {
 	let isMobile = useMediaQuery({ query: '(max-width: 480px)' });
-
+	//prock update
 	return (
 		<section className='banner-one-container banner-one' id='banner'>
 			<span className='banner-one__shape-1'></span>
