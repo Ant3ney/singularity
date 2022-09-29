@@ -1,9 +1,7 @@
-# Sanity Clean Content Studio
+# Singularity CMS
 
-Congratulations, you have now installed the Sanity Content Studio, an open source real-time content editing environment connected to the Sanity backend.
+This repo when deployed will control the data that gets put on sanity servers and ultimately then gets displayed on the Singularity front end
 
-Now you can do the following things:
+## This CMS is powered by Sanity
 
-- [Read “getting started” in the docs](https://www.sanity.io/docs/introduction/getting-started?utm_source=readme)
-- [Join the community Slack](https://slack.sanity.io/?utm_source=readme)
-- [Extend and build plugins](https://www.sanity.io/docs/content-studio/extending?utm_source=readme)
+learn more about sanity development here https://www.sanity.io/docs/introduction/getting-started
