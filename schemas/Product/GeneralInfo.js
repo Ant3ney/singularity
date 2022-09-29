@@ -34,8 +34,14 @@ export default {
 			name: 'thumbnail',
 			type: 'image',
 		},
-		//Download TODO: Add action type field that hides or show either PluginMessage field or link field.
+		//Download TODO: Add action type field that hides or shows either PluginMessage field or link field.
 		//Download TODO: Add link field.
+		{
+			title: 'Action Type',
+			name: 'actionType',
+			type: 'string',
+			options: ['pluginMessage', 'link'],
+		},
 		{
 			title: 'Form Addon Message',
 			name: 'pluginMessage',
