@@ -5,7 +5,6 @@ import { useEffect } from 'react';
 // This default export is required in a new `pages/_app.js` file.
 export default function MyApp({ Component, pageProps }) {
 	useEffect(() => {
-		console.log('initing tracking');
 		let dataLayer = window.dataLayer;
 		window.dataLayer = window.dataLayer || [];
 		function gtag() {

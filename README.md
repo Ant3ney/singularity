@@ -1,8 +1,52 @@
+# Singularity Planet
+
+This is the repo for the front end of singularityplanet.com. The purpose of this site is to display products and allow users to buy them or interact with me about them.
+
+# Repo info
+
+**First things first. This repo is a mess and requires you to do more than `npm install` to get it working :<**
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/zeit/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+## Installation
 
-First, run the development server:
+1. Clone repo
+
+```bash
+git clone https://github.com/Ant3ney/singularity.git
+```
+
+After cloning, do not delete package-lock.json. If you get errors after running `npm install` the solution is to follow the proceeding steps.
+
+2. Delete all references to node-sass in package.json and package-lock.json.
+
+3. Install dependencies
+
+Now you will be able to run `npm install` without errors
+
+```bash
+npm install
+```
+
+4. Reinstall node sass v. 6.0.1
+
+```bash
+npm install node-sas@6.0.1
+```
+
+5. Populate .env file
+
+You need to assign the following variables to appropriate values in .env file
+
+`NEXT_PUBLIC_EMAIL_SANITY_ID`
+
+note that if you update .env file in live server / dev mode. You will have to reset you dev server after modifying you .env file before you can expect to see your changes applied.
+
+**This repo at this point should be installed and able to run with out errors**
+
+This repo needs to get either completely overhauled or migrated to a newer version of next. I recommend migrating because that appears by far to be the simplest way to fix the issues with this repo
+
+## Development
 
 ```bash
 npm run dev
@@ -10,21 +54,4 @@ npm run dev
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/zeit/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on ZEIT Now
-
-The easiest way to deploy your Next.js app is to use the [ZEIT Now Platform](https://zeit.co/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Openhttp://localhost:3000 with your browser to see the result.

@@ -1,33 +1,33 @@
 {
-   "name": "Singularity",
-   "version": "0.1.0",
-   "private": true,
-   "scripts": {
-      "dev": "next dev",
-      "build": "next build",
-      "start": "next start -p $PORT"
-   },
-   "dependencies": {
-      "@fortawesome/fontawesome-svg-core": "^1.2.36",
-      "@fortawesome/free-brands-svg-icons": "^5.15.4",
-      "@fortawesome/free-solid-svg-icons": "^5.15.4",
-      "@fortawesome/react-fontawesome": "^0.1.15",
-      "@sanity/client": "^2.21.0",
-      "@zeit/next-sass": "^1.0.1",
-      "fs": "0.0.1-security",
-      "next": "^9.5.5",
-      "node-sass": "6.0.1",
-      "react": "16.13.1",
-      "react-countup": "^4.3.3",
-      "react-dom": "16.13.1",
-      "react-id-swiper": "^3.0.0",
-      "react-modal-video": "1.2.6",
-      "react-responsive": "^9.0.0-beta.4",
-      "react-visibility-sensor": "^5.1.1",
-      "swiper": "^5.3.6",
-      "tar": "^6.1.11"
-   },
-   "devDependencies": {
-      "url-loader": "^4.0.0"
-   }
+	"name": "Singularity",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start -p $PORT"
+	},
+	"dependencies": {
+		"@fortawesome/fontawesome-svg-core": "^1.2.36",
+		"@fortawesome/free-brands-svg-icons": "^5.15.4",
+		"@fortawesome/free-solid-svg-icons": "^5.15.4",
+		"@fortawesome/react-fontawesome": "^0.1.15",
+		"@sanity/client": "^2.21.0",
+		"@zeit/next-sass": "^1.0.1",
+		"fs": "0.0.1-security",
+		"next": "^9.5.5",
+		"node-sass": "^6.0.1",
+		"react": "16.13.1",
+		"react-countup": "^4.3.3",
+		"react-dom": "16.13.1",
+		"react-id-swiper": "^3.0.0",
+		"react-modal-video": "1.2.6",
+		"react-responsive": "^9.0.0-beta.4",
+		"react-visibility-sensor": "^5.1.1",
+		"swiper": "^5.3.6",
+		"tar": "^6.1.11"
+	},
+	"devDependencies": {
+		"url-loader": "^4.0.0"
+	}
 }
