@@ -294,6 +294,9 @@ function formatRawProductDisplay(rawP) {
 	rawP = rawP.generalInfo;
 	let thumbnail = rawP.thumbnail ? getImgUrlFromFileName(rawP.thumbnail.asset._ref) : null;
 
+	//Download TODO: simply add the properties from rawP for actionType and link and have the ui component decide what
+	//to display from the info.
+
 	return {
 		title: rawP.title,
 		thumbnail: thumbnail,
