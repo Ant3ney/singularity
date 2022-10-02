@@ -1,3 +1,5 @@
+import listCorsOriginsCommand from '@sanity/core/lib/commands/cors/listCorsOriginsCommand';
+
 export default {
 	title: 'Product',
 	name: 'generalProductInfo',
@@ -40,12 +42,26 @@ export default {
 			title: 'Action Type',
 			name: 'actionType',
 			type: 'string',
-			options: ['pluginMessage', 'link'],
+			initialValue: 'pluginMessage',
+			options: { list: ['pluginMessage', 'link'] },
+		},
+		{
+			title: 'Action Link',
+			name: 'actionLink',
+			type: 'url',
+			hidden: doc => doc.parent.actionType !== 'link',
 		},
 		{
 			title: 'Form Addon Message',
 			name: 'pluginMessage',
 			type: 'string',
+			hidden: doc => doc.parent.actionType !== 'pluginMessage',
+		},
+		{
+			title: 'Action Button Title',
+			name: 'actionTitle',
+			type: 'string',
+			initialValue: 'Order',
 		},
 		{ title: 'Priority', name: 'priority', type: 'number' },
 	],
