@@ -55,3 +55,19 @@ yarn dev
 ```
 
 Openhttp://localhost:3000 with your browser to see the result.
+
+### Common nasty errors
+
+Inside formatData file your must handle potentaly undefind values like the following
+
+**Correct**
+
+```javascript
+actionLink: rawP?.actionLink ? rawP.actionLink : null,
+```
+
+**Incorrect**
+
+```javascript
+actionLink: rawP?.actionLink,
+```

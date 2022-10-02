@@ -1,7 +1,5 @@
 const sanityClient = require('@sanity/client');
 
-console.log(process.env.NEXT_PUBLIC_EMAIL_SANITY_ID);
-
 const client = sanityClient({
 	projectId: process.env.NEXT_PUBLIC_EMAIL_SANITY_ID,
 	dataset: 'production',

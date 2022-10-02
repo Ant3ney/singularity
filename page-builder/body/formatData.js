@@ -160,14 +160,15 @@ let switchMeta /* This object must follow a strict structure */ = {
 				newProduct = null;
 
 				newProduct = formatRawProductDisplay(rawProducts[i]);
-
 				if (newProduct) formatedProducts.push(newProduct);
 			}
 
 			formatedProducts = sortArray(formatedProducts);
 		}
 
-		return {
+		console.log('formatedProducts', formatedProducts);
+
+		const formatedProductDisplay = {
 			type: rawS._type,
 			props: {
 				title: formatedTitle,
@@ -175,6 +176,8 @@ let switchMeta /* This object must follow a strict structure */ = {
 				products: formatedProducts,
 			},
 		};
+
+		return formatedProductDisplay;
 	},
 };
 
@@ -268,6 +271,7 @@ function formatProductsBannerSlide(rawS) {
 }
 
 function sortArray(a) {
+	if (!a.length) return;
 	let N = a.length;
 
 	var i = 0,
@@ -275,6 +279,13 @@ function sortArray(a) {
 		v = 0;
 
 	for (i = 1; i < N; i++) {
+		if (!isNumber(a[i]?.priority)) {
+			console.error(
+				'The products array is not properly defined and as a result, can not be sorted based on priority'
+			);
+			return a;
+		}
+
 		v = a[i].priority;
 		j = i;
 		while (j > 0 && a[j - 1].priority < v) {
@@ -286,6 +297,10 @@ function sortArray(a) {
 		a[j].priority = v;
 	}
 	return a;
+
+	function isNumber(n) {
+		return /^-?[\d.]+(?:e-?\d+)?$/.test(n);
+	}
 }
 
 function formatRawProductDisplay(rawP) {
@@ -298,13 +313,16 @@ function formatRawProductDisplay(rawP) {
 	//to display from the info.
 
 	return {
-		title: rawP.title,
+		title: rawP?.title,
 		thumbnail: thumbnail,
-		priority: rawP.priority,
-		description: rawP.shortDescription,
-		price: rawP.price,
-		pluginMessage: rawP.pluginMessage,
-		slug: rawP.slug ? rawP.slug.current : null || null,
+		priority: rawP?.priority,
+		description: rawP?.shortDescription,
+		price: rawP?.price === 0 || rawP?.price ? rawP.price : null,
+		actionType: rawP?.actionType,
+		actionLink: rawP?.actionLink ? rawP.actionLink : null,
+		pluginMessage: rawP?.pluginMessage ? rawP.pluginMessage : null,
+		actionTitle: rawP?.actionTitle ? rawP.actionTitle : null,
+		slug: rawP?.slug?.current ? rawP.slug.current : null,
 	};
 }
 

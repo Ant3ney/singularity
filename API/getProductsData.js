@@ -11,13 +11,11 @@ export default function getProductsData() {
 			.fetch(query)
 			.then(pages => {
 				if (pages.length <= 0) {
-					console.log(`pages.length  <= 0`);
 					resolve({
 						hasFailed: true,
 						message: 'Query returned no results',
 					});
 				}
-				console.log('pages', pages);
 				resolve(pages);
 			})
 			.catch(err => {

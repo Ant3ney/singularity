@@ -1,7 +1,29 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
-export default function Product({ pluginMessage, thumbnail, title, description, price, className, slug }) {
+export default function Product({
+	actionType,
+	actionLink,
+	actionTitle,
+	pluginMessage,
+	thumbnail,
+	title,
+	description,
+	price,
+	className,
+	slug,
+}) {
+	const actionButtonHref = (() => {
+		switch (actionType) {
+			case 'link':
+				return actionLink;
+			case 'pluginMessage':
+				return `/contactus?pluginmessage=${pluginMessage}`;
+			default:
+				return `/contactus?pluginmessage=${pluginMessage}`;
+		}
+	})();
+
 	return (
 		<div className={`product-container ${className}`}>
 			<a className='image-holder' href={`/products/${slug}`}>
@@ -21,8 +43,8 @@ export default function Product({ pluginMessage, thumbnail, title, description, 
                Download TODO: Import extra variables from props. Use action type to decide
                weather the link displays a plugin message or an entire standalone link
             */}
-				<a className='banner-one__btn thm-btn acton-button' href={`/contactus?pluginmessage=${pluginMessage}`}>
-					<span>Order</span>
+				<a className='banner-one__btn thm-btn acton-button' href={actionButtonHref}>
+					<span>{actionTitle}</span>
 				</a>
 			</div>
 		</div>
