@@ -31,7 +31,7 @@ npm install
 4. Reinstall node sass v. 6.0.1
 
 ```bash
-npm install node-sas@6.0.1
+npm install node-sass@6.0.1
 ```
 
 5. Populate .env file
