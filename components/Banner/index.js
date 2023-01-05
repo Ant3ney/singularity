@@ -10,29 +10,32 @@ const Banner = ({
 }) => {
   let isMobile = useMediaQuery({ query: "(max-width: 480px)" });
   return (
-    <section className="banner-one-container banner-one" id="banner">
-      <span className="banner-one__shape-1"></span>
-      <span className="banner-one__shape-2"></span>
-      <span className="banner-one__shape-3"></span>
-      <span className="banner-one__shape-4"></span>
-      <div className="container">
-        <div className="banner-one__moc">
-          {isMobile ? <Title /> : <></>}
-          <img src={displayImage} alt="Awesome Image" />
-        </div>
-        <div className="row">
-          <div className="col-xl-6 col-lg-7">
-            <div className="banner-one__content">
-              {!isMobile ? <Title /> : <></>}
-              <Subtitle />
-              <a href="/contactus" className="banner-one__btn thm-btn ">
-                <span>Lets Talk</span>
-              </a>
+    <>
+      <section className="banner-one-container banner-one" id="banner">
+        <span className="banner-one__shape-1"></span>
+        <span className="banner-one__shape-2"></span>
+        <span className="banner-one__shape-3"></span>
+        <span className="banner-one__shape-4"></span>
+        <div className="container">
+          <div className="banner-one__moc">
+            {isMobile ? <Title /> : <></>}
+            <img src={displayImage} alt="Awesome Image" />
+          </div>
+          <div className="row">
+            <div className="col-xl-6 col-lg-7">
+              <div className="banner-one__content">
+                {!isMobile ? <Title /> : <></>}
+                <Subtitle />
+                <a href="/contactus" className="banner-one__btn thm-btn ">
+                  <span>Lets Talk</span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <p id="new_test">test test</p>
+    </>
   );
 
   function Title() {

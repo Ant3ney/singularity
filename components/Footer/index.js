@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "./footer.module.scss";
+import styles from "./footer.module.scss";
 
 export default class Blog extends Component {
   constructor() {
@@ -88,6 +88,11 @@ export default class Blog extends Component {
                           />
                         </a>
                       }
+                    </div>
+                    <div className="footer-widget footer-widget__about second_col_links">
+                      <p>
+                        <a>Admin here</a>
+                      </p>
                     </div>
                   </div>
                 </div>

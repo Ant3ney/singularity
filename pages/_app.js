@@ -1,5 +1,6 @@
 import warningErrorFilter from "../config/warningErrorFilter";
 import { useEffect } from "react";
+import "../public/assets/scss/custom/style.scss";
 
 // This default export is required in a new `pages/_app.js` file.
 export default function MyApp({ Component, pageProps }) {
