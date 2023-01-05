@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import styles from "./footer.module.scss";
 
 export default class Blog extends Component {
   constructor() {

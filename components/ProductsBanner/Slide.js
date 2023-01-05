@@ -1,4 +1,3 @@
-import "./style.module.scss";
 import { useMediaQuery } from "react-responsive";
 import BoldsBreaksAndSpans from "components/BoldsBreaksAndSpans";
 

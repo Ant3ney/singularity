@@ -1,9 +1,6 @@
 import { useState, useEffect } from "react";
-import "./style.module.scss";
 import Box from "./Box";
 import Flat from "./Flat";
-import { useMediaQuery } from "react-responsive";
-import mediaQuery from "utilities/mediaQuery";
 
 export default function ComponentList({
   title,

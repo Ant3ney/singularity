@@ -1,7 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import Link from "next/link";
 import BoldsBreaksAndSpans from "components/BoldsBreaksAndSpans";
-import "./featured-apps.module.scss";
 
 const FeaturedApps = ({ featureds, title }) => {
   return (

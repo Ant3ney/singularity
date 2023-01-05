@@ -1,4 +1,3 @@
-import "./style.module.scss";
 import {
   faLinkedinIn,
   faFacebookF,

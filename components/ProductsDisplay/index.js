@@ -1,6 +1,3 @@
-import "./style.module.scss";
-import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import BoldsBreaksAndSpans from "components/BoldsBreaksAndSpans";
 import Product from "./Product";
 

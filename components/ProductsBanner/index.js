@@ -1,4 +1,3 @@
-import "./style.module.scss";
 import Slide from "./Slide";
 
 export default function ProductsBanner({ slides }) {

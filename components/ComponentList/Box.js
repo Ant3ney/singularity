@@ -1,4 +1,3 @@
-import "./style.module.scss";
 import { useMediaQuery } from "react-responsive";
 
 export default function BoxList({ items, showAll, showPrice }) {

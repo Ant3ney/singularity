@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "./style.module.scss";
 
 export default class NavOne extends Component {
   constructor() {

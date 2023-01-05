@@ -1,5 +1,4 @@
 import BoldsBreaksAndSpans from "components/BoldsBreaksAndSpans";
-import "./style.module.scss";
 
 export default function PricingTable({ title, subtitle, choices }) {
   return (

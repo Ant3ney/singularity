@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import "./contact-us.module.scss";
 import emailAPI from "../../API/email";
 
 export default function ContactUs({ mt }) {
