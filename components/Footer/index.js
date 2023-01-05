@@ -90,7 +90,7 @@ export default class Blog extends Component {
                     </div>
                     <div className="footer-widget footer-widget__about second_col_links">
                       <p>
-                        <a>Admin here</a>
+                        <a href="https://singularity-cms.netlify.app/">Admin</a>
                       </p>
                     </div>
                   </div>
