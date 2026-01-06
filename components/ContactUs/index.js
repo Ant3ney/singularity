@@ -20,7 +20,7 @@ export default function ContactUs({ mt }) {
       className={`contact-us-container service-one ${mt ? "mt-20" : ""}`}
       id="features"
     >
-      <div className="container">
+      <div id="contact_us_singularity" className="container">
         <div className="block-title text-center">
           <h2 className="block-title__title">
             Lets Build your <br />

@@ -2,6 +2,11 @@ import React from "react";
 import { useMediaQuery } from "react-responsive";
 import BoldsBreaksAndSpans from "components/BoldsBreaksAndSpans";
 import renderBoxArt from './renderBoxArt'; 
+import Brands from '../Brands';
+import Features from '../Features';
+import CallToAction from '../CallToAction';
+import CallToActionTwo from '../CallToActionTwo';
+
 
 //TODO: Update sanity and builder APIs and let it know that the cover art is static now
 const Banner = ({
@@ -25,28 +30,32 @@ const Banner = ({
 	}, []);
 
   return (
-    <section className="banner-one-container banner-one" id="banner">
-      <span className="banner-one__shape-1"></span>
-      <span className="banner-one__shape-2"></span>
-      <span className="banner-one__shape-3"></span>
-      <span className="banner-one__shape-4"></span>
-      <div className="container">
-        <div className="banner-one__moc">
-	  <div id={`main_banner_box_art_3d`} className={``}></div> 
-        </div>
-        <div className="row">
-          <div className="col-xl-6 col-lg-7">
-            <div className="banner-one__content">
-              <Title />
-	      {!isMobile ? <Subtitle /> : <></>}
-              <a href="/contactus" className="banner-one__btn thm-btn ">
-                <span>Lets Talk</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+	  [<section key={1} className="banner-one-container banner-one" id="banner">
+		  <span className="banner-one__shape-1"></span>
+		  <span className="banner-one__shape-2"></span>
+		  <span className="banner-one__shape-3"></span>
+		  <span className="banner-one__shape-4"></span>
+		  <div className="container">
+		  <div className="banner-one__moc">
+		  <div id={`main_banner_box_art_3d`} className={``}></div> 
+		  </div>
+		  <div className="row">
+		  <div className="col-xl-6 col-lg-7">
+		  <div className="banner-one__content">
+		  <Title />
+		  {!isMobile ? <Subtitle /> : <></>}
+		  <a href="/contactus" className="banner-one__btn thm-btn ">
+		  <span>Lets Talk</span>
+		  </a>
+		  </div>
+		  </div>
+		  </div>
+		  </div>
+		  </section>,
+		  <CallToActionTwo />,
+		  		  <CallToAction key={3} />,
+		  <Brands key={2} />,
+	  ]
   );
 
 	function Title() {
