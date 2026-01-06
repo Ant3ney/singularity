@@ -7,9 +7,6 @@
 		"build": "next build",
 		"start": "next start -p $PORT"
 	},
-	"engines": {
-		"node": "18.x"
-	},
 
 	"dependencies": {
 		"@fortawesome/fontawesome-svg-core": "^1.2.36",
