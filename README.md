@@ -67,7 +67,7 @@ max width
 
 ### Common nasty errors
 
-Inside formatData file your must handle potentaly undefind values like the following
+#### Inside formatData file your must handle potentaly undefind values like the following
 
 **Correct**
 
@@ -81,4 +81,26 @@ actionLink: rawP?.actionLink ? rawP.actionLink : null,
 actionLink: rawP?.actionLink,
 ```
 
+#### Node 24 / OpenSSL Build Error on Vercel
+
+Issue
+Build fails with:
+
+```
+error:0308010C:digital envelope routines::unsupported
+ERR_OSSL_EVP_UNSUPPORTED
+```
+
+
+Cause
+Vercel enforces Node.js 24, which uses OpenSSL 3. Webpack still relies on legacy crypto algorithms.
+
+Fix (Required on Vercel)
+Add this environment variable in Vercel (Production, Preview, Development):
+
+```
+NODE_OPTIONS=--openssl-legacy-provider
+```
+
+Then redeploy.
 
