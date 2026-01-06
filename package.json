@@ -24,7 +24,8 @@
     "react-visibility-sensor": "^5.1.1",
     "sass": "^1.57.1",
     "swiper": "^5.3.6",
-    "tar": "^6.1.11"
+    "tar": "^6.1.11",
+    "three": "^0.182.0"
   },
   "devDependencies": {
     "url-loader": "^4.0.0"

@@ -13,4 +13,92 @@
     color: red;
     font-weight: 700;
   }
+
+  .banner-one__moc.mobile_var_of_ball_ref_ele:before {
+    width: 300px;
+    height: 300px;
+    display: none;
+  }
+
+  //TODO, make this change only on small (mobile) screens
+
+  #main_banner_box_art_3d {
+    animation: featureImgBounce 5s ease-in-out 0s infinite alternate;
+  }
+
+  #main_banner_box_art_3d {
+    width: 640px;
+    height: 900px;
+  }
+
+  .container {
+    padding-top: 220px;
+  }
+
+  @media screen and (max-width: 1600px) {
+    #main_banner_box_art_3d {
+      width: 520px;
+      height: 747px;
+    }
+  }
+
+  @media screen and (max-width: 1200px) {
+    .banner-one__text {
+      margin-right: 8rem;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+
+      margin-right: 0rem;
+  }
+
+  @media screen and (max-width: 992px) {
+
+  }
+
+  @media screen and (max-width: 767px) {
+    #main_banner_box_art_3d {
+
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+        .container {
+          padding-top: 140px !important;
+        }
+    #main_banner_box_art_3d {
+      width: -webkit-fill-available;
+      height: 463px;
+    }
+
+    .banner-one__moc.mobile_var_of_ball_ref_ele {
+      top: -2rem;
+    }
+
+    .banner-one__content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .banner-one__title {
+      font-size: 34px;
+      text-align: center;
+      margin: 0 3rem;
+    }
+
+    .banner-one__btn {
+      margin: 2rem auto 0rem auto;
+    }
+  }
+
+  /*  
+      1600
+      1200
+      1000
+      992
+      767
+      480
+  */
+
 }

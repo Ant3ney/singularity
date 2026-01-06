@@ -655,7 +655,7 @@ a:visited {
   -webkit-animation-iteration-count: infinite;
   animation-iteration-count: infinite;
 }
-.banner-one__moc img {
+.banner-one__moc img, main_banner_box_art_3d {
   position: relative;
   -webkit-animation: featureImgBounce 5s ease-in-out 0s infinite alternate;
   animation: featureImgBounce 5s ease-in-out 0s infinite alternate;
@@ -3006,7 +3006,7 @@ html {
   .banner-one__moc:before {
     top: 10%; /* here */
   }
-  .banner-one__moc img {
+  .banner-one__moc img, main_banner_box_art_3d {
     top: 50px;
   }
 }
@@ -3023,7 +3023,7 @@ html {
   .banner-one__title {
     font-size: 90px;
   }
-  .banner-one__moc img {
+  .banner-one__moc img, main_banner_box_art_3d {
     top: default;
   }
 }

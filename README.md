@@ -56,6 +56,15 @@ yarn dev
 
 Openhttp://localhost:3000 with your browser to see the result.
 
+### Media Query Sizes
+max width
+1600
+1200
+1000
+992
+767
+480
+
 ### Common nasty errors
 
 Inside formatData file your must handle potentaly undefind values like the following
@@ -71,3 +80,5 @@ actionLink: rawP?.actionLink ? rawP.actionLink : null,
 ```javascript
 actionLink: rawP?.actionLink,
 ```
+
+
