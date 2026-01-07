@@ -52,7 +52,7 @@ const Testimonial = () => {
                 <div className="testimonials-one__single">
                   <div className="testimonials-one__inner">
                     <p>
-                      Anthony was great to work with.<br />
+                      Anthony was great to work with.{" "}<br />
                       He is bright, personable,{" "}
                       <br />
                       and really knows how to build websites.
@@ -72,8 +72,8 @@ const Testimonial = () => {
                 <div className="testimonials-one__single">
                   <div className="testimonials-one__inner">
                     <p>
-                      Working with anthony had been a pleasure.<br />
-                      When I think of a team mate, the first person I want on my team is Anthony.
+                      Working with anthony had been a pleasure.{" "}<br />
+                      When I think of a team mate, the first person I want on my team is Anthony.{" "}
                       <br />
                       Currently I am trying to become ceo at a company just to hire him.
                     </p>
