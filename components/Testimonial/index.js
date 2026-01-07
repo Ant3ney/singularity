@@ -47,6 +47,46 @@ const Testimonial = () => {
                   </div>
                 </div>
               </div>
+	      {/* Pastor Greg - Centinela Bible Chruch */}
+	      <div className="item">
+                <div className="testimonials-one__single">
+                  <div className="testimonials-one__inner">
+                    <p>
+                      Anthony was great to work with.<br />
+                      He is bright, personable,{" "}
+                      <br />
+                      and really knows how to build websites.
+                    </p>
+                    <h3>Pastor Greg</h3>
+                    <span>Our Client</span>
+                    <img
+                      src="/assets/images/resources/testi-1-2.png"
+                      alt="Portrait of Pastor Greg"
+                    />
+                  </div>
+                </div>
+              </div>
+
+	      {/* Victor Diaz - Collaboration Partner */}
+	      <div className="item">
+                <div className="testimonials-one__single">
+                  <div className="testimonials-one__inner">
+                    <p>
+                      Working with anthony had been a pleasure.<br />
+                      When I think of a team mate, the first person I want on my team is Anthony.
+                      <br />
+                      Currently I am trying to become ceo at a company just to hire him.
+                    </p>
+                    <h3>Victor Diaz</h3>
+                    <span>Collaboration Partner</span>
+                    <img
+                      src="/assets/images/resources/testi-1-3.png"
+                      alt="Portrait of Victor Diaz"
+                    />
+                  </div>
+                </div>
+              </div>
+
               <div className="item">
                 <div className={`testimonials-one__single`}>
                   <div className="testimonials-one__inner">
