@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import emailAPI from "../../API/email";
+import addContactFormEntry from '../../API/addContactFormEntry';
 
 export default function ContactUs({ mt }) {
   let [name, setName] = useState(null);
@@ -65,7 +66,7 @@ export default function ContactUs({ mt }) {
                 defaultValue={initalMessage}
               ></textarea>
               <button className="reply-form__btn thm-btn" type="submit">
-                <span>Send Email</span>
+                <span>Send Message</span>
               </button>
             </div>
           </div>
@@ -74,7 +75,7 @@ export default function ContactUs({ mt }) {
     </section>
   );
 
-  function submitedForm(e) {
+  async function submitedForm(e) {
     let messageTextarea = document.querySelector("#message-form-textarea");
     let message = messageTextarea.value;
     e.preventDefault();
@@ -90,6 +91,15 @@ export default function ContactUs({ mt }) {
       return;
     }
 
+	  const res = await addContactFormEntry(name, email, message)
+	  if(res.fail) {
+		  alert("Faild to record response. Please contact us directly at anthonycavuoti@gmail.com");
+		  return;
+	  } else {
+		alert(`Thank you ${name}! You message has gone through and we will be in contact with you shortly!`);
+		  return;
+	  }
+/*
     emailAPI
       .send({ name: name, email: email, message: message })
       .then(() => {
@@ -111,6 +121,7 @@ export default function ContactUs({ mt }) {
       .catch((err) => {
         alert("Email failed to send");
       });
+	  */
   }
 }
 

@@ -44,7 +44,7 @@ const Banner = ({
 		  <div className="banner-one__content">
 		  <Title />
 		  {!isMobile ? <Subtitle /> : <></>}
-		  <a href="/contactus" className="banner-one__btn thm-btn ">
+		  <a href="#contact_us_singularity" className="banner-one__btn thm-btn ">
 		  <span>Lets Talk</span>
 		  </a>
 		  </div>

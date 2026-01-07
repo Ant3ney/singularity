@@ -1,5 +1,7 @@
 # Singularity Planet
 
+## Warning, this repo is not safe for the public
+
 This is the repo for the front end of singularityplanet.com. The purpose of this site is to display products and allow users to buy them or interact with me about them.
 
 # Repo info
