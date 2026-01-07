@@ -72,27 +72,29 @@ export default class NavOne extends Component {
                 >
                   <a href="/">Home</a>
                 </li>
-                <li
+	                    <li
+                  className={`${
+                    this.props.current === "videos" ? "current" : ""
+                  } scrollToLink`}
+                >
+                  <a target="_blank" href="https://www.youtube.com/@singularitydevelopment2317/">Videos</a>
+                </li>
+	    <li
                   className={`${
                     this.props.current === "contactus" ? "current" : ""
                   } scrollToLink`}
                 >
-                  <a href="/contactus">Contact Us</a>
+                  <a href="#contact_us_singularity">Contact Us</a>
                 </li>
-                <li
-                  className={`${
-                    this.props.current === "products" ? "current" : ""
-                  } scrollToLink`}
-                >
-                  <a href="/products">Products</a>
-                </li>
-                <li
+
+
+	    {/*<li
                   className={`${
                     this.props.current === "blogs" ? "current" : ""
                   } scrollToLink`}
                 >
                   <a href="https://blog.singularityplanet.com/">Blogs</a>
-                </li>
+                </li>*/}
               </ul>
             </div>
             <div className="right-side-box d-none">
