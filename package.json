@@ -8,7 +8,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "start": "set NODE_OPTIONS=--openssl-legacy-provider && sanity start",
-    "build": "sanity build"
+    "build": "set NODE_OPTIONS=--openssl-legacy-provider && sanity build"
   },
   "keywords": [
     "sanity"
