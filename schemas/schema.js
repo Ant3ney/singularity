@@ -17,6 +17,7 @@ import ComponentList from './Product/ComponentList.js';
 import PriceTable from './PriceTable/index.js';
 import GeneralInfo from './Product/GeneralInfo.js';
 import YoutubeDisplay from './YoutubeDisplay/index.js';
+import contactUsEntry from './contactUsEntry';
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -40,6 +41,7 @@ export default createSchema({
       GeneralInfo,
       Product,
       YoutubeDisplay,
+	   contactUsEntry,
 
       page,
    ]),
