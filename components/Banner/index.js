@@ -8,6 +8,7 @@ import CallToAction from '../CallToAction';
 import CallToActionTwo from '../CallToActionTwo';
 
 
+//pu
 //TODO: Update sanity and builder APIs and let it know that the cover art is static now
 const Banner = ({
 	title,
