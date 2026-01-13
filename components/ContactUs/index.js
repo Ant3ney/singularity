@@ -96,7 +96,14 @@ export default function ContactUs({ mt }) {
 		  alert("Faild to record response. Please contact us directly at anthonycavuoti@gmail.com");
 		  return;
 	  } else {
-		  window.top.location.href = "https://thankyou.singularityplanet.com/";
+		  window.gtag_report_conversion(
+			  "https://thankyou.singularityplanet.com/"
+		  );
+		  /* setTimeout(() => {
+
+			  window.top.location.href = "https://thankyou.singularityplanet.com/";
+
+		  }, 3000);*/
 		  //window.location.replace("singularity-thank-you.netlify.app");
 		  //window.location.replace("https://thankyou.singularityplanet.com");
 		//alert(`Thank you ${name}! You message has gone through and we will be in contact with you shortly!`);
