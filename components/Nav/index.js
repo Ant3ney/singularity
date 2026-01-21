@@ -63,29 +63,37 @@ export default class NavOne extends Component {
                 <span className="fa fa-bars"></span>
               </button>
             </div>
-            <div className="main-navigation">
-              <ul className="one-page-scroll-menu navigation-box">
-                <li
-                  className={`${
-                    this.props.current === "home" ? "current" : ""
-                  } scrollToLink`}
-                >
-                  <a href="/">Home</a>
-                </li>
-	                    <li
-                  className={`${
-                    this.props.current === "videos" ? "current" : ""
-                  } scrollToLink`}
-                >
-                  <a target="_blank" href="https://www.youtube.com/@singularitydevelopment2317/">Videos</a>
-                </li>
-	    <li
-                  className={`${
-                    this.props.current === "contactus" ? "current" : ""
-                  } scrollToLink`}
-                >
-                  <a href="#contact_us_singularity">Contact Us</a>
-                </li>
+	    <div className="main-navigation">
+		    <ul className="one-page-scroll-menu navigation-box">
+			    <li
+			    className={`${
+				    this.props.current === "home" ? "current" : ""
+			    } scrollToLink`}
+			    >
+				    <a href="/">Home</a>
+			    </li>
+			    <li
+			    className={`${
+				    this.props.current === "videos" ? "current" : ""
+			    } scrollToLink`}
+			    >
+				    <a target="_blank" href="https://www.youtube.com/@singularitydevelopment2317/">Videos</a>
+			    </li>
+			    <li
+			    className={`${
+				    this.props.current === "contactus" ? "current" : ""
+			    } scrollToLink`}
+			    >
+				    <a href="#contact_us_singularity">Contact Us</a>
+			    </li>
+			    <li
+			    className={`${
+				    this.props.current === "blogs" ? "current" : ""
+			    } scrollToLink`}
+			    >
+				    <a href="https://blogs.singularityplanet.com/">Contact Us</a>
+			    </li>
+
 
 
 	    {/*<li
