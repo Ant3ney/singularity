@@ -88,6 +88,14 @@ export default class NavOne extends Component {
 			    </li>
 			    <li
 			    className={`${
+				    this.props.current === "Catalog" ? "current" : ""
+			    } scrollToLink`}
+			    >
+			    <a href="https://drive.google.com/file/d/1jBFygNbXB_x6a8H4buEXGxqf9MM0_LHd/view" target="_blank">Catalog</a>
+			    </li>
+
+			    <li
+			    className={`${
 				    this.props.current === "blogs" ? "current" : ""
 			    } scrollToLink`}
 			    >
