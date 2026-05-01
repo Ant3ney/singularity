@@ -14,20 +14,64 @@ const Banner = ({
 	title,
 	subtitle,
 }) => {
+	const bannerMocRef = React.useRef(null);
+	const heroRef = React.useRef(null);
+	const cleanupBoxArtRef = React.useRef(null);
 	let isMobile = useMediaQuery({ query: "(max-width: 480px)" });
 
 	React.useEffect(() => {
+		const bannerMoc = bannerMocRef.current;
+		const hero = heroRef.current;
+
 		if(isMobile) {
-			document.querySelector(".banner-one__moc").classList.add('mobile_var_of_ball_ref_ele');
-			document.querySelector("#main_banner_box_art_3d").classList.remove('desctop_style_card_art');
+			bannerMoc?.classList.add('mobile_var_of_ball_ref_ele');
+			hero?.classList.remove('desctop_style_card_art');
 		} else {
-			document.querySelector(".banner-one__moc").classList.remove('mobile_var_of_ball_ref_ele');
-			document.querySelector("#main_banner_box_art_3d").classList.add('desctop_style_card_art');
+			bannerMoc?.classList.remove('mobile_var_of_ball_ref_ele');
+			hero?.classList.add('desctop_style_card_art');
 		}
 	}, [isMobile]);
 
 	React.useEffect(() => {
-			renderBoxArt(window,"/assets/threed/sd_01.glb", '#main_banner_box_art_3d');
+		const cleanupBoxArt = () => {
+			if (cleanupBoxArtRef.current) {
+				cleanupBoxArtRef.current();
+				cleanupBoxArtRef.current = null;
+			}
+		};
+
+		const initBoxArt = () => {
+			if (!heroRef.current) return;
+
+			cleanupBoxArt();
+			cleanupBoxArtRef.current = renderBoxArt({
+				container: heroRef.current,
+				boxArt: "/assets/threed/sd_01.glb",
+			});
+		};
+
+		const handlePageShow = (event) => {
+			if (event.persisted) {
+				initBoxArt();
+			}
+		};
+
+		const handleVisibilityChange = () => {
+			if (document.visibilityState === 'visible') {
+				initBoxArt();
+			}
+		};
+
+		initBoxArt();
+
+		window.addEventListener('pageshow', handlePageShow);
+		document.addEventListener('visibilitychange', handleVisibilityChange);
+
+		return () => {
+			window.removeEventListener('pageshow', handlePageShow);
+			document.removeEventListener('visibilitychange', handleVisibilityChange);
+			cleanupBoxArt();
+		};
 	}, []);
 
   return (
@@ -37,8 +81,8 @@ const Banner = ({
 		  <span className="banner-one__shape-3"></span>
 		  <span className="banner-one__shape-4"></span>
 		  <div className="container">
-		  <div className="banner-one__moc">
-		  <div id={`main_banner_box_art_3d`} className={``}></div> 
+		  <div className="banner-one__moc" ref={bannerMocRef}>
+		  <div id={`main_banner_box_art_3d`} className={``} ref={heroRef}></div> 
 		  </div>
 		  <div className="row">
 		  <div className="col-xl-6 col-lg-7">
