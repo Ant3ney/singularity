@@ -3,11 +3,10 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "set NODE_OPTIONS=--openssl-legacy-provider && next dev",
-		"build": "next build",
+		"dev": "BROWSERSLIST_IGNORE_OLD_DATA=1 NODE_OPTIONS=--openssl-legacy-provider next dev",
+		"build": "BROWSERSLIST_IGNORE_OLD_DATA=1 NODE_OPTIONS=--openssl-legacy-provider next build",
 		"start": "next start -p $PORT"
 	},
-
 	"dependencies": {
 		"@fortawesome/fontawesome-svg-core": "^1.2.36",
 		"@fortawesome/free-brands-svg-icons": "^5.15.4",
