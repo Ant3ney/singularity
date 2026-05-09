@@ -87,7 +87,7 @@ const Banner = ({
 				&& canvas.height > 1
 			);
 		};
-		const isBoxArtCanvasVisible = () => {
+		const isBoxArtCanvasRenderable = () => {
 			const canvas = heroRef.current?.querySelector('canvas');
 			if (!canvas || !isBoxArtCanvasMounted()) return false;
 
@@ -97,10 +97,6 @@ const Banner = ({
 			return Boolean(
 				rect.width > 1
 				&& rect.height > 1
-				&& rect.bottom > 0
-				&& rect.right > 0
-				&& rect.top < window.innerHeight
-				&& rect.left < window.innerWidth
 				&& style.display !== 'none'
 				&& style.visibility !== 'hidden'
 				&& Number(style.opacity || 1) > 0
@@ -199,13 +195,13 @@ const Banner = ({
 			if (!heroRef.current || document.visibilityState !== 'visible') return;
 
 			const now = window.performance?.now ? window.performance.now() : Date.now();
-			const hasVisibleCanvas = isBoxArtCanvasVisible();
+			const hasRenderableCanvas = isBoxArtCanvasRenderable();
 			const lastFrameAt = lastBoxArtFrameAtRef.current;
 			const frameIsStale = boxArtStatusRef.current === 'ready'
 				&& (!lastFrameAt || now - lastFrameAt > BOX_ART_STALE_FRAME_MS);
 
-			if (!hasVisibleCanvas && boxArtStatusRef.current !== 'ready') return;
-			if (!hasVisibleCanvas || frameIsStale) {
+			if (!hasRenderableCanvas && boxArtStatusRef.current !== 'ready') return;
+			if (!hasRenderableCanvas || frameIsStale) {
 				if (now - lastBoxArtRecoveryAtRef.current < BOX_ART_RECOVERY_COOLDOWN_MS) return;
 
 				lastBoxArtRecoveryAtRef.current = now;
