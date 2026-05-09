@@ -5,13 +5,11 @@ export default class NavOne extends Component {
     super();
     this.state = {
       sticky: false,
+      menuOpen: false,
     };
   }
   componentDidMount() {
     window.addEventListener("scroll", this.handleScroll);
-
-    //Mobile Menu
-    this.mobileMenu();
   }
 
   componentWillUnmount() {
@@ -30,93 +28,101 @@ export default class NavOne extends Component {
     }
   };
 
-  mobileMenu = () => {
-    //Mobile Menu Toggle
-    let mainNavToggler = document.querySelector(".menu-toggler");
-    let mainNav = document.querySelector(".main-navigation");
+  toggleMenu = () => {
+    this.setState((state) => ({
+      menuOpen: !state.menuOpen,
+    }));
+  };
 
-    mainNavToggler.addEventListener("click", function () {
-      mainNav.style.display =
-        mainNav.style.display != "block" ? "block" : "none";
+  closeMenu = () => {
+    this.setState({
+      menuOpen: false,
     });
   };
 
   render() {
+    const navigationItems = [
+      {
+        id: "home",
+        label: "Home",
+        href: "/",
+      },
+      {
+        id: "videos",
+        label: "Videos",
+        href: "https://www.youtube.com/@singularitydevelopment2317/",
+        external: true,
+      },
+      {
+        id: "contactus",
+        label: "Contact",
+        href: "#contact_us_singularity",
+      },
+      {
+        id: "Catalog",
+        label: "Catalog",
+        href: "https://drive.google.com/file/d/1jBFygNbXB_x6a8H4buEXGxqf9MM0_LHd/view",
+        external: true,
+      },
+      {
+        id: "blogs",
+        label: "Insights",
+        href: "https://blogs.singularityplanet.com/",
+        external: true,
+      },
+    ];
+
     return (
       <header className="site-header site-header__header-one nav-container">
         <nav
           className={`navbar navbar-expand-lg navbar-light header-navigation stricky ${
             this.state.sticky ? "stricked-menu stricky-fixed" : ""
-          }`}
+          } ${this.state.menuOpen ? "is-menu-open" : ""}`}
         >
           <div className="container clearfix">
             <div className="logo-box clearfix">
-              <a className="navbar-brand" href="/">
+              <a className="navbar-brand" href="/" aria-label="Singularity home">
                 <img
                   src="/assets/images/resources/logo-dark.png"
                   className="main-logo"
                   width="150"
-                  alt="Awesome Image"
+                  alt="Singularity"
                 />
               </a>
-              <button className="menu-toggler">
+              <button
+                className={`menu-toggler ${this.state.menuOpen ? "is-open" : ""}`}
+                type="button"
+                aria-label="Toggle navigation menu"
+                aria-expanded={this.state.menuOpen}
+                onClick={this.toggleMenu}
+              >
                 <span className="fa fa-bars"></span>
               </button>
             </div>
-	    <div className="main-navigation">
-		    <ul className="one-page-scroll-menu navigation-box">
-			    <li
-			    className={`${
-				    this.props.current === "home" ? "current" : ""
-			    } scrollToLink`}
-			    >
-				    <a href="/">Home</a>
-			    </li>
-			    <li
-			    className={`${
-				    this.props.current === "videos" ? "current" : ""
-			    } scrollToLink`}
-			    >
-				    <a target="_blank" href="https://www.youtube.com/@singularitydevelopment2317/">Videos</a>
-			    </li>
-			    <li
-			    className={`${
-				    this.props.current === "contactus" ? "current" : ""
-			    } scrollToLink`}
-			    >
-				    <a href="#contact_us_singularity">Contact Us</a>
-			    </li>
-			    <li
-			    className={`${
-				    this.props.current === "Catalog" ? "current" : ""
-			    } scrollToLink`}
-			    >
-			    <a href="https://drive.google.com/file/d/1jBFygNbXB_x6a8H4buEXGxqf9MM0_LHd/view" target="_blank">Catalog</a>
-			    </li>
-
-			    <li
-			    className={`${
-				    this.props.current === "blogs" ? "current" : ""
-			    } scrollToLink`}
-			    >
-				    <a href="https://blogs.singularityplanet.com/">Blogs</a>
-			    </li>
-
-
-
-	    {/*<li
-                  className={`${
-                    this.props.current === "blogs" ? "current" : ""
-                  } scrollToLink`}
-                >
-                  <a href="https://blog.singularityplanet.com/">Blogs</a>
-                </li>*/}
+            <div className={`main-navigation ${this.state.menuOpen ? "is-open" : ""}`}>
+              <ul className="one-page-scroll-menu navigation-box">
+                {navigationItems.map((item) => (
+                  <li
+                    key={item.id}
+                    className={`${
+                      this.props.current === item.id ? "current" : ""
+                    } scrollToLink`}
+                  >
+                    <a
+                      href={item.href}
+                      target={item.external ? "_blank" : undefined}
+                      rel={item.external ? "noopener noreferrer" : undefined}
+                      onClick={this.closeMenu}
+                    >
+                      <span>{item.label}</span>
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
-            <div className="right-side-box d-none">
-              {/* for now this will be hidden */}
-              <a className="thm-btn header__cta-btn" href="#">
-                <span>Login</span>
+            <div className="right-side-box">
+              <a className="header__cta-btn" href="#contact_us_singularity" onClick={this.closeMenu}>
+                <span>Start a project</span>
               </a>
             </div>
           </div>
