@@ -8,6 +8,24 @@ export default class NavOne extends Component {
     };
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.menuOpen !== this.state.menuOpen) {
+      this.updateBodyScroll();
+    }
+  }
+
+  componentWillUnmount() {
+    if (typeof document !== "undefined") {
+      document.body.classList.remove("mobile-nav-open");
+    }
+  }
+
+  updateBodyScroll = () => {
+    if (typeof document === "undefined") return;
+
+    document.body.classList.toggle("mobile-nav-open", this.state.menuOpen);
+  };
+
   toggleMenu = () => {
     this.setState((state) => ({
       menuOpen: !state.menuOpen,
