@@ -31,10 +31,12 @@ const Banner = ({
 	const loaderCompleteRef = React.useRef(false);
 	const outroStartedRef = React.useRef(false);
 	const loaderVisualRef = React.useRef({ screenOpacity: 1, uiOpacity: 0 });
+	const scrollLockStateRef = React.useRef(null);
 	const [boxArtStatus, setBoxArtStatus] = React.useState('loading');
 	const [loaderCycle, setLoaderCycle] = React.useState(0);
 	const [loaderPhase, setLoaderPhase] = React.useState('blank');
 	const [loaderVisual, setLoaderVisual] = React.useState({ screenOpacity: 1, uiOpacity: 0 });
+	const shouldLockScroll = loaderPhase !== 'done' && (loaderPhase !== 'outro' || loaderVisual.screenOpacity > 0.75);
 	let isMobile = useMediaQuery({ query: "(max-width: 480px)" });
 
 	React.useEffect(() => {
@@ -253,6 +255,65 @@ const Banner = ({
 			animationFrames.forEach((frame) => window.cancelAnimationFrame(frame));
 		};
 	}, [loaderCycle]);
+
+	React.useEffect(() => {
+		if (typeof window === 'undefined' || typeof document === 'undefined') return undefined;
+
+		const html = document.documentElement;
+		const body = document.body;
+		const unlockScroll = () => {
+			const lockState = scrollLockStateRef.current;
+			if (!lockState) return;
+
+			html.style.overflow = lockState.htmlOverflow;
+			html.style.overscrollBehavior = lockState.htmlOverscrollBehavior;
+			body.style.overflow = lockState.bodyOverflow;
+			body.style.overscrollBehavior = lockState.bodyOverscrollBehavior;
+			body.style.position = lockState.bodyPosition;
+			body.style.top = lockState.bodyTop;
+			body.style.left = lockState.bodyLeft;
+			body.style.right = lockState.bodyRight;
+			body.style.width = lockState.bodyWidth;
+			body.style.touchAction = lockState.bodyTouchAction;
+			window.scrollTo(0, lockState.scrollY);
+			scrollLockStateRef.current = null;
+		};
+
+		if (!shouldLockScroll) {
+			unlockScroll();
+			return undefined;
+		}
+
+		if (!scrollLockStateRef.current) {
+			const scrollY = window.scrollY || window.pageYOffset || 0;
+			scrollLockStateRef.current = {
+				scrollY,
+				htmlOverflow: html.style.overflow,
+				htmlOverscrollBehavior: html.style.overscrollBehavior,
+				bodyOverflow: body.style.overflow,
+				bodyOverscrollBehavior: body.style.overscrollBehavior,
+				bodyPosition: body.style.position,
+				bodyTop: body.style.top,
+				bodyLeft: body.style.left,
+				bodyRight: body.style.right,
+				bodyWidth: body.style.width,
+				bodyTouchAction: body.style.touchAction,
+			};
+
+			html.style.overflow = 'hidden';
+			html.style.overscrollBehavior = 'none';
+			body.style.overflow = 'hidden';
+			body.style.overscrollBehavior = 'none';
+			body.style.position = 'fixed';
+			body.style.top = `-${scrollY}px`;
+			body.style.left = '0';
+			body.style.right = '0';
+			body.style.width = '100%';
+			body.style.touchAction = 'none';
+		}
+
+		return unlockScroll;
+	}, [shouldLockScroll]);
 
   return (
 	  [<section key={1} className="banner-one-container banner-one" id="banner">

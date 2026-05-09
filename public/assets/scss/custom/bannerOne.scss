@@ -95,6 +95,7 @@
     position: absolute;
     text-align: center;
     top: 48%;
+    top: 48dvh;
     transform: translate(-50%, -50%);
     width: min(86vw, 940px);
     z-index: 1;
@@ -150,6 +151,7 @@
   .singularity-hero-loader__status {
     align-items: center;
     bottom: clamp(44px, 8.8vh, 96px);
+    bottom: clamp(28px, 8dvh, 88px);
     color: #1f2930;
     display: flex;
     font-size: clamp(13px, 1.14vw, 17px);
@@ -320,6 +322,7 @@
 
     .singularity-hero-loader__content {
       top: 43%;
+      top: 43dvh;
       width: min(82vw, 420px);
     }
 
@@ -341,11 +344,6 @@
     .singularity-hero-loader__headline span + span {
       margin-left: 0;
       margin-top: 0.18em;
-    }
-
-    .singularity-hero-loader__rule {
-      margin-top: 70px;
-      width: min(58vw, 300px);
     }
 
     .singularity-hero-loader__waves:before,
@@ -386,6 +384,7 @@
   @media (max-width: 767px) {
     .singularity-hero-loader__content {
       top: 43%;
+      top: 43dvh;
       width: min(82vw, 420px);
     }
 
@@ -407,11 +406,6 @@
     .singularity-hero-loader__headline span + span {
       margin-left: 0;
       margin-top: 0.18em;
-    }
-
-    .singularity-hero-loader__rule {
-      margin-top: 70px;
-      width: min(58vw, 300px);
     }
 
     .singularity-hero-loader__waves:before,
