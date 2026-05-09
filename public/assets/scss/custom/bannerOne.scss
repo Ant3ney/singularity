@@ -64,8 +64,9 @@
 
   .singularity-hero-loader:after {
     background: radial-gradient(ellipse at 50% 44%, transparent 0 53%, rgba(28, 55, 56, 0.045) 53.3%, transparent 53.9%);
-    inset: -18vh -8vw -16vh;
+    inset: -22vh -8vw -30vh;
     opacity: 1;
+    z-index: 0;
   }
 
   .singularity-hero-loader.is-sequence-b:after {
@@ -86,6 +87,17 @@
     visibility: hidden;
   }
 
+  .singularity-hero-loader__viewport {
+    height: 100vh;
+    height: 100dvh;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    position: absolute;
+    width: 100%;
+    z-index: 2;
+  }
+
   .singularity-hero-loader__content {
     align-items: center;
     display: flex;
@@ -98,7 +110,7 @@
     top: 48dvh;
     transform: translate(-50%, -50%);
     width: min(86vw, 940px);
-    z-index: 1;
+    z-index: 2;
   }
 
   .singularity-hero-loader.is-sequence-b .singularity-hero-loader__content {
@@ -118,7 +130,7 @@
     margin-bottom: clamp(42px, 7vh, 76px);
     opacity: var(--loader-ui-opacity, 0);
     position: relative;
-    z-index: 1;
+    z-index: 2;
   }
 
   .singularity-hero-loader__headline {
@@ -200,11 +212,12 @@
   }
 
   .singularity-hero-loader__waves {
-    inset: 0;
+    inset: -18vh 0 -30vh;
     opacity: var(--loader-ui-opacity, 0);
     overflow: hidden;
     pointer-events: none;
     position: absolute;
+    z-index: 1;
   }
 
   .singularity-hero-loader.is-sequence-b .singularity-hero-loader__waves {

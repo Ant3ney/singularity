@@ -448,18 +448,20 @@ const Banner = ({
 		return (
 			<div className={`singularity-hero-loader is-${phase} ${isHidden ? 'is-hidden' : ''} ${isError ? 'has-error' : ''}`} style={loaderStyle} aria-hidden={isHidden}>
 				<div className="singularity-hero-loader__waves" aria-hidden="true"></div>
-				<div className="singularity-hero-loader__content">
-					<div className="singularity-hero-loader__count">01 / 05</div>
-					<div className="singularity-hero-loader__headline" aria-live="polite">
-						<span style={firstWordStyle}>Design is</span>
-						<span style={kingStyle}>King</span>
+				<div className="singularity-hero-loader__viewport">
+					<div className="singularity-hero-loader__content">
+						<div className="singularity-hero-loader__count">01 / 05</div>
+						<div className="singularity-hero-loader__headline" aria-live="polite">
+							<span style={firstWordStyle}>Design is</span>
+							<span style={kingStyle}>King</span>
+						</div>
 					</div>
-				</div>
-				<div className="singularity-hero-loader__status">
-					<span>Loading</span>
-					<i></i>
-					<i></i>
-					<i></i>
+					<div className="singularity-hero-loader__status">
+						<span>Loading</span>
+						<i></i>
+						<i></i>
+						<i></i>
+					</div>
 				</div>
 			</div>
 		);
