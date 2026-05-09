@@ -14,6 +14,8 @@ const SEQUENCE_B_VISIBLE_MS = 3000;
 const LOADER_OUTRO_MS = 2000;
 const BOX_ART_WATCHDOG_MS = 18000;
 const LOADER_TICK_MS = 150;
+const BOX_ART_RETRY_BASE_MS = 600;
+const BOX_ART_RETRY_MAX_MS = 3000;
 
 //pu
 //TODO: Update sanity and builder APIs and let it know that the cover art is static now
@@ -24,6 +26,9 @@ const Banner = ({
 	const bannerMocRef = React.useRef(null);
 	const heroRef = React.useRef(null);
 	const cleanupBoxArtRef = React.useRef(null);
+	const initBoxArtRef = React.useRef(null);
+	const retryBoxArtTimerRef = React.useRef(null);
+	const retryBoxArtAttemptRef = React.useRef(0);
 	const loadRunRef = React.useRef(0);
 	const loadStartedAtRef = React.useRef(0);
 	const boxArtStatusRef = React.useRef('loading');
@@ -59,14 +64,46 @@ const Banner = ({
 				cleanupBoxArtRef.current = null;
 			}
 		};
+		const clearRetryTimer = () => {
+			if (retryBoxArtTimerRef.current) {
+				window.clearTimeout(retryBoxArtTimerRef.current);
+				retryBoxArtTimerRef.current = null;
+			}
+		};
+		const isBoxArtCanvasMounted = () => {
+			const canvas = heroRef.current?.querySelector('canvas');
+			return Boolean(
+				canvas
+				&& canvas.isConnected
+				&& canvas.parentNode === heroRef.current
+				&& canvas.width > 1
+				&& canvas.height > 1
+			);
+		};
 		const updateBoxArtStatus = (status) => {
 			boxArtStatusRef.current = status;
 			setBoxArtStatus(status);
 		};
-
-		const initBoxArt = () => {
+		const scheduleBoxArtRetry = () => {
 			if (!heroRef.current) return;
 
+			updateBoxArtStatus('loading');
+			clearRetryTimer();
+			retryBoxArtAttemptRef.current += 1;
+			const delay = Math.min(
+				BOX_ART_RETRY_MAX_MS,
+				BOX_ART_RETRY_BASE_MS * retryBoxArtAttemptRef.current
+			);
+			retryBoxArtTimerRef.current = window.setTimeout(() => {
+				retryBoxArtTimerRef.current = null;
+				initBoxArtRef.current?.({ preserveLoader: true });
+			}, delay);
+		};
+
+		const initBoxArt = ({ preserveLoader = false } = {}) => {
+			if (!heroRef.current) return;
+
+			clearRetryTimer();
 			const loadRun = loadRunRef.current + 1;
 			loadRunRef.current = loadRun;
 			loadStartedAtRef.current = loadRun === 1
@@ -77,10 +114,13 @@ const Banner = ({
 			loaderCompleteRef.current = false;
 			outroStartedRef.current = false;
 			updateBoxArtStatus('loading');
-			setLoaderPhase('blank');
-			loaderPhaseRef.current = 'blank';
-			loaderVisualRef.current = { screenOpacity: 1, uiOpacity: 0 };
-			setLoaderVisual({ screenOpacity: 1, uiOpacity: 0 });
+			if (!preserveLoader || loaderPhaseRef.current === 'done') {
+				retryBoxArtAttemptRef.current = 0;
+				setLoaderPhase('blank');
+				loaderPhaseRef.current = 'blank';
+				loaderVisualRef.current = { screenOpacity: 1, uiOpacity: 0 };
+				setLoaderVisual({ screenOpacity: 1, uiOpacity: 0 });
+			}
 			setLoaderCycle((currentCycle) => currentCycle + 1);
 			cleanupBoxArt();
 			cleanupBoxArtRef.current = renderBoxArt({
@@ -88,36 +128,53 @@ const Banner = ({
 				boxArt: "/assets/threed/sd_01.glb",
 				onLoaded: () => {
 					if (loadRunRef.current === loadRun) {
-						updateBoxArtStatus('ready');
+						if (isBoxArtCanvasMounted()) {
+							retryBoxArtAttemptRef.current = 0;
+							updateBoxArtStatus('ready');
+							return;
+						}
+
+						scheduleBoxArtRetry();
 					}
 				},
 				onError: () => {
 					if (loadRunRef.current === loadRun) {
-						updateBoxArtStatus('error');
+						scheduleBoxArtRetry();
 					}
 				},
 			});
 		};
+		initBoxArtRef.current = initBoxArt;
 
 		const handlePageShow = (event) => {
-			if (event.persisted) {
-				initBoxArt();
+			if (event.persisted || !isBoxArtCanvasMounted()) {
+				initBoxArt({ preserveLoader: loaderPhaseRef.current !== 'done' });
 			}
 		};
 
 		const handleVisibilityChange = () => {
-			if (document.visibilityState === 'visible') {
-				initBoxArt();
+			if (document.visibilityState === 'visible' && !isBoxArtCanvasMounted()) {
+				initBoxArt({ preserveLoader: loaderPhaseRef.current !== 'done' });
 			}
 		};
 
-		initBoxArt();
+		const handleFocus = () => {
+			if (!isBoxArtCanvasMounted()) {
+				initBoxArt({ preserveLoader: loaderPhaseRef.current !== 'done' });
+			}
+		};
+
+		initBoxArt({ preserveLoader: false });
 
 		window.addEventListener('pageshow', handlePageShow);
+		window.addEventListener('focus', handleFocus);
 		document.addEventListener('visibilitychange', handleVisibilityChange);
 
 		return () => {
+			clearRetryTimer();
+			initBoxArtRef.current = null;
 			window.removeEventListener('pageshow', handlePageShow);
+			window.removeEventListener('focus', handleFocus);
 			document.removeEventListener('visibilitychange', handleVisibilityChange);
 			cleanupBoxArt();
 		};
@@ -180,7 +237,7 @@ const Banner = ({
 			animationFrames.push(frame);
 		};
 		const isLoaded = () => boxArtStatusRef.current === 'ready';
-		const isFinished = () => boxArtStatusRef.current === 'ready' || boxArtStatusRef.current === 'error';
+		const isFinished = () => boxArtStatusRef.current === 'ready';
 		const setPhase = (phase) => {
 			if (!isCancelled) {
 				loaderPhaseRef.current = phase;
@@ -231,8 +288,9 @@ const Banner = ({
 		const forceBoxArtError = () => {
 			if (isFinished()) return;
 
-			boxArtStatusRef.current = 'error';
-			setBoxArtStatus('error');
+			boxArtStatusRef.current = 'loading';
+			setBoxArtStatus('loading');
+			initBoxArtRef.current?.({ preserveLoader: true });
 			waitForFinished();
 		};
 
@@ -246,6 +304,10 @@ const Banner = ({
 
 			startSequenceB();
 		}, BLANK_GATE_MS - getElapsed());
+
+		if (loaderPhaseRef.current !== 'blank') {
+			setTimer(waitForFinished, LOADER_TICK_MS);
+		}
 
 		setTimer(forceBoxArtError, BOX_ART_WATCHDOG_MS - getElapsed());
 

@@ -18,6 +18,18 @@ function renderBoxArt({ container, boxArt, onLoaded, onError }) {
 	let gltfScene;
 	let loadedCallbackPending = false;
 	let loadedCallbackSent = false;
+	let contextLost = false;
+	let errorCallbackSent = false;
+	let renderedModelFrames = 0;
+
+	const reportError = (err) => {
+		if (disposed || errorCallbackSent) return;
+
+		errorCallbackSent = true;
+		if (typeof onError === 'function') {
+			onError(err);
+		}
+	};
 
 	const getSize = () => ({
 		width: Math.max(1, container.offsetWidth || container.clientWidth || 1),
@@ -57,10 +69,17 @@ function renderBoxArt({ container, boxArt, onLoaded, onError }) {
 	};
 
 	const handleContextLost = (event) => {
+		if (disposed) return;
+
+		contextLost = true;
 		event.preventDefault();
+		reportError(new Error('Three.js box art WebGL context lost'));
 	};
 
 	const handleContextRestored = () => {
+		if (disposed) return;
+
+		contextLost = false;
 		resizeRenderer();
 	};
 
@@ -85,6 +104,7 @@ function renderBoxArt({ container, boxArt, onLoaded, onError }) {
 
 			gltfScene = gltf.scene;
 			scene.add(gltfScene);
+			scene.updateMatrixWorld(true);
 
 			const box = new THREE.Box3().setFromObject(gltfScene);
 			const center = box.getCenter(new THREE.Vector3());
@@ -97,28 +117,63 @@ function renderBoxArt({ container, boxArt, onLoaded, onError }) {
 				action.play();
 			}
 
+			try {
+				renderer.compile(scene, camera);
+			} catch (err) {
+				reportError(err);
+				return;
+			}
+
+			renderedModelFrames = 0;
 			loadedCallbackPending = true;
 		},
 		undefined,
 		(err) => {
 			if (!disposed) {
 				console.error('GLTF load error:', err);
-				if (typeof onError === 'function') {
-					onError(err);
-				}
+				reportError(err);
 			}
 		}
 	);
+
+	const isReadyToReport = () => {
+		const canvas = renderer.domElement;
+		const context = renderer.getContext();
+
+		return Boolean(
+			loadedCallbackPending
+			&& !loadedCallbackSent
+			&& gltfScene
+			&& gltfScene.parent === scene
+			&& canvas
+			&& canvas.isConnected
+			&& canvas.parentNode === container
+			&& canvas.width > 1
+			&& canvas.height > 1
+			&& !contextLost
+			&& (!context || typeof context.isContextLost !== 'function' || !context.isContextLost())
+			&& renderedModelFrames >= 2
+		);
+	};
 
 	const clock = new THREE.Clock();
 	renderer.setAnimationLoop(() => {
 		if (disposed) return;
 
-		const delta = clock.getDelta();
-		if (mixer) mixer.update(delta);
-		renderer.render(scene, camera);
+		try {
+			const delta = clock.getDelta();
+			if (mixer) mixer.update(delta);
+			renderer.render(scene, camera);
+		} catch (err) {
+			reportError(err);
+			return;
+		}
 
-		if (loadedCallbackPending && !loadedCallbackSent) {
+		if (loadedCallbackPending && gltfScene && !contextLost) {
+			renderedModelFrames += 1;
+		}
+
+		if (isReadyToReport()) {
 			loadedCallbackPending = false;
 			loadedCallbackSent = true;
 			if (typeof onLoaded === 'function') {
