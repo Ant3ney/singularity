@@ -6,17 +6,28 @@ export default class NavOne extends Component {
     this.state = {
       menuOpen: false,
     };
+    this.menuButtonRef = React.createRef();
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.menuOpen !== this.state.menuOpen) {
       this.updateBodyScroll();
+
+      if (typeof document !== "undefined") {
+        if (this.state.menuOpen) {
+          document.addEventListener("keydown", this.handleKeyDown);
+          this.menuButtonRef.current?.focus();
+        } else {
+          document.removeEventListener("keydown", this.handleKeyDown);
+        }
+      }
     }
   }
 
   componentWillUnmount() {
     if (typeof document !== "undefined") {
       document.body.classList.remove("mobile-nav-open");
+      document.removeEventListener("keydown", this.handleKeyDown);
     }
   }
 
@@ -30,6 +41,35 @@ export default class NavOne extends Component {
     this.setState((state) => ({
       menuOpen: !state.menuOpen,
     }));
+  };
+
+  handleKeyDown = (event) => {
+    if (event.key === "Escape") {
+      this.closeMenu();
+      return;
+    }
+
+    if (event.key !== "Tab" || !this.state.menuOpen || typeof document === "undefined") {
+      return;
+    }
+
+    const focusableElements = [
+      this.menuButtonRef.current,
+      ...Array.from(document.querySelectorAll("#primary-navigation a")),
+    ].filter(Boolean);
+
+    if (!focusableElements.length) return;
+
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
+
+    if (event.shiftKey && document.activeElement === firstElement) {
+      event.preventDefault();
+      lastElement.focus();
+    } else if (!event.shiftKey && document.activeElement === lastElement) {
+      event.preventDefault();
+      firstElement.focus();
+    }
   };
 
   closeMenu = () => {
@@ -71,7 +111,11 @@ export default class NavOne extends Component {
     ];
 
     return (
-      <header className="site-header site-header__header-one nav-container">
+      <header
+        className={`site-header site-header__header-one nav-container ${
+          this.state.menuOpen ? "is-mobile-menu-open" : ""
+        }`}
+      >
         <nav
           className={`navbar navbar-expand-lg navbar-light header-navigation ${
             this.state.menuOpen ? "is-menu-open" : ""
@@ -90,14 +134,19 @@ export default class NavOne extends Component {
               <button
                 className={`menu-toggler ${this.state.menuOpen ? "is-open" : ""}`}
                 type="button"
-                aria-label="Toggle navigation menu"
+                aria-label={this.state.menuOpen ? "Close navigation menu" : "Open navigation menu"}
                 aria-expanded={this.state.menuOpen}
+                aria-controls="primary-navigation"
                 onClick={this.toggleMenu}
+                ref={this.menuButtonRef}
               >
-                <span className="fa fa-bars"></span>
+                <span className={`fa ${this.state.menuOpen ? "fa-times" : "fa-bars"}`}></span>
               </button>
             </div>
-            <div className={`main-navigation ${this.state.menuOpen ? "is-open" : ""}`}>
+            <div
+              id="primary-navigation"
+              className={`main-navigation ${this.state.menuOpen ? "is-open" : ""}`}
+            >
               <ul className="one-page-scroll-menu navigation-box">
                 {navigationItems.map((item) => (
                   <li
