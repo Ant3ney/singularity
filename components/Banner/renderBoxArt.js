@@ -3,7 +3,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js';
 
-function renderBoxArt({ container, boxArt }) {
+function renderBoxArt({ container, boxArt, onLoaded, onError }) {
 	if (!container) return () => {};
 
 	const ownerWindow = container.ownerDocument?.defaultView;
@@ -16,6 +16,8 @@ function renderBoxArt({ container, boxArt }) {
 	let disposed = false;
 	let mixer;
 	let gltfScene;
+	let loadedCallbackPending = false;
+	let loadedCallbackSent = false;
 
 	const getSize = () => ({
 		width: Math.max(1, container.offsetWidth || container.clientWidth || 1),
@@ -27,7 +29,15 @@ function renderBoxArt({ container, boxArt }) {
 	const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
 	camera.position.set(0, 0, 3);
 
-	const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+	let renderer;
+	try {
+		renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+	} catch (err) {
+		if (typeof onError === 'function') {
+			onError(err);
+		}
+		return () => {};
+	}
 	renderer.setPixelRatio(Math.min(ownerWindow.devicePixelRatio || 1, 2));
 	renderer.setSize(width, height);
 	renderer.setClearColor(0xffffff, 0);
@@ -86,10 +96,17 @@ function renderBoxArt({ container, boxArt }) {
 				const action = mixer.clipAction(gltf.animations[0]);
 				action.play();
 			}
+
+			loadedCallbackPending = true;
 		},
 		undefined,
 		(err) => {
-			if (!disposed) console.error('GLTF load error:', err);
+			if (!disposed) {
+				console.error('GLTF load error:', err);
+				if (typeof onError === 'function') {
+					onError(err);
+				}
+			}
 		}
 	);
 
@@ -97,9 +114,17 @@ function renderBoxArt({ container, boxArt }) {
 	renderer.setAnimationLoop(() => {
 		if (disposed) return;
 
-		renderer.render(scene, camera);
 		const delta = clock.getDelta();
 		if (mixer) mixer.update(delta);
+		renderer.render(scene, camera);
+
+		if (loadedCallbackPending && !loadedCallbackSent) {
+			loadedCallbackPending = false;
+			loadedCallbackSent = true;
+			if (typeof onLoaded === 'function') {
+				onLoaded();
+			}
+		}
 	});
 
 	return () => {
