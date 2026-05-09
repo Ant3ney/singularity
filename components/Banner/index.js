@@ -15,6 +15,9 @@ const LOADER_OUTRO_MS = 2000;
 const LOADER_BOTTOM_FILL_OUTRO_DELAY_MS = 1000;
 const LOADER_BOTTOM_FILL_OUTRO_MS = 2000;
 const BOX_ART_WATCHDOG_MS = 18000;
+const BOX_ART_HEALTH_CHECK_MS = 100;
+const BOX_ART_STALE_FRAME_MS = 1200;
+const BOX_ART_RECOVERY_COOLDOWN_MS = 1500;
 const LOADER_TICK_MS = 150;
 const BOX_ART_RETRY_BASE_MS = 600;
 const BOX_ART_RETRY_MAX_MS = 3000;
@@ -33,6 +36,8 @@ const Banner = ({
 	const retryBoxArtAttemptRef = React.useRef(0);
 	const loadRunRef = React.useRef(0);
 	const loadStartedAtRef = React.useRef(0);
+	const lastBoxArtFrameAtRef = React.useRef(0);
+	const lastBoxArtRecoveryAtRef = React.useRef(0);
 	const boxArtStatusRef = React.useRef('loading');
 	const loaderPhaseRef = React.useRef('blank');
 	const loaderCompleteRef = React.useRef(false);
@@ -82,6 +87,25 @@ const Banner = ({
 				&& canvas.height > 1
 			);
 		};
+		const isBoxArtCanvasVisible = () => {
+			const canvas = heroRef.current?.querySelector('canvas');
+			if (!canvas || !isBoxArtCanvasMounted()) return false;
+
+			const rect = canvas.getBoundingClientRect();
+			const style = window.getComputedStyle(canvas);
+
+			return Boolean(
+				rect.width > 1
+				&& rect.height > 1
+				&& rect.bottom > 0
+				&& rect.right > 0
+				&& rect.top < window.innerHeight
+				&& rect.left < window.innerWidth
+				&& style.display !== 'none'
+				&& style.visibility !== 'hidden'
+				&& Number(style.opacity || 1) > 0
+			);
+		};
 		const updateBoxArtStatus = (status) => {
 			boxArtStatusRef.current = status;
 			setBoxArtStatus(status);
@@ -115,6 +139,7 @@ const Banner = ({
 					: Date.now());
 			loaderCompleteRef.current = false;
 			outroStartedRef.current = false;
+			lastBoxArtFrameAtRef.current = 0;
 			updateBoxArtStatus('loading');
 			if (!preserveLoader || loaderPhaseRef.current === 'done') {
 				retryBoxArtAttemptRef.current = 0;
@@ -128,6 +153,11 @@ const Banner = ({
 			cleanupBoxArtRef.current = renderBoxArt({
 				container: heroRef.current,
 				boxArt: "/assets/threed/sd_01.glb",
+				onFrame: () => {
+					lastBoxArtFrameAtRef.current = window.performance?.now
+						? window.performance.now()
+						: Date.now();
+				},
 				onLoaded: () => {
 					if (loadRunRef.current === loadRun) {
 						if (isBoxArtCanvasMounted()) {
@@ -165,8 +195,26 @@ const Banner = ({
 				initBoxArt({ preserveLoader: loaderPhaseRef.current !== 'done' });
 			}
 		};
+		const recoverBoxArtIfNeeded = () => {
+			if (!heroRef.current || document.visibilityState !== 'visible') return;
+
+			const now = window.performance?.now ? window.performance.now() : Date.now();
+			const hasVisibleCanvas = isBoxArtCanvasVisible();
+			const lastFrameAt = lastBoxArtFrameAtRef.current;
+			const frameIsStale = boxArtStatusRef.current === 'ready'
+				&& (!lastFrameAt || now - lastFrameAt > BOX_ART_STALE_FRAME_MS);
+
+			if (!hasVisibleCanvas && boxArtStatusRef.current !== 'ready') return;
+			if (!hasVisibleCanvas || frameIsStale) {
+				if (now - lastBoxArtRecoveryAtRef.current < BOX_ART_RECOVERY_COOLDOWN_MS) return;
+
+				lastBoxArtRecoveryAtRef.current = now;
+				initBoxArt({ preserveLoader: loaderPhaseRef.current !== 'done' });
+			}
+		};
 
 		initBoxArt({ preserveLoader: false });
+		const boxArtHealthTimer = window.setInterval(recoverBoxArtIfNeeded, BOX_ART_HEALTH_CHECK_MS);
 
 		window.addEventListener('pageshow', handlePageShow);
 		window.addEventListener('focus', handleFocus);
@@ -174,6 +222,7 @@ const Banner = ({
 
 		return () => {
 			clearRetryTimer();
+			window.clearInterval(boxArtHealthTimer);
 			initBoxArtRef.current = null;
 			window.removeEventListener('pageshow', handlePageShow);
 			window.removeEventListener('focus', handleFocus);

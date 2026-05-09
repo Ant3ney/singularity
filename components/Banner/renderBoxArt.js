@@ -3,7 +3,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js';
 
-function renderBoxArt({ container, boxArt, onLoaded, onError }) {
+function renderBoxArt({ container, boxArt, onLoaded, onError, onFrame }) {
 	if (!container) return () => {};
 
 	const ownerWindow = container.ownerDocument?.defaultView;
@@ -164,6 +164,9 @@ function renderBoxArt({ container, boxArt, onLoaded, onError }) {
 			const delta = clock.getDelta();
 			if (mixer) mixer.update(delta);
 			renderer.render(scene, camera);
+			if (typeof onFrame === 'function') {
+				onFrame();
+			}
 		} catch (err) {
 			reportError(err);
 			return;
