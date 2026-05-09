@@ -12,6 +12,8 @@ const BLANK_GATE_MS = 1000;
 const SEQUENCE_B_FADE_IN_MS = 1000;
 const SEQUENCE_B_VISIBLE_MS = 3000;
 const LOADER_OUTRO_MS = 2000;
+const LOADER_BOTTOM_FILL_OUTRO_DELAY_MS = 1000;
+const LOADER_BOTTOM_FILL_OUTRO_MS = 2000;
 const BOX_ART_WATCHDOG_MS = 18000;
 const LOADER_TICK_MS = 150;
 const BOX_ART_RETRY_BASE_MS = 600;
@@ -35,13 +37,13 @@ const Banner = ({
 	const loaderPhaseRef = React.useRef('blank');
 	const loaderCompleteRef = React.useRef(false);
 	const outroStartedRef = React.useRef(false);
-	const loaderVisualRef = React.useRef({ screenOpacity: 1, uiOpacity: 0 });
+	const loaderVisualRef = React.useRef({ mainOpacity: 1, bottomFillOpacity: 1, uiOpacity: 0 });
 	const scrollLockStateRef = React.useRef(null);
 	const [boxArtStatus, setBoxArtStatus] = React.useState('loading');
 	const [loaderCycle, setLoaderCycle] = React.useState(0);
 	const [loaderPhase, setLoaderPhase] = React.useState('blank');
-	const [loaderVisual, setLoaderVisual] = React.useState({ screenOpacity: 1, uiOpacity: 0 });
-	const shouldLockScroll = loaderPhase !== 'done' && (loaderPhase !== 'outro' || loaderVisual.screenOpacity > 0.75);
+	const [loaderVisual, setLoaderVisual] = React.useState({ mainOpacity: 1, bottomFillOpacity: 1, uiOpacity: 0 });
+	const shouldLockScroll = loaderPhase !== 'done' && (loaderPhase !== 'outro' || loaderVisual.mainOpacity > 0.75);
 	let isMobile = useMediaQuery({ query: "(max-width: 480px)" });
 
 	React.useEffect(() => {
@@ -118,8 +120,8 @@ const Banner = ({
 				retryBoxArtAttemptRef.current = 0;
 				setLoaderPhase('blank');
 				loaderPhaseRef.current = 'blank';
-				loaderVisualRef.current = { screenOpacity: 1, uiOpacity: 0 };
-				setLoaderVisual({ screenOpacity: 1, uiOpacity: 0 });
+				loaderVisualRef.current = { mainOpacity: 1, bottomFillOpacity: 1, uiOpacity: 0 };
+				setLoaderVisual({ mainOpacity: 1, bottomFillOpacity: 1, uiOpacity: 0 });
 			}
 			setLoaderCycle((currentCycle) => currentCycle + 1);
 			cleanupBoxArt();
@@ -250,14 +252,21 @@ const Banner = ({
 			outroStartedRef.current = true;
 			setPhase('outro');
 			animateVisual({
-				key: 'screenOpacity',
+				key: 'mainOpacity',
 				to: 0,
 				duration: LOADER_OUTRO_MS,
-				onComplete: () => {
-					loaderCompleteRef.current = true;
-					setPhase('done');
-				},
 			});
+			setTimer(() => {
+				animateVisual({
+					key: 'bottomFillOpacity',
+					to: 0,
+					duration: LOADER_BOTTOM_FILL_OUTRO_MS,
+					onComplete: () => {
+						loaderCompleteRef.current = true;
+						setPhase('done');
+					},
+				});
+			}, LOADER_OUTRO_MS + LOADER_BOTTOM_FILL_OUTRO_DELAY_MS);
 		};
 		const waitForFinished = () => {
 			if (isCancelled || loaderCompleteRef.current || outroStartedRef.current) return;
@@ -431,11 +440,18 @@ const Banner = ({
 		const isHidden = phase === 'done';
 		const isError = status === 'error';
 		const uiOpacity = Number.isFinite(visual.uiOpacity) ? visual.uiOpacity : 0;
+		const mainOpacity = Number.isFinite(visual.mainOpacity) ? visual.mainOpacity : 1;
+		const bottomFillOpacity = Number.isFinite(visual.bottomFillOpacity) ? visual.bottomFillOpacity : 1;
+		const artOpacity = uiOpacity * mainOpacity;
+		const softArtOpacity = artOpacity * 0.65;
 		const loaderStyle = {
-			opacity: visual.screenOpacity,
 			visibility: isHidden ? 'hidden' : 'visible',
 			pointerEvents: isHidden ? 'none' : 'auto',
 			'--loader-ui-opacity': uiOpacity,
+			'--loader-main-opacity': mainOpacity,
+			'--loader-art-opacity': artOpacity,
+			'--loader-soft-art-opacity': softArtOpacity,
+			'--loader-bottom-fill-opacity': bottomFillOpacity,
 		};
 		const firstWordStyle = {
 			color: '#1f2930',
@@ -463,6 +479,7 @@ const Banner = ({
 						<i></i>
 					</div>
 				</div>
+				<div className="singularity-hero-loader__bottom-fill" aria-hidden="true"></div>
 			</div>
 		);
 	}

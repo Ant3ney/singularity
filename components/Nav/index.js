@@ -4,29 +4,9 @@ export default class NavOne extends Component {
   constructor() {
     super();
     this.state = {
-      sticky: false,
       menuOpen: false,
     };
   }
-  componentDidMount() {
-    window.addEventListener("scroll", this.handleScroll);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("scroll", this.handleScroll);
-  }
-
-  handleScroll = () => {
-    if (window.scrollY > 70) {
-      this.setState({
-        sticky: true,
-      });
-    } else if (window.scrollY < 70) {
-      this.setState({
-        sticky: false,
-      });
-    }
-  };
 
   toggleMenu = () => {
     this.setState((state) => ({
@@ -66,7 +46,7 @@ export default class NavOne extends Component {
       },
       {
         id: "blogs",
-        label: "Insights",
+        label: "Blog",
         href: "https://blogs.singularityplanet.com/",
         external: true,
       },
@@ -75,9 +55,9 @@ export default class NavOne extends Component {
     return (
       <header className="site-header site-header__header-one nav-container">
         <nav
-          className={`navbar navbar-expand-lg navbar-light header-navigation stricky ${
-            this.state.sticky ? "stricked-menu stricky-fixed" : ""
-          } ${this.state.menuOpen ? "is-menu-open" : ""}`}
+          className={`navbar navbar-expand-lg navbar-light header-navigation ${
+            this.state.menuOpen ? "is-menu-open" : ""
+          }`}
         >
           <div className="container clearfix">
             <div className="logo-box clearfix">
@@ -119,11 +99,6 @@ export default class NavOne extends Component {
                   </li>
                 ))}
               </ul>
-            </div>
-            <div className="right-side-box">
-              <a className="header__cta-btn" href="#contact_us_singularity" onClick={this.closeMenu}>
-                <span>Start a project</span>
-              </a>
             </div>
           </div>
         </nav>
