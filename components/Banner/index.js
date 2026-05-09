@@ -37,13 +37,13 @@ const Banner = ({
 	const loaderPhaseRef = React.useRef('blank');
 	const loaderCompleteRef = React.useRef(false);
 	const outroStartedRef = React.useRef(false);
-	const loaderVisualRef = React.useRef({ mainOpacity: 1, bottomFillOpacity: 1, uiOpacity: 0 });
+	const loaderVisualRef = React.useRef({ shellOpacity: 1, mainOpacity: 1, bottomFillOpacity: 1, uiOpacity: 0 });
 	const scrollLockStateRef = React.useRef(null);
 	const [boxArtStatus, setBoxArtStatus] = React.useState('loading');
 	const [loaderCycle, setLoaderCycle] = React.useState(0);
 	const [loaderPhase, setLoaderPhase] = React.useState('blank');
-	const [loaderVisual, setLoaderVisual] = React.useState({ mainOpacity: 1, bottomFillOpacity: 1, uiOpacity: 0 });
-	const shouldLockScroll = loaderPhase !== 'done' && (loaderPhase !== 'outro' || loaderVisual.mainOpacity > 0.75);
+	const [loaderVisual, setLoaderVisual] = React.useState({ shellOpacity: 1, mainOpacity: 1, bottomFillOpacity: 1, uiOpacity: 0 });
+	const shouldLockScroll = loaderPhase !== 'done' && (loaderPhase !== 'outro' || loaderVisual.shellOpacity > 0.75);
 	let isMobile = useMediaQuery({ query: "(max-width: 480px)" });
 
 	React.useEffect(() => {
@@ -120,8 +120,8 @@ const Banner = ({
 				retryBoxArtAttemptRef.current = 0;
 				setLoaderPhase('blank');
 				loaderPhaseRef.current = 'blank';
-				loaderVisualRef.current = { mainOpacity: 1, bottomFillOpacity: 1, uiOpacity: 0 };
-				setLoaderVisual({ mainOpacity: 1, bottomFillOpacity: 1, uiOpacity: 0 });
+				loaderVisualRef.current = { shellOpacity: 1, mainOpacity: 1, bottomFillOpacity: 1, uiOpacity: 0 };
+				setLoaderVisual({ shellOpacity: 1, mainOpacity: 1, bottomFillOpacity: 1, uiOpacity: 0 });
 			}
 			setLoaderCycle((currentCycle) => currentCycle + 1);
 			cleanupBoxArt();
@@ -253,6 +253,11 @@ const Banner = ({
 			setPhase('outro');
 			animateVisual({
 				key: 'mainOpacity',
+				to: 0,
+				duration: LOADER_OUTRO_MS,
+			});
+			animateVisual({
+				key: 'shellOpacity',
 				to: 0,
 				duration: LOADER_OUTRO_MS,
 			});
@@ -440,13 +445,15 @@ const Banner = ({
 		const isHidden = phase === 'done';
 		const isError = status === 'error';
 		const uiOpacity = Number.isFinite(visual.uiOpacity) ? visual.uiOpacity : 0;
+		const shellOpacity = Number.isFinite(visual.shellOpacity) ? visual.shellOpacity : 1;
 		const mainOpacity = Number.isFinite(visual.mainOpacity) ? visual.mainOpacity : 1;
 		const bottomFillOpacity = Number.isFinite(visual.bottomFillOpacity) ? visual.bottomFillOpacity : 1;
 		const artOpacity = uiOpacity * mainOpacity;
 		const softArtOpacity = artOpacity * 0.65;
 		const loaderStyle = {
 			visibility: isHidden ? 'hidden' : 'visible',
-			pointerEvents: isHidden ? 'none' : 'auto',
+			pointerEvents: isHidden || (phase === 'outro' && shellOpacity <= 0.01) ? 'none' : 'auto',
+			'--loader-shell-opacity': shellOpacity,
 			'--loader-ui-opacity': uiOpacity,
 			'--loader-main-opacity': mainOpacity,
 			'--loader-art-opacity': artOpacity,
@@ -466,7 +473,6 @@ const Banner = ({
 				<div className="singularity-hero-loader__waves" aria-hidden="true"></div>
 				<div className="singularity-hero-loader__viewport">
 					<div className="singularity-hero-loader__content">
-						<div className="singularity-hero-loader__count">01 / 05</div>
 						<div className="singularity-hero-loader__headline" aria-live="polite">
 							<span style={firstWordStyle}>Design is</span>
 							<span style={kingStyle}>King</span>

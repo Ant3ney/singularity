@@ -34,7 +34,7 @@
   }
 
   .singularity-hero-loader {
-    background: radial-gradient(ellipse at 50% 58%, rgba(28, 55, 56, 0.055), transparent 43%), #fff;
+    background: transparent;
     color: #1c252b;
     font-family: "Rubik", "Helvetica Neue", Arial, sans-serif;
     height: 100vh;
@@ -59,7 +59,10 @@
   }
 
   .singularity-hero-loader:before {
-    display: none;
+    background: radial-gradient(ellipse at 50% 58%, rgba(28, 55, 56, 0.055), transparent 43%), #fff;
+    inset: 0;
+    opacity: var(--loader-shell-opacity, 1);
+    z-index: 0;
   }
 
   .singularity-hero-loader:after {
