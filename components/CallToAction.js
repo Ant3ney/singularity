@@ -11,7 +11,6 @@ const CallToAction = () => {
                     <div className="row justify-content-lg-end">
                         <div className="col-lg-6">
                             <div className="cta-one__content">
-				<img className="cta-two__icon dimon-icon-data" src="/assets/images/cta2_icon_01.webp"/>
                                 <div className="block-title text-left">
                                     <h2 className="block-title__title">Design Is <span>King</span>. Quality Above All.
                                     </h2>

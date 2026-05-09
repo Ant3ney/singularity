@@ -25,9 +25,9 @@
     border: 0;
     border-radius: 8px;
     box-shadow: none;
-    display: flex;
-    gap: 42px;
-    justify-content: flex-start;
+    display: flex !important;
+    gap: 24px;
+    justify-content: flex-start !important;
     max-width: 1160px;
     min-height: 74px;
     padding: 0 16px 0 22px;
@@ -40,14 +40,14 @@
 
   .header-navigation .container .logo-box {
     align-items: center;
-    display: flex;
+    display: flex !important;
     float: none;
     flex: 0 0 auto;
     justify-content: flex-start;
     left: auto;
-    position: relative;
+    position: relative !important;
     top: auto;
-    transform: none;
+    transform: none !important;
     z-index: 3;
   }
 
@@ -64,33 +64,36 @@
   }
 
   .header-navigation .main-navigation {
-    display: block;
-    flex: 0 1 auto;
+    display: block !important;
+    flex: 1 1 auto;
     float: none;
+    margin-left: 0;
     min-width: 0;
-    padding-right: 0;
-    text-align: left;
+    padding-right: 0 !important;
+    text-align: left !important;
   }
 
   .header-navigation ul.navigation-box {
     align-items: center;
     background: transparent;
     border: 0;
-    display: flex;
-    flex-wrap: wrap;
+    display: flex !important;
+    flex-wrap: nowrap;
     gap: 8px 16px;
     justify-content: flex-start;
-    padding: 0;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
   .header-navigation ul.navigation-box > li {
-    display: block;
-    padding: 0;
+    display: block !important;
+    padding: 0 !important;
     text-align: center;
   }
 
+  .header-navigation ul.navigation-box > li:first-child,
   .header-navigation ul.navigation-box > li + li {
-    margin-left: 0;
+    margin-left: 0 !important;
   }
 
   .header-navigation ul.navigation-box > li > a {
