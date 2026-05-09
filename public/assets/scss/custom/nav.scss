@@ -211,18 +211,19 @@
         radial-gradient(circle at 88% 12%, rgba(255, 87, 20, 0.12), transparent 28%),
         linear-gradient(145deg, #ffffff 0%, #f9fbfb 52%, #ffffff 100%);
       display: flex !important;
+      flex-direction: column;
       float: none;
       font-family: "Rubik", "Helvetica Neue", Arial, sans-serif;
       height: 100vh;
       height: 100dvh;
       isolation: isolate;
-      justify-content: center;
+      justify-content: flex-start;
       left: 0;
       min-height: 100vh;
       min-height: 100dvh;
       opacity: 0;
       overflow: hidden;
-      padding: calc(104px + env(safe-area-inset-top)) 28px calc(40px + env(safe-area-inset-bottom));
+      padding: calc(178px + env(safe-area-inset-top)) 28px calc(40px + env(safe-area-inset-bottom));
       pointer-events: none;
       position: fixed;
       right: 0;
@@ -286,7 +287,7 @@
       min-height: 0;
       overflow: visible;
       padding: 0;
-      transform: translateY(clamp(28px, 5.5dvh, 64px));
+      transform: translateY(clamp(-14px, -1.5dvh, -6px));
       width: min(72vw, 330px);
     }
 
@@ -452,7 +453,7 @@
 
   @media (max-width: 1199px) and (max-height: 700px) {
     .header-navigation ul.navigation-box {
-      transform: translateY(20px);
+      transform: translateY(0);
     }
 
     .header-navigation ul.navigation-box > li > a {
