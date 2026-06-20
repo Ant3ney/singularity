@@ -3,31 +3,30 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "next dev --webpack",
-		"build": "next build --webpack",
-		"start": "next start -p $PORT"
+		"dev": "next dev -p 3003",
+		"build": "next build",
+		"start": "next start -p 3003"
 	},
 	"dependencies": {
-		"@fortawesome/fontawesome-svg-core": "^1.2.36",
-		"@fortawesome/free-brands-svg-icons": "^5.15.4",
-		"@fortawesome/free-solid-svg-icons": "^5.15.4",
-		"@fortawesome/react-fontawesome": "^0.1.15",
-		"@sanity/client": "^2.21.0",
-		"fs": "0.0.1-security",
+		"@fortawesome/fontawesome-svg-core": "^7.2.0",
+		"@fortawesome/free-brands-svg-icons": "^7.2.0",
+		"@fortawesome/free-solid-svg-icons": "^7.2.0",
+		"@fortawesome/react-fontawesome": "^3.3.1",
+		"@sanity/client": "^7.23.0",
 		"next": "16.2.9",
-		"react": "18.3.1",
-		"react-countup": "^4.3.3",
-		"react-dom": "18.3.1",
-		"react-id-swiper": "^3.0.0",
-		"react-modal-video": "2.0.2",
-		"react-responsive": "^9.0.0-beta.4",
+		"react": "^19.2.7",
+		"react-countup": "^6.5.3",
+		"react-dom": "^19.2.7",
+		"react-responsive": "^10.0.1",
 		"react-visibility-sensor": "^5.1.1",
-		"sass": "^1.57.1",
-		"swiper": "^5.3.6",
-		"tar": "^6.1.11",
+		"sass": "^1.101.0",
+		"swiper": "^12.2.0",
 		"three": "^0.182.0"
 	},
 	"devDependencies": {
-		"url-loader": "^4.0.0"
+		"@types/node": "^26.0.0",
+		"@types/react": "^19.2.17",
+		"@types/react-dom": "^19.2.3",
+		"typescript": "^5.9.3"
 	}
 }
