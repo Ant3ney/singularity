@@ -2,31 +2,40 @@
   "name": "singularitylandingandproducts",
   "private": true,
   "version": "1.0.0",
-  "description": "",
+  "description": "Sanity Studio for the Singularity CMS.",
   "main": "package.json",
   "author": "Anthony Cavuoti <anthonycavuoti@gmail.com>",
   "license": "UNLICENSED",
+  "packageManager": "npm@11.13.0",
   "scripts": {
-    "start": "set NODE_OPTIONS=--openssl-legacy-provider && sanity start",
-    "build": "set NODE_OPTIONS=--openssl-legacy-provider && sanity build"
+    "dev": "sanity dev",
+    "start": "sanity dev",
+    "build": "sanity build && node scripts/copy-redirects.mjs",
+    "deploy": "sanity deploy",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [
     "sanity"
   ],
   "dependencies": {
-    "@sanity/base": "^2.21.2",
-    "@sanity/core": "^2.21.0",
-    "@sanity/default-layout": "^2.21.2",
-    "@sanity/default-login": "^2.21.0",
-    "@sanity/desk-tool": "^2.21.2",
-    "@sanity/vision": "^2.21.2",
-    "prop-types": "^15.7",
-    "react": "^17.0",
-    "react-dom": "^17.0",
-    "sanity": "^2.29.3",
-    "styled-components": "^5.2.0"
+    "@sanity/vision": "^6.1.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "sanity": "^6.1.0",
+    "styled-components": "^6.4.2"
   },
   "devDependencies": {
-    "@sanity/cli": "^2.36.2"
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "typescript": "^6.0.3"
+  },
+  "overrides": {
+    "@sanity/uuid": "^3.0.3",
+    "@vercel/frameworks": {
+      "js-yaml": "^4.2.0"
+    },
+    "typeid-js": {
+      "uuid": "^11.1.1"
+    }
   }
 }
