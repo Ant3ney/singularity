@@ -81,7 +81,7 @@ function IdentityStep({ onSubmit }) {
 					<FontAwesomeIcon icon={faArrowRight} />
 				</button>
 			</form>
-			<TransmissionFooter text='Current wait time: ~4 weeks. Quality above all.' />
+			<TransmissionFooter text='Current wait time: 5+ months. Quality above all.' />
 		</section>
 	);
 }
@@ -135,10 +135,7 @@ function DetailsStep({ onSubmit }) {
 					<SelectField name='budget' placeholder='Select a magnitude' options={budgetOptions} />
 				</Question>
 				<Question number='4' label='When do you hope to launch?'>
-					<div className='waitlist-icon-field'>
-						<FontAwesomeIcon icon={faCalendarAlt} />
-						<input type='text' name='timeline' placeholder='e.g., Q3 2025' />
-					</div>
+					<DateField />
 				</Question>
 				<Question number='5' label='Do you need hosting?'>
 					<RadioGroup
@@ -170,10 +167,6 @@ function DetailsStep({ onSubmit }) {
 				<Question number='10' label='Any specific integrations needed?'>
 					<textarea name='integrations' placeholder='e.g., Stripe, Salesforce, Custom API...' rows={2}></textarea>
 				</Question>
-				<label className='waitlist-check waitlist-check--large'>
-					<input type='checkbox' name='detailsMailingList' />
-					<span>Join our mailing list for orbital updates and studio news.</span>
-				</label>
 				<button className='waitlist-button waitlist-button--primary waitlist-button--wide' type='submit'>
 					<span>Complete Intake</span>
 					<FontAwesomeIcon icon={faArrowRight} />
@@ -208,6 +201,36 @@ function SuccessStep() {
 			</a>
 			<TransmissionFooter text='Thank you. Stand by for further coordinates.' />
 		</section>
+	);
+}
+
+function DateField() {
+	const inputRef = React.useRef<HTMLInputElement>(null);
+
+	const openPicker = () => {
+		const input = inputRef.current;
+		if (!input) return;
+
+		input.focus();
+		input.showPicker?.();
+	};
+
+	return (
+		<div
+			className='waitlist-icon-field'
+			onClick={openPicker}
+			onKeyDown={(event) => {
+				if (event.key === 'Enter' || event.key === ' ') {
+					event.preventDefault();
+					openPicker();
+				}
+			}}
+			role='button'
+			tabIndex={0}
+		>
+			<FontAwesomeIcon icon={faCalendarAlt} />
+			<input ref={inputRef} type='date' name='timeline' aria-label='Desired launch date' />
+		</div>
 	);
 }
 
