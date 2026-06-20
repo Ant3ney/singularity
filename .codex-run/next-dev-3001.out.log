@@ -1,0 +1,8 @@
+ready - started server on http://localhost:3001
+event - compiled successfully
+event - build page: /
+wait  - compiling...
+event - compiled successfully
+event - build page: /next/dist/pages/_error
+wait  - compiling...
+event - compiled successfully

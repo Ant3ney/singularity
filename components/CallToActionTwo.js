@@ -17,7 +17,7 @@ const CallToActionTwo = () => {
                                     <p>We take the time to listen and understand what it is you need made. You don’t have to be an expert in tech, you don’t need a degree, you just have to want it.</p>
                                     <p>Clients come to us with a problem and leave with a website we’re both proud to put our name on. No buzzwords, no runaround. Just clear thinking and solid execution.</p>
                                 </div>
-                                <a href="#contact_us_singularity" className="thm-btn"><span>Get Started</span></a>
+                                <a href="/waitlist" className="thm-btn"><span>Get Started</span></a>
                             </div>
                         </div>
                     </div>

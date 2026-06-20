@@ -25,7 +25,7 @@ const CallToAction = () => {
                                     <li><i className="fa fa-check"></i>We lead with visuals, not templates.
                                     </li>
                                 </ul>
-                                <a href="#contact_us_singularity" className="thm-btn"><span>Get Started</span></a>
+                                <a href="/waitlist" className="thm-btn"><span>Get Started</span></a>
                             </div>
                         </div>
                     </div>
