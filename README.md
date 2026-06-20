@@ -1,6 +1,6 @@
 # Singularity Planet
 
-This is the frontend for singularityplanet.com. It is a Next.js App Router project using TypeScript source under `src/`.
+This is the frontend for singularityplanet.com. It is a Next.js App Router project with routes in the root `app/` directory and shared TypeScript source under `src/`.
 
 ## Installation
 

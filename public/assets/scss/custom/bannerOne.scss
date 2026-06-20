@@ -4,7 +4,7 @@
     position: relative;
   }
   @media screen and (max-width: 480px) {
-    .container {
+    &.banner-one > .container {
       padding-top: 140px;
     }
   }
@@ -309,7 +309,7 @@
     }
   }
 
-  .container {
+  &.banner-one > .container {
     padding-top: 220px;
   }
 
@@ -347,7 +347,7 @@
   }
 
   @media screen and (max-width: 480px) {
-        .container {
+        &.banner-one > .container {
           padding-top: 140px !important;
         }
     #main_banner_box_art_3d {
