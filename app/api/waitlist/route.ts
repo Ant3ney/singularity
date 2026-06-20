@@ -38,6 +38,15 @@ function getDetails(payload: WaitlistPayload): WaitlistDetailsInput {
 }
 
 function getErrorMessage(error: unknown, fallback: string): string {
+	if (
+		typeof error === 'object' &&
+		error !== null &&
+		'statusCode' in error &&
+		error.statusCode === 403
+	) {
+		return 'Waitlist storage is missing Sanity write permissions. Check SANITY_API_TOKEN.';
+	}
+
 	if (process.env.NODE_ENV !== 'production' && error instanceof Error && error.message) {
 		return error.message;
 	}
