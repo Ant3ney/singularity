@@ -22,9 +22,9 @@ export default function Product({
 			case 'link':
 				return actionLink;
 			case 'pluginMessage':
-				return `/contactus?pluginmessage=${pluginMessage}`;
+				return `/contact?pluginmessage=${pluginMessage}`;
 			default:
-				return `/contactus?pluginmessage=${pluginMessage}`;
+				return `/contact?pluginmessage=${pluginMessage}`;
 		}
 	})();
 

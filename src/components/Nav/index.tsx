@@ -98,7 +98,7 @@ export default class NavOne extends Component<any, any> {
       {
         id: "contactus",
         label: "Contact",
-        href: "#contact_us_singularity",
+        href: "/contact",
       },
       {
         id: "Catalog",

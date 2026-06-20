@@ -298,7 +298,7 @@
 
 .waitlist-check input + span::after,
 .waitlist-radio input + span::after {
-  content: "✓";
+  content: "\2713";
   position: absolute;
   top: var(--control-offset-y);
   left: 0;
@@ -399,6 +399,27 @@
   min-height: 90px;
   margin: 22px auto 62px;
   font-size: 32px;
+}
+
+.waitlist-error {
+  margin: -12px 0 18px;
+  color: #bf3a12;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.waitlist-error--wide {
+  margin: 22px 0 18px;
+  font-size: 16px;
+  text-align: left;
+}
+
+.waitlist-button:disabled {
+  cursor: wait;
+  opacity: 0.76;
+  transform: none;
 }
 
 .waitlist-actions {
@@ -543,7 +564,7 @@
 
 @media (max-width: 767px) {
   .waitlist-page {
-    padding: 82px 20px;
+    padding: calc(132px + env(safe-area-inset-top)) 20px 82px;
   }
 
   .waitlist-page::after {
@@ -615,7 +636,7 @@
 
 @media (max-width: 420px) {
   .waitlist-page {
-    padding: 62px 16px;
+    padding: calc(124px + env(safe-area-inset-top)) 16px 62px;
   }
 
   .waitlist-card,

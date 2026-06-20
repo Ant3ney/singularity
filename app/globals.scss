@@ -1,5 +1,9 @@
 @use '../public/assets/scss/custom/style.scss';
 
+.thm-breadcrumb li span {
+	color: #fff;
+}
+
 @keyframes modal-video {
 	from {
 		opacity: 0;

@@ -84,7 +84,7 @@ export default class NavOne extends Component<any, any> {
                     this.props.current === "contactus" ? "current" : ""
                   } scrollToLink`}
                 >
-                  <a href="/contactus">Contact Us</a>
+                  <a href="/contact">Contact Us</a>
                 </li>
                 {/* <li
                            className={`${

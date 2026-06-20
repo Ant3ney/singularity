@@ -19,8 +19,34 @@ const budgetOptions = [
 
 const pageOptions = ['1 - 3', '4 - 7', '8 - 12', '13 - 20', '20+'];
 
+type WaitlistStep = 'identity' | 'confirmation' | 'details' | 'success';
+type SubmittingStep = 'identity' | 'details' | null;
+
+type WaitlistResponse = {
+	fail?: boolean;
+	id?: string;
+	message?: string;
+};
+
+function getFormString(formData: FormData, name: string): string {
+	const value = formData.get(name);
+	return typeof value === 'string' ? value.trim() : '';
+}
+
+async function readWaitlistResponse(response: Response): Promise<WaitlistResponse> {
+	try {
+		return (await response.json()) as WaitlistResponse;
+	} catch {
+		return { fail: true };
+	}
+}
+
 export default function WaitlistFlow() {
-	const [step, setStep] = React.useState('identity');
+	const [step, setStep] = React.useState<WaitlistStep>('identity');
+	const [entryId, setEntryId] = React.useState<string | null>(null);
+	const [mailingList, setMailingList] = React.useState(false);
+	const [submittingStep, setSubmittingStep] = React.useState<SubmittingStep>(null);
+	const [error, setError] = React.useState<string | null>(null);
 
 	React.useEffect(() => {
 		if (typeof window !== 'undefined') {
@@ -28,30 +54,140 @@ export default function WaitlistFlow() {
 		}
 	}, [step]);
 
-	const handleStepChange = nextStep => event => {
-		if (event) {
-			event.preventDefault();
+	const handleStepChange =
+		(nextStep: WaitlistStep) => (event?: React.MouseEvent<HTMLButtonElement>) => {
+			if (event) {
+				event.preventDefault();
+			}
+
+			setError(null);
+			setStep(nextStep);
+		};
+
+	const handleIdentitySubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		const formData = new FormData(event.currentTarget);
+		const payload = {
+			name: getFormString(formData, 'name'),
+			email: getFormString(formData, 'email'),
+			mailingList: formData.get('mailingList') === 'on',
+		};
+
+		if (!payload.name || !payload.email) {
+			setError('Please add your name and email before joining the waitlist.');
+			return;
 		}
-		setStep(nextStep);
+
+		setSubmittingStep('identity');
+		setError(null);
+
+		try {
+			const response = await fetch('/api/waitlist', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(payload),
+			});
+			const result = await readWaitlistResponse(response);
+
+			if (!response.ok || result.fail || !result.id) {
+				throw new Error(result.message || 'Unable to join the waitlist.');
+			}
+
+			setEntryId(result.id);
+			setMailingList(payload.mailingList);
+			setStep('confirmation');
+		} catch (submissionError) {
+			console.error('Waitlist submission failed:', submissionError);
+			setError('We could not submit your waitlist request. Please try again.');
+		} finally {
+			setSubmittingStep(null);
+		}
+	};
+
+	const handleDetailsSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+
+		if (!entryId) {
+			setError('Please join the waitlist before sending project details.');
+			setStep('identity');
+			return;
+		}
+
+		const formData = new FormData(event.currentTarget);
+		const payload = {
+			id: entryId,
+			projectGoal: getFormString(formData, 'projectGoal'),
+			targetAudience: getFormString(formData, 'targetAudience'),
+			budget: getFormString(formData, 'budget'),
+			desiredLaunchDate: getFormString(formData, 'desiredLaunchDate'),
+			hosting: getFormString(formData, 'hosting'),
+			cms: getFormString(formData, 'cms'),
+			branding: getFormString(formData, 'branding'),
+			pageCount: getFormString(formData, 'pageCount'),
+			competitors: getFormString(formData, 'competitors'),
+			integrations: getFormString(formData, 'integrations'),
+		};
+
+		setSubmittingStep('details');
+		setError(null);
+
+		try {
+			const response = await fetch('/api/waitlist', {
+				method: 'PATCH',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(payload),
+			});
+			const result = await readWaitlistResponse(response);
+
+			if (!response.ok || result.fail) {
+				throw new Error(result.message || 'Unable to save project details.');
+			}
+
+			setStep('success');
+		} catch (submissionError) {
+			console.error('Waitlist detail update failed:', submissionError);
+			setError('We could not save your project details. Please try again.');
+		} finally {
+			setSubmittingStep(null);
+		}
 	};
 
 	return (
 		<main className={`waitlist-page waitlist-page--${step}`}>
 			<div className='waitlist-page__halo' aria-hidden='true'></div>
-			{step === 'identity' ? <IdentityStep onSubmit={handleStepChange('confirmation')} /> : null}
+			{step === 'identity' ? (
+				<IdentityStep
+					error={error}
+					isSubmitting={submittingStep === 'identity'}
+					onSubmit={handleIdentitySubmit}
+				/>
+			) : null}
 			{step === 'confirmation' ? (
 				<ConfirmationStep
+					mailingList={mailingList}
 					onDetails={handleStepChange('details')}
 					onSkip={handleStepChange('success')}
 				/>
 			) : null}
-			{step === 'details' ? <DetailsStep onSubmit={handleStepChange('success')} /> : null}
+			{step === 'details' ? (
+				<DetailsStep
+					error={error}
+					isSubmitting={submittingStep === 'details'}
+					onSubmit={handleDetailsSubmit}
+				/>
+			) : null}
 			{step === 'success' ? <SuccessStep /> : null}
 		</main>
 	);
 }
 
-function IdentityStep({ onSubmit }) {
+type IdentityStepProps = {
+	error: string | null;
+	isSubmitting: boolean;
+	onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+};
+
+function IdentityStep({ error, isSubmitting, onSubmit }: IdentityStepProps) {
 	return (
 		<section className='waitlist-card waitlist-card--compact' aria-labelledby='waitlist-identity-title'>
 			<p className='waitlist-kicker'>Step 01 &mdash; Identity</p>
@@ -66,18 +202,19 @@ function IdentityStep({ onSubmit }) {
 			<form className='waitlist-form' onSubmit={onSubmit}>
 				<label className='waitlist-field'>
 					<span>Full Name</span>
-					<input type='text' name='name' placeholder='Full Name' />
+					<input type='text' name='name' placeholder='Full Name' required />
 				</label>
 				<label className='waitlist-field'>
 					<span>Email Address</span>
-					<input type='email' name='email' placeholder='Email Address' />
+					<input type='email' name='email' placeholder='Email Address' required />
 				</label>
 				<label className='waitlist-check'>
 					<input type='checkbox' name='mailingList' />
 					<span>Join our mailing list for orbital updates</span>
 				</label>
-				<button className='waitlist-button waitlist-button--primary' type='submit'>
-					<span>Join Waitlist</span>
+				{error ? <p className='waitlist-error' role='alert'>{error}</p> : null}
+				<button className='waitlist-button waitlist-button--primary' type='submit' disabled={isSubmitting}>
+					<span>{isSubmitting ? 'Joining...' : 'Join Waitlist'}</span>
 					<FontAwesomeIcon icon={faArrowRight} />
 				</button>
 			</form>
@@ -86,7 +223,13 @@ function IdentityStep({ onSubmit }) {
 	);
 }
 
-function ConfirmationStep({ onDetails, onSkip }) {
+type ConfirmationStepProps = {
+	mailingList: boolean;
+	onDetails: (event: React.MouseEvent<HTMLButtonElement>) => void;
+	onSkip: (event: React.MouseEvent<HTMLButtonElement>) => void;
+};
+
+function ConfirmationStep({ mailingList, onDetails, onSkip }: ConfirmationStepProps) {
 	return (
 		<section className='waitlist-card waitlist-card--compact' aria-labelledby='waitlist-confirmation-title'>
 			<p className='waitlist-kicker'>Step 02 &mdash; Confirmation</p>
@@ -94,7 +237,9 @@ function ConfirmationStep({ onDetails, onSkip }) {
 				You're on the list.
 			</h1>
 			<p className='waitlist-copy waitlist-copy--muted waitlist-copy--center'>
-				You've successfully joined the waitlist (and our mailing list)
+				{mailingList
+					? "You've successfully joined the waitlist (and our mailing list)."
+					: "You've successfully joined the waitlist."}
 			</p>
 			<p className='waitlist-copy waitlist-copy--center waitlist-copy--narrow'>
 				Want to jump-start your project? Fill out a few more details now to secure
@@ -113,7 +258,13 @@ function ConfirmationStep({ onDetails, onSkip }) {
 	);
 }
 
-function DetailsStep({ onSubmit }) {
+type DetailsStepProps = {
+	error: string | null;
+	isSubmitting: boolean;
+	onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+};
+
+function DetailsStep({ error, isSubmitting, onSubmit }: DetailsStepProps) {
 	return (
 		<section className='waitlist-card waitlist-card--wide' aria-labelledby='waitlist-details-title'>
 			<p className='waitlist-kicker'>Step 03 &mdash; Project Details</p>
@@ -167,8 +318,13 @@ function DetailsStep({ onSubmit }) {
 				<Question number='10' label='Any specific integrations needed?'>
 					<textarea name='integrations' placeholder='e.g., Stripe, Salesforce, Custom API...' rows={2}></textarea>
 				</Question>
-				<button className='waitlist-button waitlist-button--primary waitlist-button--wide' type='submit'>
-					<span>Complete Intake</span>
+				{error ? <p className='waitlist-error waitlist-error--wide' role='alert'>{error}</p> : null}
+				<button
+					className='waitlist-button waitlist-button--primary waitlist-button--wide'
+					type='submit'
+					disabled={isSubmitting}
+				>
+					<span>{isSubmitting ? 'Completing...' : 'Complete Intake'}</span>
 					<FontAwesomeIcon icon={faArrowRight} />
 				</button>
 			</form>
@@ -229,12 +385,18 @@ function DateField() {
 			tabIndex={0}
 		>
 			<FontAwesomeIcon icon={faCalendarAlt} />
-			<input ref={inputRef} type='date' name='timeline' aria-label='Desired launch date' />
+			<input ref={inputRef} type='date' name='desiredLaunchDate' aria-label='Desired launch date' />
 		</div>
 	);
 }
 
-function Question({ number, label, children }) {
+type QuestionProps = {
+	number: string;
+	label: string;
+	children: React.ReactNode;
+};
+
+function Question({ number, label, children }: QuestionProps) {
 	return (
 		<div className='waitlist-question'>
 			<div className='waitlist-question__number'>{number}</div>
@@ -246,7 +408,13 @@ function Question({ number, label, children }) {
 	);
 }
 
-function SelectField({ name, placeholder, options }) {
+type SelectFieldProps = {
+	name: string;
+	placeholder: string;
+	options: string[];
+};
+
+function SelectField({ name, placeholder, options }: SelectFieldProps) {
 	return (
 		<div className='waitlist-select'>
 			<select name={name} defaultValue=''>
@@ -264,7 +432,12 @@ function SelectField({ name, placeholder, options }) {
 	);
 }
 
-function RadioGroup({ name, options }) {
+type RadioGroupProps = {
+	name: string;
+	options: string[];
+};
+
+function RadioGroup({ name, options }: RadioGroupProps) {
 	return (
 		<div className='waitlist-radio-group'>
 			{options.map(option => (
@@ -277,7 +450,11 @@ function RadioGroup({ name, options }) {
 	);
 }
 
-function TransmissionFooter({ text }) {
+type TransmissionFooterProps = {
+	text: string;
+};
+
+function TransmissionFooter({ text }: TransmissionFooterProps) {
 	return (
 		<div className='waitlist-transmission'>
 			<FontAwesomeIcon icon={faHourglassHalf} />
