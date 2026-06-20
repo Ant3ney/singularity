@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import emailAPI from "../../API/email";
-import addContactFormEntry from '../../API/addContactFormEntry';
 
 export default function ContactUs({ mt }) {
   let [name, setName] = useState(null);
@@ -91,6 +90,7 @@ export default function ContactUs({ mt }) {
       return;
     }
 
+	  const { default: addContactFormEntry } = await import('../../API/addContactFormEntry');
 	  const res = await addContactFormEntry(name, email, message)
 	  if(res.fail) {
 		  alert("Faild to record response. Please contact us directly at anthonycavuoti@gmail.com");

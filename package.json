@@ -3,8 +3,8 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "BROWSERSLIST_IGNORE_OLD_DATA=1 NODE_OPTIONS=--openssl-legacy-provider next dev",
-		"build": "BROWSERSLIST_IGNORE_OLD_DATA=1 NODE_OPTIONS=--openssl-legacy-provider next build",
+		"dev": "cross-env BROWSERSLIST_IGNORE_OLD_DATA=1 NODE_OPTIONS=--openssl-legacy-provider next dev",
+		"build": "cross-env BROWSERSLIST_IGNORE_OLD_DATA=1 NODE_OPTIONS=--openssl-legacy-provider next build",
 		"start": "next start -p $PORT"
 	},
 	"dependencies": {
@@ -28,6 +28,7 @@
 		"three": "^0.182.0"
 	},
 	"devDependencies": {
+		"cross-env": "^7.0.3",
 		"url-loader": "^4.0.0"
 	}
 }
