@@ -55,7 +55,7 @@ async function submitWaitlistRequest(method: 'POST' | 'PATCH', payload: Record<s
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(payload),
 		cache: 'no-store',
-		credentials: 'same-origin',
+		credentials: 'omit',
 	});
 	const result = await readWaitlistResponse(response);
 

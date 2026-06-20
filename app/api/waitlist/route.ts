@@ -7,6 +7,13 @@ import addWaitlistEntry, {
 
 type WaitlistPayload = Record<string, unknown>;
 
+const publicApiHeaders = {
+	'Access-Control-Allow-Origin': '*',
+	'Access-Control-Allow-Methods': 'OPTIONS, POST, PATCH',
+	'Access-Control-Allow-Headers': 'Content-Type',
+	'Access-Control-Max-Age': '86400',
+};
+
 function asString(value: unknown): string {
 	return typeof value === 'string' ? value.trim() : '';
 }
@@ -38,6 +45,20 @@ function getErrorMessage(error: unknown, fallback: string): string {
 	return fallback;
 }
 
+function publicJson(body: unknown, status = 200) {
+	return NextResponse.json(body, {
+		status,
+		headers: publicApiHeaders,
+	});
+}
+
+export function OPTIONS() {
+	return new Response(null, {
+		status: 204,
+		headers: publicApiHeaders,
+	});
+}
+
 export async function POST(request: Request) {
 	try {
 		const payload = (await request.json()) as WaitlistPayload;
@@ -50,15 +71,15 @@ export async function POST(request: Request) {
 
 		const result = await addWaitlistEntry(entry);
 		if (result.fail === true) {
-			return NextResponse.json(result, { status: 400 });
+			return publicJson(result, 400);
 		}
 
-		return NextResponse.json({ fail: false, id: result.id });
+		return publicJson({ fail: false, id: result.id });
 	} catch (error) {
 		console.error('Waitlist submission failed:', error);
-		return NextResponse.json(
+		return publicJson(
 			{ fail: true, message: getErrorMessage(error, 'Waitlist submission failed.') },
-			{ status: 500 },
+			500,
 		);
 	}
 }
@@ -69,15 +90,15 @@ export async function PATCH(request: Request) {
 		const result = await updateWaitlistEntry(asString(payload.id), getDetails(payload));
 
 		if (result.fail === true) {
-			return NextResponse.json(result, { status: 400 });
+			return publicJson(result, 400);
 		}
 
-		return NextResponse.json({ fail: false, id: result.id });
+		return publicJson({ fail: false, id: result.id });
 	} catch (error) {
 		console.error('Waitlist detail update failed:', error);
-		return NextResponse.json(
+		return publicJson(
 			{ fail: true, message: getErrorMessage(error, 'Waitlist detail update failed.') },
-			{ status: 500 },
+			500,
 		);
 	}
 }
