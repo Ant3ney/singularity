@@ -41,6 +41,43 @@ async function readWaitlistResponse(response: Response): Promise<WaitlistRespons
 	}
 }
 
+function getWaitlistEndpoint(): string {
+	if (typeof window === 'undefined') {
+		return '/api/waitlist';
+	}
+
+	return new URL('/api/waitlist', window.location.origin).toString();
+}
+
+async function submitWaitlistRequest(method: 'POST' | 'PATCH', payload: Record<string, unknown>) {
+	const response = await fetch(getWaitlistEndpoint(), {
+		method,
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify(payload),
+		cache: 'no-store',
+		credentials: 'same-origin',
+	});
+	const result = await readWaitlistResponse(response);
+
+	if (!response.ok || result.fail) {
+		throw new Error(result.message || `Waitlist request failed with status ${response.status}.`);
+	}
+
+	return result;
+}
+
+function getSubmissionErrorMessage(error: unknown, fallback: string): string {
+	if (error instanceof TypeError) {
+		return 'This device could not reach the waitlist API. Refresh the page and try again.';
+	}
+
+	if (error instanceof Error && error.message) {
+		return error.message;
+	}
+
+	return fallback;
+}
+
 export default function WaitlistFlow() {
 	const [step, setStep] = React.useState<WaitlistStep>('identity');
 	const [entryId, setEntryId] = React.useState<string | null>(null);
@@ -82,15 +119,9 @@ export default function WaitlistFlow() {
 		setError(null);
 
 		try {
-			const response = await fetch('/api/waitlist', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify(payload),
-			});
-			const result = await readWaitlistResponse(response);
-
-			if (!response.ok || result.fail || !result.id) {
-				throw new Error(result.message || 'Unable to join the waitlist.');
+			const result = await submitWaitlistRequest('POST', payload);
+			if (!result.id) {
+				throw new Error('The waitlist entry was not created. Please try again.');
 			}
 
 			setEntryId(result.id);
@@ -98,7 +129,12 @@ export default function WaitlistFlow() {
 			setStep('confirmation');
 		} catch (submissionError) {
 			console.error('Waitlist submission failed:', submissionError);
-			setError('We could not submit your waitlist request. Please try again.');
+			setError(
+				getSubmissionErrorMessage(
+					submissionError,
+					'We could not submit your waitlist request. Please try again.',
+				),
+			);
 		} finally {
 			setSubmittingStep(null);
 		}
@@ -132,21 +168,17 @@ export default function WaitlistFlow() {
 		setError(null);
 
 		try {
-			const response = await fetch('/api/waitlist', {
-				method: 'PATCH',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify(payload),
-			});
-			const result = await readWaitlistResponse(response);
-
-			if (!response.ok || result.fail) {
-				throw new Error(result.message || 'Unable to save project details.');
-			}
+			await submitWaitlistRequest('PATCH', payload);
 
 			setStep('success');
 		} catch (submissionError) {
 			console.error('Waitlist detail update failed:', submissionError);
-			setError('We could not save your project details. Please try again.');
+			setError(
+				getSubmissionErrorMessage(
+					submissionError,
+					'We could not save your project details. Please try again.',
+				),
+			);
 		} finally {
 			setSubmittingStep(null);
 		}

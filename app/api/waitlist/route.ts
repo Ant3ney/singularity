@@ -30,6 +30,14 @@ function getDetails(payload: WaitlistPayload): WaitlistDetailsInput {
 	};
 }
 
+function getErrorMessage(error: unknown, fallback: string): string {
+	if (process.env.NODE_ENV !== 'production' && error instanceof Error && error.message) {
+		return error.message;
+	}
+
+	return fallback;
+}
+
 export async function POST(request: Request) {
 	try {
 		const payload = (await request.json()) as WaitlistPayload;
@@ -49,7 +57,7 @@ export async function POST(request: Request) {
 	} catch (error) {
 		console.error('Waitlist submission failed:', error);
 		return NextResponse.json(
-			{ fail: true, message: 'Waitlist submission failed.' },
+			{ fail: true, message: getErrorMessage(error, 'Waitlist submission failed.') },
 			{ status: 500 },
 		);
 	}
@@ -68,7 +76,7 @@ export async function PATCH(request: Request) {
 	} catch (error) {
 		console.error('Waitlist detail update failed:', error);
 		return NextResponse.json(
-			{ fail: true, message: 'Waitlist detail update failed.' },
+			{ fail: true, message: getErrorMessage(error, 'Waitlist detail update failed.') },
 			{ status: 500 },
 		);
 	}
