@@ -3,8 +3,8 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "cross-env BROWSERSLIST_IGNORE_OLD_DATA=1 NODE_OPTIONS=--openssl-legacy-provider next dev",
-		"build": "cross-env BROWSERSLIST_IGNORE_OLD_DATA=1 NODE_OPTIONS=--openssl-legacy-provider next build",
+		"dev": "next dev --webpack",
+		"build": "next build --webpack",
 		"start": "next start -p $PORT"
 	},
 	"dependencies": {
@@ -14,12 +14,12 @@
 		"@fortawesome/react-fontawesome": "^0.1.15",
 		"@sanity/client": "^2.21.0",
 		"fs": "0.0.1-security",
-		"next": "^9.5.5",
-		"react": "16.13.1",
+		"next": "16.2.9",
+		"react": "18.3.1",
 		"react-countup": "^4.3.3",
-		"react-dom": "16.13.1",
+		"react-dom": "18.3.1",
 		"react-id-swiper": "^3.0.0",
-		"react-modal-video": "^1.2.6",
+		"react-modal-video": "2.0.2",
 		"react-responsive": "^9.0.0-beta.4",
 		"react-visibility-sensor": "^5.1.1",
 		"sass": "^1.57.1",
@@ -28,7 +28,6 @@
 		"three": "^0.182.0"
 	},
 	"devDependencies": {
-		"cross-env": "^7.0.3",
 		"url-loader": "^4.0.0"
 	}
 }

@@ -48,8 +48,14 @@ const Banner = ({
 	const [loaderCycle, setLoaderCycle] = React.useState(0);
 	const [loaderPhase, setLoaderPhase] = React.useState('blank');
 	const [loaderVisual, setLoaderVisual] = React.useState({ shellOpacity: 1, mainOpacity: 1, bottomFillOpacity: 1, uiOpacity: 0 });
+	const [hasMounted, setHasMounted] = React.useState(false);
 	const shouldLockScroll = loaderPhase !== 'done' && (loaderPhase !== 'outro' || loaderVisual.shellOpacity > 0.75);
 	let isMobile = useMediaQuery({ query: "(max-width: 480px)" });
+	const shouldHideSubtitle = hasMounted && isMobile;
+
+	React.useEffect(() => {
+		setHasMounted(true);
+	}, []);
 
 	React.useEffect(() => {
 		const bannerMoc = bannerMocRef.current;
@@ -451,7 +457,7 @@ const Banner = ({
 		  <div className="col-xl-6 col-lg-7">
 		  <div className="banner-one__content">
 		  <Title />
-		  {!isMobile ? <Subtitle /> : <></>}
+		  {!shouldHideSubtitle ? <Subtitle /> : <></>}
 		  <a href="/waitlist" className="banner-one__btn thm-btn ">
 		  <span>Lets Talk</span>
 		  </a>
@@ -460,7 +466,7 @@ const Banner = ({
 		  </div>
 		  </div>
 		  </section>,
-		  <CallToActionTwo />,
+		  <CallToActionTwo key={4} />,
 		  		  <CallToAction key={3} />,
 		  <Brands key={2} />,
 	  ]

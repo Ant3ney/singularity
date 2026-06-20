@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 import BoldsBreaksAndSpans from "components/BoldsBreaksAndSpans";
 
 const FeaturedApps = ({ featureds, title }) => {
@@ -22,19 +21,22 @@ const FeaturedApps = ({ featureds, title }) => {
                   <div className="blog-one__single">
                     <div className="blog-one__image">
                       <img src={featured.img} alt="Site built by us" />
-                      <Link href={featured.link}>
-                        <a className="blog-one__more-link" target="_blank">
-                          <i className="fa fa-link"></i>
-                        </a>
-                      </Link>
+                      <a
+                        className="blog-one__more-link"
+                        target="_blank"
+                        href={featured.link}
+                      >
+                        <i className="fa fa-link"></i>
+                      </a>
                     </div>
                     <div className="blog-one__content">
                       <h3 className="blog-one__title">
-                        <Link href={featured.link}>
-                          <a target="_blank">
-                            <BoldsBreaksAndSpans BBS={featured.title} />
-                          </a>
-                        </Link>
+                        <a
+                          target="_blank"
+                          href={featured.link}
+                        >
+                          <BoldsBreaksAndSpans BBS={featured.title} />
+                        </a>
                       </h3>
                       <p>{featured.description}</p>
                     </div>
