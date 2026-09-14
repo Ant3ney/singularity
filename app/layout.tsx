@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
 import AppEffects from './app-effects';
+import { GOOGLE_TAG_ID } from '@/config/googleTag';
 import './globals.scss';
 
 export const metadata: Metadata = {
@@ -27,9 +28,21 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 				<link rel="stylesheet" href="/assets/plugins/dimon-icons/style.css" />
 				<link rel="stylesheet" href="/assets/css/style.css" />
 				<link rel="stylesheet" href="/assets/css/responsive.css" />
+				<Script id="google-tag-init" strategy="beforeInteractive">
+					{`
+						window.dataLayer = window.dataLayer || [];
+						function gtag(){window.dataLayer.push(arguments);}
+						window.gtag = gtag;
+						gtag('js', new Date());
+						gtag('config', '${GOOGLE_TAG_ID}');
+					`}
+				</Script>
 			</head>
 			<body>
-				<Script src="https://www.googletagmanager.com/gtag/js?id=AW-1005517184" strategy="afterInteractive" />
+				<Script
+					src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_TAG_ID}`}
+					strategy="afterInteractive"
+				/>
 				<AppEffects />
 				{children}
 			</body>
