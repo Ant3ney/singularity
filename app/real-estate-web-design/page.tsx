@@ -193,11 +193,11 @@ export default function RealEstateWebDesignPage() {
 								<div className={styles.heroSphere} aria-hidden="true" />
 								<figure className={styles.heroPhoto}>
 									<Image
-										src="/assets/images/real-estate/coastal-home-hero.webp"
-										alt="A contemporary home overlooking the water"
+										src="/assets/images/real-estate/south-bay-home-hero.webp"
+										alt="A contemporary narrow-lot home in Southern California"
 										fill
 										priority
-										sizes="(max-width: 767px) 48vw, (max-width: 1199px) 42vw, 360px"
+										sizes="(max-width: 767px) 88vw, (max-width: 1199px) 66vw, 480px"
 									/>
 								</figure>
 								<div className={styles.browserFrame}>
