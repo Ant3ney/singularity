@@ -284,23 +284,23 @@
 	box-shadow: inset -18px -20px 38px rgba(3, 31, 33, 0.28), 0 24px 55px rgba(0, 105, 115, 0.23);
 	height: 96px;
 	position: absolute;
-	right: -13px;
+	right: 42%;
 	top: 52px;
 	width: 96px;
 	z-index: 4;
 }
 
 .heroPhoto {
+	aspect-ratio: 2 / 3;
 	background: #d5e9e7;
 	border: 7px solid rgba(255, 255, 255, 0.78);
 	border-radius: 22px;
 	box-shadow: 0 38px 90px rgba(3, 31, 33, 0.2);
-	height: 545px;
 	overflow: hidden;
 	position: absolute;
 	right: 0;
 	top: 0;
-	width: 78%;
+	width: 42%;
 	z-index: 1;
 }
 
@@ -314,7 +314,7 @@
 
 .heroPhoto img {
 	object-fit: cover;
-	object-position: center;
+	object-position: 58% center;
 }
 
 .browserFrame {
@@ -323,12 +323,12 @@
 	border-radius: 16px;
 	box-shadow: 0 38px 90px rgba(3, 31, 33, 0.22), 0 0 0 1px rgba(28, 55, 56, 0.08);
 	bottom: 0;
-	left: -1%;
+	left: 0;
 	overflow: hidden;
 	position: absolute;
 	transform: rotateY(-3deg) rotateZ(-1.5deg);
 	transform-origin: center;
-	width: 72%;
+	width: 60%;
 	z-index: 3;
 }
 
@@ -381,9 +381,9 @@
 	overflow: hidden;
 	padding: 0;
 	position: absolute;
-	right: -12px;
+	right: 40%;
 	transform: rotate(2.5deg);
-	width: 178px;
+	width: 150px;
 	z-index: 5;
 }
 
@@ -1305,18 +1305,21 @@
 	}
 
 	.heroPhoto {
-		height: 565px;
 		right: 3%;
-		width: 74%;
+		width: 42%;
 	}
 
 	.browserFrame {
 		left: 2%;
-		width: 68%;
+		width: 55%;
+	}
+
+	.heroSphere {
+		right: 45%;
 	}
 
 	.phoneFrame {
-		right: 4%;
+		right: 43%;
 	}
 
 	.problemGrid,
@@ -1511,7 +1514,7 @@
 
 	.heroVisual {
 		margin-top: 0;
-		min-height: 520px;
+		min-height: 490px;
 	}
 
 	.orbit {
@@ -1523,29 +1526,28 @@
 
 	.heroSphere {
 		height: 70px;
-		right: -10px;
+		right: 48%;
 		top: 27px;
 		width: 70px;
 	}
 
 	.heroPhoto {
 		border-width: 5px;
-		height: 392px;
 		right: 0;
-		width: 86%;
+		width: 48%;
 	}
 
 	.browserFrame {
-		bottom: 5px;
+		bottom: 0;
 		left: 0;
 		transform: rotateY(-2deg) rotateZ(-1deg);
-		width: 79%;
+		width: 78%;
 	}
 
 	.phoneFrame {
 		bottom: 4px;
-		right: -5px;
-		width: 118px;
+		right: 22%;
+		width: 106px;
 	}
 
 	.problemSection,

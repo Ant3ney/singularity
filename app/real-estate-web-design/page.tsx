@@ -197,7 +197,7 @@ export default function RealEstateWebDesignPage() {
 										alt="A contemporary home overlooking the water"
 										fill
 										priority
-										sizes="(max-width: 767px) 88vw, (max-width: 1199px) 66vw, 480px"
+										sizes="(max-width: 767px) 48vw, (max-width: 1199px) 42vw, 360px"
 									/>
 								</figure>
 								<div className={styles.browserFrame}>
@@ -246,8 +246,8 @@ export default function RealEstateWebDesignPage() {
 						<div className={`${styles.container} ${styles.problemShowcase}`}>
 							<figure className={styles.problemImage}>
 								<Image
-									src="/assets/images/real-estate/rancho-palos-verdes-coastline.webp"
-									alt="Rancho Palos Verdes coastline and oceanfront homes in Southern California"
+									src="/assets/images/real-estate/modern-home-day.webp"
+									alt="A bright modern home with a pool and landscaped yard"
 									fill
 									sizes="(max-width: 900px) calc(100vw - 48px), 58vw"
 								/>
