@@ -193,8 +193,8 @@ export default function RealEstateWebDesignPage() {
 								<div className={styles.heroSphere} aria-hidden="true" />
 								<figure className={styles.heroPhoto}>
 									<Image
-										src="/assets/images/real-estate/agent-with-clients.webp"
-										alt="A real estate agent walking clients through a home"
+										src="/assets/images/real-estate/coastal-home-hero.webp"
+										alt="A contemporary home overlooking the water"
 										fill
 										priority
 										sizes="(max-width: 767px) 88vw, (max-width: 1199px) 66vw, 480px"
@@ -246,8 +246,8 @@ export default function RealEstateWebDesignPage() {
 						<div className={`${styles.container} ${styles.problemShowcase}`}>
 							<figure className={styles.problemImage}>
 								<Image
-									src="/assets/images/real-estate/modern-home-day.webp"
-									alt="A bright modern home with a pool and landscaped yard"
+									src="/assets/images/real-estate/rancho-palos-verdes-coastline.webp"
+									alt="Rancho Palos Verdes coastline and oceanfront homes in Southern California"
 									fill
 									sizes="(max-width: 900px) calc(100vw - 48px), 58vw"
 								/>
@@ -282,8 +282,8 @@ export default function RealEstateWebDesignPage() {
 								<div className={styles.servicesMedia}>
 									<figure className={styles.servicePhoto}>
 										<Image
-											src="/assets/images/real-estate/agent-property-video.webp"
-											alt="A woman recording a marketing video in a modern kitchen"
+											src="/assets/images/real-estate/modern-kitchen-interior.webp"
+											alt="A bright modern kitchen and open-plan living space"
 											fill
 											sizes="(max-width: 900px) calc(100vw - 48px), 42vw"
 										/>
